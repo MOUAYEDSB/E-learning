@@ -1,0 +1,76 @@
+.userProfileContainer {
+    display: flex;
+    padding: 7vh 5vw;
+    margin: 7vh auto;
+    gap: 7dvw;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    width: fit-content;
+}
+.userProfile-image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+    align-items: start;
+}
+.userProfile-image-container img {
+    border-radius: 50%;
+    border: 4px solid black;
+}
+.user-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.userProfile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+}
+.userProfile-info form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
+.cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2vw;
+}
+.submit-btn {
+    background-color: #F92A82;
+    border-radius: 10px;
+    padding: 2vh 4vw;
+    color: white;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 20px;
+    width: fit-content;
+}
+
+.input-box input , .input-box textarea {
+    display: flex;
+    flex-direction: column;
+    outline: none;
+    border: 1px solid #D7D7D7;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+.input-box textarea {
+    display: flex;
+    flex-direction: column;
+    outline: none;
+    border: 1px solid #D7D7D7;
+    border-radius: 10px;
+    padding: 10px 20px;
+    width: 100%;
+    height: 25vh;
+}
+.input-box p {
+    padding: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+}

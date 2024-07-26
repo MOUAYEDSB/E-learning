@@ -1,7 +1,4 @@
-import testImport from './testimport.svg'
+import profileImage from './profile_image.png';
 
 
-
-export default assets = {
-    testImport
-}
+export const assets =  { profileImage }
