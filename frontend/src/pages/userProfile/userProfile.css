@@ -6,13 +6,14 @@
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-    width: fit-content;
+    width: 60vw;
 }
 .userProfile-image-container {
     display: flex;
     flex-direction: column;
-    gap: 4vh;
-    align-items: start;
+    gap: 10vh;
+    align-items: center;
+    text-align: center;
 }
 .userProfile-image-container img {
     border-radius: 50%;
@@ -22,22 +23,55 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2dvh;
 }
-.userProfile-info {
+.account-info {
     display: flex;
     flex-direction: column;
-    gap: 4vh;
+    gap: 30px;
 }
-.userProfile-info form {
+.userProfile-info , .mot-de-passe-info ,.child-section{
     display: flex;
     flex-direction: column;
-    gap: 20px
+    gap: 3vh;
+   
+}
+.userProfile-info hr {
+    outline: none;
+    border: 1px solid #D7D7D7;
+    margin: 20px 0;
+}
+.userProfile-info form , .mot-de-passe-info form {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+.userProfile-info h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #333333;
+}
+.userProfile-info h4 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #333333;
+    padding: 10px 0;
+}
+.userProfile-info form label {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #333333;
 }
 .cell {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 2vw;
+    width: 100%;
+    gap: 10%;
+}
+.child-header {
+    font-size: 17px;
+    font-weight: 500;
+    color: #2E294E;
 }
 .submit-btn {
     background-color: #F92A82;
@@ -48,17 +82,22 @@
     outline: none;
     font-weight: 500;
     font-size: 20px;
-    width: fit-content;
+    width: 100%;
+    margin-top: 5vh;
 }
-
-.input-box input , .input-box textarea {
+.input-box {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+}
+.input-box input ,.input-box select {
     outline: none;
     border: 1px solid #D7D7D7;
     border-radius: 10px;
     padding: 10px 20px;
+    width: 100%;
 }
+
 .input-box textarea {
     display: flex;
     flex-direction: column;
@@ -71,6 +110,20 @@
 }
 .input-box p {
     padding: 10px 0;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
+    padding: 10px 0;
+}
+.acount-info h3 {
+    font-size: 20px;
+    margin:10px 0;
+    padding: 15px 15px;
+    border-radius: 10px;
+    text-align: center;
+    
+}
+.acount-info .active {
+    color: #000000;
+    background-color: #FFD237;
+    border-radius: 10px;
 }
