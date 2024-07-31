@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const options = { discriminatorKey: 'role', collection: 'users' };
 
 const userSchema = new Schema({
-  user_id: { type: String, required: true, unique: true },
   nom: String,
   prenom: String,
   email: { type: String, required: true, unique: true },
