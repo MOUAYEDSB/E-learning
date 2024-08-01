@@ -1,20 +1,11 @@
-import './App.css'
-import { Routes, Route} from 'react-router-dom'
-import React from 'react'
-import ParentProfile from './pages/userProfile/parentProfile'
+import Login from "./pages/LoginForm/Login"
+import Switch from "./components/Switch/Switch"
+import Groupcard from "./components/GroupCard/GroupCard"
+import React from "react";
 
 
 function App() {
-  
-
-  return (
-    <>
-      <Routes>
-        {/* to test your component here */}
-        <Route path="/" element={<ParentProfile />} />
-      </Routes>
-    </>
-  )
+  return <div><Login/></div>;
 }
 
 export default App

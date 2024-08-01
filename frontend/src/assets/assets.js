@@ -1,7 +1,7 @@
-import testImport from './testimport.svg'
+import loginBackground from "./loginBackground.png";
+import grainesLogo from "./grainesLogo.svg";
 
-
-
-export default assets = {
-    testImport
-}
+/*export default assets = {
+    loginBackground,
+    grainesLogo
+}*/
