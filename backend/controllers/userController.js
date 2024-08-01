@@ -1,105 +1,113 @@
-// controllers/userController.js
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const User = require('../models/modeleUser');
+const Enfant = require('../models/modeleEnfant');
+const Formateur = require('../models/modeleFormateur');
+const Parent = require('../models/modeleParent');
+const upload = require('../middlewares/uploadMiddleware');
 
-// Create a new user
-const createUser = async (req, res) => {
-  const { name, email, password } = req.body;
+// Middleware to handle image uploads
+exports.uploadImage = upload.single('profileImgURL');
 
-  // Hash the password before saving the user
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const user = new User({
-    name,
-    email,
-    password: hashedPassword
-  });
-
+// Create a new user (Parent, Formateur, Enfant)
+exports.createUser = async (req, res) => {
   try {
-    const savedUser = await user.save();
-    res.status(201).json(savedUser);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const { role, ...rest } = req.body;
+    let user;
+
+    // Create the user based on the role
+    switch (role) {
+      case 'Parent':
+        user = new Parent(rest);
+        break;
+      case 'Formateur':
+        user = new Formateur(rest);
+        break;
+      case 'Enfant':
+        user = new Enfant(rest);
+        break;
+      default:
+        return res.status(400).json({ message: 'Invalid role' });
+    }
+
+    // Assign the file path to profileImgURL if a file was uploaded
+    if (req.file) {
+      user.profileImgURL = req.file.path.replace(/\\/g, '/'); // Ensure the path uses forward slashes
+    }
+
+    // Save the new user to the database
+    await user.save();
+    res.status(201).json(user);
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
 };
 
 // Get all users
-const getAllUsers = async (req, res) => {
+exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find();
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    const users = await User.find(); // Adjusted if you are only querying User
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
 };
 
-// Get one user by ID
-const getUser = (req, res) => {
-  res.json(res.user);
-};
-
-// Update a user
-const updateUser = async (req, res) => {
-  const { name, email, password } = req.body;
-
-  if (name != null) {
-    res.user.name = name;
-  }
-  if (email != null) {
-    res.user.email = email;
-  }
-  if (password != null) {
-    // Hash the new password before saving
-    res.user.password = await bcrypt.hash(password, 10);
-  }
-
+// Get a single user by ID
+exports.getUserById = async (req, res) => {
   try {
-    const updatedUser = await res.user.save();
-    res.json(updatedUser);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error fetching user by ID:', error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
 };
 
-// Delete a user
-const deleteUser = async (req, res) => {
+// Update a user by ID
+exports.updateUser = async (req, res) => {
   try {
-    await res.user.remove();
-    res.json({ message: 'Deleted User' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+    const { role } = req.body;
 
-// User login
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+    // If a new image is uploaded, update the profileImgURL
+    if (req.file) {
+      req.body.profileImgURL = req.file.path.replace(/\\/g, '/'); // Ensure the path uses forward slashes
     }
 
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+    // Find the user and update it
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    // Update the specific model based on role
+    switch (role) {
+      case 'Parent':
+        await Parent.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        break;
+      case 'Formateur':
+        await Formateur.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        break;
+      case 'Enfant':
+        await Enfant.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        break;
     }
 
-    // Generate a JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error updating user by ID:', error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
 };
 
-module.exports = {
-  createUser,
-  getAllUsers,
-  getUser,
-  updateUser,
-  deleteUser,
-  loginUser
+// Delete a user by ID
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user by ID:', error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
+  }
 };
