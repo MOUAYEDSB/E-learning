@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config(); 
-
+const userRouter = require('./routes/userRouter.js');
 const connectDB = require('./config/db.js'); // Import the connectDB function
 
 // App config
@@ -12,6 +12,11 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+
+// API endpoints
+app.use('/api/user', userRouter);
+
 
 // Connecting to the database and starting the server
 connectDB().then(() => {
@@ -25,5 +30,4 @@ connectDB().then(() => {
     process.exit(1); 
 });
 
-// API endpoints
 

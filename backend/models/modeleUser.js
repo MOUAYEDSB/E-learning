@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const options = { discriminatorKey: 'role', collection: 'users' };
+const options = { discriminatorKey: 'role', collection: 'user' };
 
 const userSchema = new Schema({
   user_id: { type: String, required: true, unique: true },

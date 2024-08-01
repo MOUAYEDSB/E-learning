@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const User = require('./modeleUser');
 
 const parentSchema = new mongoose.Schema({
-  enfants_id: [{ type: String, ref: 'User' }]
+  enfants_id: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Enfant' }]
 });
 
-const modeleParent = User.discriminator('Parent', parentSchema); 
+const Parent = User.discriminator('Parent', parentSchema);
 
-module.exports = modeleParent;
+module.exports = Parent;
