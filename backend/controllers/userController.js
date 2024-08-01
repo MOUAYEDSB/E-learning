@@ -42,10 +42,10 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// Get all users
+// Get all users 
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find(); // Adjusted if you are only querying User
+    const users = await User.find();
     res.status(200).json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -72,10 +72,10 @@ exports.updateUser = async (req, res) => {
 
     // If a new image is uploaded, update the profileImgURL
     if (req.file) {
-      req.body.profileImgURL = req.file.path.replace(/\\/g, '/'); // Ensure the path uses forward slashes
+      req.body.profileImgURL = req.file.path.replace(/\\/g, '/');
     }
 
-    // Find the user and update it
+    // Update the user in the base User model
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
 
     if (!user) return res.status(404).json({ message: 'User not found' });
