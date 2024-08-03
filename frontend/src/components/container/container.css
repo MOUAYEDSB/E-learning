@@ -1,37 +1,81 @@
-.cadre {
-    width: 90%;
-    margin: 90px 20px 30px 50px;
-    padding: 15px;
-    background-color: #FFFFFF;
-    box-shadow: 0 0 5px rgb(199, 207, 214);
-    border-radius: 10px;
+.page {
+    background-color: #D7D7D7;
+    overflow: auto;
+    width: 100%;
 }
-.cadre .listUser {
+
+.page .listUser {
     color: black;
-    margin-top: -90px;
-    margin-left: -15px;
+    margin-left: 100px;
+    margin-top: 20px;
 }
-.cadre .listUser .list {
-    font-weight: 400;
+
+.page .listUser .list {
     font-size: 12px;
     line-height: 150%;
     letter-spacing: 0%;
 }
-cadre .listUser .users{
+.page .listUser .users{
     font: bold, 14px;
 }
 
-.createUser{
-    padding: 20px 150px;
+.cadre {
+    width: 85%;
+    margin: 30px auto;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 5px rgb(199, 207, 214);
+    border-radius: 10px;
 }
+
+.createUser{
+    padding: 30px 200px;
+}
+
+#sizing {
+    width: 316px;
+    height: 52px;
+    font-size: 21px;
+    color: #333333;
+}
+#sizingl {
+    width: 648px;
+    height: 52px;
+    font: medium 21px;
+    color: #333333;
+}
+
+label {
+    font-size: medium 21px;
+    color: #333333;
+}
+
 .newUser {
     font: medium 32px;
     letter-spacing: 0cm;
     line-height: auto;
-    margin-left: 150px;
+    margin-left: 200px;
     padding-top: 20px;
 }
+
+h4#title4 {
+    font: medium 32px;
+    letter-spacing: 0cm;
+    line-height: auto;
+    padding-top: 20px;
+}
+
 .separator{
-    border: grey solid 1px;
-    margin: 20px 5px 30px 5px;
+    border-bottom: grey solid 1px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#bgc {
+    background-color: #F92A82;
+    color: #FFFFFF;
+    width: 145px;
+    height: 58px;
+    font: medium 25px;
+    line-height: 140%;
+    align-content: center;
 }

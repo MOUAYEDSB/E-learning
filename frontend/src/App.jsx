@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import CreateUser from  './pages/users/createUser'
+import Container from  './components/container/container.jsx'
 
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/user" element={<CreateUser />} />
+        <Route path="/user" element={<Container />} />
       </Routes>
     </>
   )
