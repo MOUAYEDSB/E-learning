@@ -7,7 +7,7 @@
 .page .listUser {
     color: black;
     margin-left: 100px;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .page .listUser .list {
@@ -21,7 +21,7 @@
 
 .cadre {
     width: 85%;
-    margin: 30px auto;
+    margin: 40px auto;
     background-color: #FFFFFF;
     box-shadow: 0 0 5px rgb(199, 207, 214);
     border-radius: 10px;
@@ -54,7 +54,7 @@ label {
     letter-spacing: 0cm;
     line-height: auto;
     margin-left: 200px;
-    padding-top: 20px;
+    padding-top: 60px;
 }
 
 h4#title4 {
