@@ -30,7 +30,7 @@ exports.createUser = async (req, res) => {
 
     // Assign the file path to profileImgURL if a file was uploaded
     if (req.file) {
-      user.profileImgURL = req.file.path.replace(/\\/g, '/'); // Ensure the path uses forward slashes
+      user.profileImgURL = req.file.path.replace(/\\/g, '/');
     }
 
     // Save the new user to the database
@@ -42,10 +42,21 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// Get all users 
+// Get all users with optional filtering by 'nom' and 'email'
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const { nom, email } = req.query;
+    let filter = {};
+
+    // Add filtering criteria if query parameters are provided
+    if (nom) {
+      filter.nom = { $regex: nom, $options: 'i' };
+    }
+    if (email) {
+      filter.email = { $regex: email, $options: 'i' };
+    }
+
+    const users = await User.find(filter);
     res.status(200).json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
