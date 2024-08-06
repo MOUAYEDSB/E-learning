@@ -1,8 +1,6 @@
 export default function HomeIcon({ fillColor }) {
     return (
         <svg
-            width="23"
-            height="24"
             viewBox="0 0 23 24"
             stroke={ fillColor }
             fill="none"

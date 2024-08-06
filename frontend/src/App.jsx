@@ -1,6 +1,7 @@
 import Login from "./pages/LoginForm/Login"
 import UsersList from "./pages/UsersList/UsersList"
 import GroupList from "./pages/GroupList/GroupList"
+import GroupInfo from "./pages/GroupInfo/GroupInfo"
 import AddGroup from "./pages/AddGroup/AddGroup"
 import Messages from "./pages/Messages/Messages"
 import SideBar from "./components/SideBar/SideBar"
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/users-list" element={<UsersList/>}/>
         <Route path="/group-list" element={<GroupList/>}/>
+        <Route path="/group-info" element={<GroupInfo/>}/>
         <Route path="/add-group" element={<AddGroup/>}/>
         <Route path="/messages" element={<Messages/>}/>
       </Routes>

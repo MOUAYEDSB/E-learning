@@ -31,21 +31,28 @@ body.resizing-active {
     display: none;
 }
 .data-grid-header, .data-grid-row {
-    padding: 10px 0 10px 0.5rem;
+    padding: 12px 0 12px 0.5rem;
     display:flex;
     min-width: 100%;
     width: fit-content;
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    border-bottom: 1px solid #ccc;
     box-sizing: border-box;
     gap: 0.25rem;
 }
+.data-grid-header{
+    border-bottom: 1px solid #d4d4d4;
+}
+.data-grid-row {
+    border-bottom: 1px dashed #ececec ;
+}
 .data-grid-header-cell{
+    height: 32px;
     position: relative;
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 .data-grid-header-cell span {
     font-family: "Poppins";

@@ -1,8 +1,6 @@
 export default function SettingsIcon({ fillColor }) {
     return (
         <svg
-            width="24"
-            height="24"
             viewBox="0 0 24 24"
             stroke={ fillColor }
             fill="none"
