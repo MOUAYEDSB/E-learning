@@ -18,30 +18,131 @@ export default function UsersList() {
   ];
 
   const [items, setItems] = useState([
-  {
-    title:"Mr",
-    lastName: "Doe",
-    firstName: "John",
-    email: "john.doe@example.com",
-    address: "123 Main St",
-    phone: "123-456-7890",
-    status: "online",
-    age: 30,
-  },
-  {
-    title:"Mme",
-    lastName: "Smith",
-    firstName: "Jane",
-    email: "jane.smith@example.com",
-    address: "456 Oak St",
-    phone: "987-654-3210",
-    status: "offline",
-    age: 28,
-  }]);
+    {
+      title: "Mme",
+      lastName: "Smith",
+      firstName: "Jane",
+      email: "jane.smith@example.com",
+      address: "456 Oak St",
+      phone: "987-654-3210",
+      status: "offline",
+      age: 28
+    },
+    {
+      title: "Mr",
+      lastName: "Johnson",
+      firstName: "John",
+      email: "john.johnson@example.com",
+      address: "123 Maple Ave",
+      phone: "555-123-4567",
+      status: "online",
+      age: 35
+    },
+    {
+      title: "Mme",
+      lastName: "Williams",
+      firstName: "Emily",
+      email: "emily.williams@example.com",
+      address: "789 Pine Rd",
+      phone: "555-987-6543",
+      status: "offline",
+      age: 42
+    },
+    {
+      title: "Mr",
+      lastName: "Brown",
+      firstName: "Michael",
+      email: "michael.brown@example.com",
+      address: "321 Elm St",
+      phone: "555-555-5555",
+      status: "online",
+      age: 30
+    },
+    {
+      title: "Mme",
+      lastName: "Jones",
+      firstName: "Laura",
+      email: "laura.jones@example.com",
+      address: "654 Birch Blvd",
+      phone: "555-666-7777",
+      status: "offline",
+      age: 27
+    },
+    {
+      title: "Mr",
+      lastName: "Garcia",
+      firstName: "Carlos",
+      email: "carlos.garcia@example.com",
+      address: "987 Cedar Ln",
+      phone: "555-444-3333",
+      status: "online",
+      age: 40
+    },
+    {
+      title: "Mme",
+      lastName: "Martinez",
+      firstName: "Sofia",
+      email: "sofia.martinez@example.com",
+      address: "345 Oakwood Dr",
+      phone: "555-111-2222",
+      status: "offline",
+      age: 33
+    },
+    {
+      title: "Mme",
+      lastName: "Rodriguez",
+      firstName: "Ana",
+      email: "ana.rodriguez@example.com",
+      address: "876 Maplewood Ave",
+      phone: "555-888-9999",
+      status: "online",
+      age: 29
+    },
+    {
+      title: "Mr",
+      lastName: "Lee",
+      firstName: "David",
+      email: "david.lee@example.com",
+      address: "234 Cedar Ave",
+      phone: "555-777-6666",
+      status: "offline",
+      age: 37
+    },
+    {
+      title: "Mme",
+      lastName: "Taylor",
+      firstName: "Olivia",
+      email: "olivia.taylor@example.com",
+      address: "543 Willow St",
+      phone: "555-222-3333",
+      status: "online",
+      age: 31
+    },
+    {
+      title: "Mr",
+      lastName: "Wilson",
+      firstName: "James",
+      email: "james.wilson@example.com",
+      address: "678 Pine St",
+      phone: "555-999-8888",
+      status: "offline",
+      age: 45
+    },
+    {
+      title: "Mme",
+      lastName: "Anderson",
+      firstName: "Sarah",
+      email: "sarah.anderson@example.com",
+      address: "432 Maplewood Dr",
+      phone: "555-333-4444",
+      status: "online",
+      age: 26
+    }
+  ]);
 
   return (
     <div className="container">
-      <DataGrid columns={columns} items={items} setItems={setItems}></DataGrid>
+      <DataGrid columns={columns} items={items} setItems={setItems} maxHeight='500px'></DataGrid>
     </div>
   )
 }

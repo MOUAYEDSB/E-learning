@@ -6,7 +6,7 @@ import { customStyles } from './customStyles';
 import ArrowIcon from "../../assets/ArrowIcon";
 
 
-export const DataGrid = ({ columns: initialColumns, items, setItems }) => {
+export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [targetIndex, setTargetIndex] = useState(0);
     const [initialMouseX, setInitialMouseX] = useState(0);
@@ -16,10 +16,11 @@ export const DataGrid = ({ columns: initialColumns, items, setItems }) => {
     //example input
     /*const columns = [
         { field: 'title', headerName: 'Title', type : 'select', options: ["Mr","Mdm"] , width: "120px", minWidth: "85px"},
-        { field: 'name', headerName: 'Name', type : 'text', width: "100px" },
-        { field: 'email', headerName: 'E-mail Address', type : 'text', width: "250px" },
-        { field: 'age', headerName: 'Age', type : 'number', width: "60px" },
-        { field: 'action', headerName: 'Action', type : 'edit', width: "150px" },
+        { field: 'name', headerName: 'Name', type : 'text', width: "150px", minWidth: '150px' },
+        { field: 'email', headerName: 'Adresse E-mail', type : 'text', width: '250px', minWidth: '250px'},
+        { field: 'age', headerName: 'Age', type : 'number', width: '60px', minWidth: "60px", sort: true},
+        { field: 'status', headerName: 'Status', type : 'status',options: {online: '#48BB78',offline: '#d0d0d0'}, width: '80px',minWidth: '80px'},
+        { field: 'action', headerName: 'Action', type : 'edit', width: '100px', minWidth: '65px'},
     ];
 
     const [items, setItems] = useState([
@@ -27,14 +28,15 @@ export const DataGrid = ({ columns: initialColumns, items, setItems }) => {
         title:"Mr",
         name: "John Doe",
         email: "john.doe@example.com",
-        phone: "123-456-7890",
         age: 30,
+        status: "online",
     },
     {
         title:"Mdm",
         name: "Jane Smith",
         email: "jane.smith@example.com",
         age: 28,
+        status: "online",
     },
     ]);*/
     
@@ -153,7 +155,7 @@ export const DataGrid = ({ columns: initialColumns, items, setItems }) => {
     }
 
     return (
-        <div className="data-grid">
+        <div className="data-grid" style={{maxHeight:`${maxHeight?maxHeight:'none'}`}}>
             <div className="data-grid-header">
                 {initialColumns.map((column, index) => (
                     <div

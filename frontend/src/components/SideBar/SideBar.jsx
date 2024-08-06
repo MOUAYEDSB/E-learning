@@ -11,6 +11,7 @@ import "./sideBar.css"
 export default function SideBar(){
   
   const [navBarSelectedIndex, setNavBarSelectedIndex] = useState(-1);
+  const [navBarSubSelectedIndex, setNavBarSubSelectedIndex] = useState(-1);
   return (
     <div className="sideBar">
         <div className="seperator" />
@@ -35,6 +36,23 @@ export default function SideBar(){
               <label className={`sideBar-btn-label ${navBarSelectedIndex == 2?"selected":""}`}>Listes des utilisateurs</label>
             </div>
           </Link>
+          <div className={`sideBar-subBtn-group ${navBarSelectedIndex == 2?"shown":""}`}>
+            <Link to="/parents-list">
+              <div onClick={() => {setNavBarSubSelectedIndex(0);}}>
+                <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 0?"selected":""}`}>Parents</label>
+              </div>
+            </Link>
+            <Link to="/seeds-list">
+              <div onClick={() => {setNavBarSubSelectedIndex(1);}}>
+                <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 1?"selected":""}`}>Graines</label>
+              </div>
+            </Link>
+            <Link to="/mentors-list">
+              <div onClick={() => {setNavBarSubSelectedIndex(2);}}>
+                <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 2?"selected":""}`}>Formateurs</label>
+              </div>
+            </Link>
+          </div>
           <Link to="/group-list">
           <div className={`sideBar-btn ${navBarSelectedIndex == 3?"selected":""}`} onClick={() => {setNavBarSelectedIndex(3);}}>
             <div className="sideBar-btn-icon">

@@ -46,11 +46,37 @@
 .sideBar-btn label{
     margin-left: 1rem;
     font-size: 14px;
-    font-family: "Poppins";
-    font-weight: bold;
-    color: #A0AEC0;
+    font-family: "Inter";
+    font-weight:500;
+    color: white;
     cursor: pointer
 }
 .sideBar-btn.selected label{
     color: #2D3748;
+}
+.sideBar-subBtn-group{
+    display: none;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.sideBar-subBtn-group.shown{
+    display: flex;
+}
+.sideBar-subBtn-group div{
+    padding-left: 6.4rem;
+    height: 40px;
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+.sideBar-subBtn-label{
+    font-size: 14px;
+    font-family: "Inter";
+    color: white;
+    cursor: pointer;
+}
+.sideBar-subBtn-label.selected{
+    color: #FFD13A;
 }
