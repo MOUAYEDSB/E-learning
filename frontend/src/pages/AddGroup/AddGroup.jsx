@@ -155,28 +155,29 @@ export default function AddGroup() {
       minHeight: '45px',
       height: '45px',
       fontFamily: "Poppins",
+      color: "black !important",
       boxShadow: state.isFocused ? null : null,
     }),
     option: (styles) => ({
       ...styles,
       fontFamily: "Poppins",
     }),
-
+    singleValue: (provided) => ({
+      ...provided,
+      color: "black !important",
+    }),
     valueContainer: (provided, state) => ({
       ...provided,
       height: '45px',
-      padding: '0 1.5rem'
+      padding: '0 1.5rem',
     }),
-
     placeholder: (provided, state) => ({
         ...provided,
-        color: "#9b9b9b"
-      }),
-
+    }),
     input: (provided, state) => ({
       ...provided,
       margin: '0px',
-      padding:'0px'
+      padding:'0px',
     }),
     indicatorSeparator: state => ({
       display: 'none',

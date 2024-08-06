@@ -27,6 +27,10 @@ export const customStyles = {
         zIndex: 9999,
         padding: 0,
     }),
+    singleValue: (provided) => ({
+        ...provided,
+        color: "black !important",
+    }),
     valueContainer: (provided) => ({
         ...provided,
         height: '32px',

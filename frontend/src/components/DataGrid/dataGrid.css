@@ -22,8 +22,14 @@ body.resizing-active {
     min-width: 100%;
     width: fit-content;
     flex: 1;
+    /* Hiding scrollbar for IE, Edge and Firefox */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
-
+/* Hiding scrollbar for Chrome, Safari and Opera */
+.data-grid-rows-wrapper::-webkit-scrollbar {
+    display: none;
+}
 .data-grid-header, .data-grid-row {
     padding: 10px 0 10px 0.5rem;
     display:flex;
@@ -103,6 +109,7 @@ body.resizing-active {
     text-align: start;
     font-family: "Poppins";
     font-size: 14px;
+    color: black;
 }
 .data-grid-cell .css-b62m3t-container{
     width: 100%;
