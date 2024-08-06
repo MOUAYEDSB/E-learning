@@ -51,8 +51,4 @@ export const customStyles = {
         height: '32px',
         backgroundColor: "transparent"
     }),
-    indicatorContainer: (provided) => ({
-        ...provided,
-        backgroundColor: "transparent"
-    }),
 };

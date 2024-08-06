@@ -1,27 +1,28 @@
 .add-group-wrapper{
     gap: 6px;
 }
+.page_title{
+    width: 100%;
+    text-align: center;
+    font-family: "Poppins";
+    font-size: 30px;
+}
 .group-info-input-group{
     display: flex;
     flex-direction: row;
     gap: 10rem;
 }
-.group-info-wrapper{
+.group-info-label{
+    font-family: "Poppins";
+    font-size: 18px;
+}
+.group-info-wrapper {
     display: flex;
     flex-direction: column;
 }
-.view-wrapper *{
-    font-family: "Poppins";
-}
-.page_title{
-    width: 100%;
-    text-align: center;
-    font-size: 30px;
-}
-.group-info-wrapper * {
-    font-size: 18px;
-}
 .group-info-input {
+    font-family: "Poppins";
+    font-size: 18px;
     border-radius: 0.5rem;
     border: 1px solid #D7D7D7;
 }
@@ -38,16 +39,13 @@
 .group-info-input:focus{
     border: 1px solid #949494;
 }
-.group-info-wrapper .css-b62m3t-container{
-    width: 350px;
-}
 .group-info-wrapper textarea{
     width: 860px;
     height: 150px;
     padding: 0.5rem 1.5rem;
-    box-sizing: border-box;
-    font-size: 18px;
-    font-family: "Poppins";
+}
+.group-info-wrapper .css-b62m3t-container{
+    width: 350px;
 }
 .save-group-btn{
     width: 180px;

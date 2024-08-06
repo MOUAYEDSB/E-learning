@@ -154,7 +154,12 @@ export default function AddGroup() {
       borderRadius: "0.5rem",
       minHeight: '45px',
       height: '45px',
+      fontFamily: "Poppins",
       boxShadow: state.isFocused ? null : null,
+    }),
+    option: (styles) => ({
+      ...styles,
+      fontFamily: "Poppins",
     }),
 
     valueContainer: (provided, state) => ({
@@ -189,29 +194,29 @@ export default function AddGroup() {
         <div className="view-wrapper add-group-wrapper">
             <label className="page_title">Créer un Groupe</label>
             <div className="group-info-wrapper">
-                <label>Nom du groupe</label>
+                <label className="group-info-label">Nom du groupe</label>
                 <input type="text" className="group-info-input"/>
             </div>
             <div className="group-info-input-group">
                 <div className="group-info-wrapper">
-                    <label>Categorie</label>
+                    <label className="group-info-label">Categorie</label>
                     <input type="text" className="group-info-input"/>
                 </div>
                 <div className="group-info-wrapper">
-                    <label>Tranche d'age</label>
+                    <label className="group-info-label">Tranche d'age</label>
                     <input type="text" className="group-info-input"/>
                 </div>
             </div>
             <div className="group-info-wrapper">
-                <label>Description</label>
+                <label className="group-info-label">Description</label>
                 <textarea type="text" className="group-info-input"/>
             </div>
             <div className="group-info-wrapper">
-                <label>Formateur</label>
+                <label className="group-info-label">Formateur</label>
                 <Select options={options} styles={customStyles} placeholder="Selectioner..." type="text" />
             </div>
             <div className="group-info-wrapper">
-                <label>Liste des Graines</label>
+                <label className="group-info-label">Liste des Graines</label>
                 <DataGrid columns={columns} items={items} setItems={setItems}></DataGrid>
             </div>
             <button className="save-group-btn">Enregistrer</button>
