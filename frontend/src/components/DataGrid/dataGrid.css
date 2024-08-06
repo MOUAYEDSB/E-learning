@@ -1,0 +1,143 @@
+body.resizing-active {
+    user-select: none;
+    pointer-events: none;
+}
+.data-grid {
+    width: 100%;
+    border-collapse: collapse;
+    max-height: 500px;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y:hidden;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.data-grid-rows-wrapper{
+    overflow-x: hidden;
+    overflow-y :auto;
+    min-width: 100%;
+    width: fit-content;
+    flex: 1;
+}
+
+.data-grid-header, .data-grid-row {
+    padding: 10px 0 10px 0.5rem;
+    display:flex;
+    min-width: 100%;
+    width: fit-content;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+    gap: 0.25rem;
+}
+.data-grid-header-cell{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+.data-grid-header-cell span {
+    font-family: "Poppins";
+    box-sizing: border-box;
+    padding-left: 5px;
+    font-size: 16px;
+    user-select: none;
+    pointer-events: none;
+}
+.data-grid-sort-arrow{
+    margin-left: 0.5rem;
+    display: flex;
+}
+.data-grid-header-cell svg {
+    width: 10px;
+    display: none;
+}
+.data-grid-header-cell:hover svg{
+    display:inline;
+}
+.data-grid-resize-handle{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 0;
+    top: 50%;
+    transform: translate(50%,-50%);
+    background-color: transparent;
+    pointer-events:all;
+    cursor: col-resize;
+}
+.data-grid-resize-handle div{
+    width: 2px;
+    height: 20px;
+    margin-left: 9px;
+    background-color: transparent;
+    pointer-events:none;
+}
+.data-grid-header:hover .data-grid-resize-handle div{
+    background-color: #d3d3d3;
+}
+.data-grid-header .data-grid-resize-handle:hover div{
+    background-color: #494949;
+}
+.data-grid-cell {
+    height: 32px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0;
+}
+.data-grid-cell input{
+    width: 100%;
+    padding: 5px;
+    margin: 0 10px 0 0;
+    outline: none;
+    border:  1px solid transparent;
+    border-radius: 0.25rem;
+    background: none;
+    box-sizing: border-box;
+    text-align: start;
+    font-family: "Poppins";
+    font-size: 14px;
+}
+.data-grid-cell .css-b62m3t-container{
+    width: 100%;
+    margin: 0 10px 0 0;
+}
+.data-grid-cell input:hover{
+    border: 1px solid #b9b9b9;
+}
+.data-grid-cell input:focus{
+    border: 1px solid #949494;
+    padding-left: 10px;
+}
+.data-grid-status{
+    height: 28px;
+    width: 60px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.data-grid-status label{
+    font-family: "Poppins";
+    font-size: 14px;
+}
+.data-grid-cell button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+.data-grid-delete-button img{
+    width: 23px;
+    height: 23px;
+}
+.data-grid-edit-button img{
+    width: 21px;
+    height: 21px;
+}

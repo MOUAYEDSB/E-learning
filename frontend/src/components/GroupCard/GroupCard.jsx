@@ -1,12 +1,19 @@
+import GroupIcon from "../../assets/GroupIcon";
 import "./groupCard.css";
 export default function GroupCard(props){
-    <div>
-        <div>
-            <label className="group-name">{props.groupName}</label>
-            <label className="group-age">{props.groupAge}</label>
+    return(
+    <div className="group-card" style={{backgroundColor:`${props.color}`}}>
+        <div className="group-info">
+            <label className="group-name">{props.groupName? props.groupName : "Group Name"}</label>
+            <label className="group-age">{props.groupAge ? props.groupAge : "Group Age"}</label>
         </div>
-        <div>
-            <img className="group_image" src={props.imageSrc}/>
+        <div className="group-image-border">
+            {props.imageSrc && <img className="group-card-icon" src={props.imageSrc}/>}
+            {!props.imageSrc &&
+            <div className="group-card-icon">
+                <GroupIcon fillColor={props.color}/>
+            </div>}
         </div>
     </div>
+    );
 }

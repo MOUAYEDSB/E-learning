@@ -1,0 +1,41 @@
+.bar{
+    height: 100px;
+    flex-basis:100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    background-color: #2E2A4F;
+}
+.logo{
+    width: 190px;
+    margin: 1.5rem 1.5rem 1.5rem 55px;
+}
+.group-list-search-bar{
+    height: 45px;
+    width: 350px;
+    margin-left: 12rem;
+    position: relative;
+}
+.group-list-search-bar input{
+    height: 100%;
+    width: 100%;
+    padding-left: 3rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    border-width: 0px;
+    font-family: "Poppins";
+    font-size: 20px;
+}
+.group-list-search-bar input::placeholder{
+    color: #9b9b9b;
+}
+.group-list-search-bar img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

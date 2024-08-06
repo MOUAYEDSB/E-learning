@@ -9,13 +9,13 @@ function Login() {
   
   return (
     <div className="background">
-      <div className="background_image">
+      <div className="background-image">
         <img src={loginBackground}></img>
       </div>
       <div className="wrapper">
-        <img className="gaines_logo" src={grainesLogo}></img>
-        <form className="login_form" action="">
-          <h1 className="register_text">Se Connecter</h1>
+        <img className="gaines-logo" src={grainesLogo}></img>
+        <form className="login-form" action="">
+          <h1 className="register-text">Se Connecter</h1>
           <div className="input-box">
             <text>Addresse Email</text>
             <input type="Email" placeholder="Votre addresse E-mail" required on={e => e.target.setCustomValidity("Ce champs est obligatoire")}/>
@@ -31,7 +31,7 @@ function Login() {
             ></Switch>
             <label className="remember-me-label">Se souvenir de moi</label>
           </div>
-          <button type="submit" class="login_button">Se Connecter</button>
+          <button type="submit" class="login-button">Se Connecter</button>
         </form>
       </div>
       <div className="footer">
