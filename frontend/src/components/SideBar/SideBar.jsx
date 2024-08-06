@@ -27,14 +27,14 @@ export default function SideBar(){
             <div className="sideBar-btn-icon">
               <HomeIcon fillColor={navBarSelectedIndex == 1?"black":"white"}/>
             </div>
-            <label className={`sideBar-btn-label ${navBarSelectedIndex == 1?"selected":""}`}>Home</label>
+            <label>Home</label>
           </div>
           <Link to="/users-list">
             <div className={`sideBar-btn ${navBarSelectedIndex == 2?"selected":""}`} onClick={() => {setNavBarSelectedIndex(2);}}>
               <div className="sideBar-btn-icon">
                 <UserIcon strokeColor={navBarSelectedIndex == 2?"black":"white"}/>
               </div>
-              <label className={`sideBar-btn-label ${navBarSelectedIndex == 2?"selected":""}`}>Listes des utilisateurs</label>
+              <label >Liste des utilisateurs</label>
               <div className="sideBar-btn-arrow-icon">
                 <NavbarArrowIcon fillColor={navBarSelectedIndex == 2?"#2E294E":"white"}/>
               </div>
@@ -62,7 +62,7 @@ export default function SideBar(){
             <div className="sideBar-btn-icon">
               <GroupIcon fillColor={navBarSelectedIndex == 3?"black":"white"}/>
             </div>
-            <label className={`sideBar-btn-label ${navBarSelectedIndex == 3?"selected":""}`}>Listes des groupes</label>
+            <label>Groupes</label>
           </div>
           </Link>
           <Link to="/messages">
@@ -70,14 +70,14 @@ export default function SideBar(){
             <div className="sideBar-btn-icon">
               <MessageIcon fillColor={navBarSelectedIndex == 4?"black":"white"}/>
             </div>
-            <label className={`sideBar-btn-label ${navBarSelectedIndex == 4?"selected":""}`}>Messages</label>
+            <label>Messages</label>
           </div>
           </Link>
           <div className={`sideBar-btn ${navBarSelectedIndex == 5?"selected":""}`} onClick={() => {setNavBarSelectedIndex(5);}}>
             <div className="sideBar-btn-icon">
               <SettingsIcon fillColor={navBarSelectedIndex == 5?"black":"white"}/>
             </div>
-            <label className={`sideBar-btn-label ${navBarSelectedIndex == 5?"selected":""}`}>Paramétres</label>
+            <label>Paramétres</label>
           </div>
         </div>
       </div>
