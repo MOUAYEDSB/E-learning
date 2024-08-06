@@ -23,7 +23,7 @@
 }
 .sideBar-btn{
     height: 40px;
-    width: 250px;
+    width: 230px;
     background-color: transparent;
     border-radius: 0.5rem;
     display: flex;
@@ -35,13 +35,13 @@
     background-color: white;
 }
 .sideBar-btn .sideBar-btn-icon{
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     margin-left: 0;
     transition: 0.25s;
 }
 .sideBar-btn.selected .sideBar-btn-icon{
-    margin-left: 1rem;
+    margin-left: 0.75rem;
 }
 .sideBar-btn label{
     margin-left: 1rem;
@@ -52,7 +52,10 @@
     cursor: pointer
 }
 .sideBar-btn.selected label{
-    color: #2D3748;
+    color: #2E294E;
+}
+.sideBar-btn-arrow-icon{
+    padding-left: 1rem;
 }
 .sideBar-subBtn-group{
     display: none;

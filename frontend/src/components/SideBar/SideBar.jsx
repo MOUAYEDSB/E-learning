@@ -6,6 +6,7 @@ import UserIcon from "../../assets/UserIcon";
 import GroupIcon from "../../assets/GroupIcon";
 import MessageIcon from "../../assets/MessageIcon";
 import SettingsIcon from "../../assets/SettingsIcon";
+import NavbarArrowIcon from "../../assets/NavbarArrowIcon";
 import "./sideBar.css"
 
 export default function SideBar(){
@@ -34,6 +35,9 @@ export default function SideBar(){
                 <UserIcon strokeColor={navBarSelectedIndex == 2?"black":"white"}/>
               </div>
               <label className={`sideBar-btn-label ${navBarSelectedIndex == 2?"selected":""}`}>Listes des utilisateurs</label>
+              <div className="sideBar-btn-arrow-icon">
+                <NavbarArrowIcon fillColor={navBarSelectedIndex == 2?"#2E294E":"white"}/>
+              </div>
             </div>
           </Link>
           <div className={`sideBar-subBtn-group ${navBarSelectedIndex == 2?"shown":""}`}>
