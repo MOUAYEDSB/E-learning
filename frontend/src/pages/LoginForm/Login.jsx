@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import Switch from "../../components/Switch/Switch"
 import {assets} from "../../assets/assets"
 import "./login.css";
+import axios from "axios";
 
 function Login() {
   const [toggled, setToggled] = useState(false);
-  const [data , setData] = useState({email:"",password:""});
+  const [data , setData] = useState({email:"",motdepasse:""});
   const onLogin = async (event)=>{
     event.preventDefault();
-    let URL = "http://localhost:8000/api/user/login"; 
+    let URL = "http://localhost:3000/api/user/login"; 
     
 
-    const response = await axios.post(URL,data);
-
+    const response = await axios.post(URL,data,{headers:{"Content-Type":"application/json"}});
+    
     if (response.data.success) {
       localStorage.setItem("token",response.data.token);
       localStorage.setItem("role",response.data.role);
@@ -37,11 +38,11 @@ function Login() {
           <h1 className="register_text">Se Connecter</h1>
           <div className="input-box">
             <text>Addresse Email</text>
-            <input type="Email" placeholder="Votre addresse E-mail" name="email" value={data.email} onChange={onChangeHandler} required on={e => e.target.setCustomValidity("Ce champs est obligatoire")}/>
+            <input type="Email" placeholder="Votre addresse E-mail" name="email" value={data.email} onChange={onChangeHandler} required />
           </div>
           <div className="input-box">
             <text>Mot de passe</text>
-            <input type="password" placeholder="Votre mot de passe" name="password" value={data.password} onChange={onChangeHandler} required onInvalid={e => e.target.setCustomValidity("Ce champs est obligatoire")}/>
+            <input type="password" placeholder="Votre mot de passe" name="motdepasse" value={data.motdepasse} onChange={onChangeHandler} required />
           </div>
           <div className="remember-me">
             <Switch className="remember-me-switch"   

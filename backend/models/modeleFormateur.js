@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const User = require('./modeleUser');
 
 const formateurSchema = new mongoose.Schema({
-  titre: String,
-  bio: String
-});
+  titre: { type: String, required: true },
+  bio: { type: String, required: true }
+}, { discriminatorKey: 'role' });
 
-const modeleFormateur = User.discriminator('Formateur', formateurSchema); 
+const Formateur = User.discriminator('Formateur', formateurSchema);
 
-module.exports = modeleFormateur ;
+module.exports = Formateur;

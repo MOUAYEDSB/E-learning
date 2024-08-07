@@ -1,29 +1,48 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const path = require('path');
+require('dotenv').config();
 const cors = require('cors');
-const dotenv = require('dotenv');
-dotenv.config(); 
-
-const connectDB = require('./config/db.js'); // Import the connectDB function
-
-// App config
 const app = express();
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
+// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors())
+app.get("/",(request,response)=>{
+    response.send("API working");
+})
 
-// Connecting to the database and starting the server
-connectDB().then(() => {
-    // Start the server only after successful DB connection
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-        console.log(`http://localhost:${PORT}`);
-    });
-}).catch((err) => {
-    console.error('Failed to connect to the database:', err);
-    process.exit(1); 
+
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => console.log('Connected to MongoDB'))
+.catch((error) => console.error('Connection error:', error));
+
+// Import routes
+const userRouter = require('./routes/userRoutes');
+const groupeRouter = require('./routes/groupeRoutes');
+
+// Use routes
+app.use('/api/user', userRouter);
+app.use('/api/groupes', groupeRouter);
+
+// Handle unknown routes
+app.use((req, res, next) => {
+    res.status(404).json({ message: 'Not Found' });
 });
 
-// API endpoints
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack); 
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+});
 
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});

@@ -1,6 +1,16 @@
-const mongoose  = require('mongoose');
-require('dotenv').config();
+const mongoose = require('mongoose');
 
-module.exports = connectDB = async ()=> {
-    await mongoose.connect('mongodb+srv://ahmedtrabelsi:TESTtest120@cluster0.jyat7ma.mongodb.net/food-delivery').then(()=>console.log('db connected'));
-}
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to MongoDB');
+  } catch (err) {
+    console.error('Connection error:', err.message);
+    process.exit(1);
+  }
+};
+
+module.exports = connectDB;
