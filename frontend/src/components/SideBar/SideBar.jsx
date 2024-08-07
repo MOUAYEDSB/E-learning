@@ -29,8 +29,8 @@ export default function SideBar(){
             </div>
             <label>Home</label>
           </div>
-          <Link to="/users-list">
-            <div className={`sideBar-btn ${navBarSelectedIndex == 2?"selected":""}`} onClick={() => {setNavBarSelectedIndex(2);}}>
+          <div className={`sideBar-btn-group ${navBarSelectedIndex == 2?"open":""}`}>
+            <div className={`sideBar-btn ${navBarSelectedIndex == 2?"selected":""}`} onClick={() => {navBarSelectedIndex == 2? setNavBarSelectedIndex(-1) : setNavBarSelectedIndex(2);}}>
               <div className="sideBar-btn-icon">
                 <UserIcon strokeColor={navBarSelectedIndex == 2?"black":"white"}/>
               </div>
@@ -39,23 +39,23 @@ export default function SideBar(){
                 <NavbarArrowIcon fillColor={navBarSelectedIndex == 2?"#2E294E":"white"}/>
               </div>
             </div>
-          </Link>
-          <div className={`sideBar-subBtn-group ${navBarSelectedIndex == 2?"shown":""}`}>
-            <Link to="/parents-list">
-              <div onClick={() => {setNavBarSubSelectedIndex(0);}}>
-                <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 0?"selected":""}`}>Parents</label>
-              </div>
-            </Link>
-            <Link to="/seeds-list">
-              <div onClick={() => {setNavBarSubSelectedIndex(1);}}>
-                <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 1?"selected":""}`}>Graines</label>
-              </div>
-            </Link>
-            <Link to="/mentors-list">
-              <div onClick={() => {setNavBarSubSelectedIndex(2);}}>
-                <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 2?"selected":""}`}>Formateurs</label>
-              </div>
-            </Link>
+            <div className="sideBar-subBtn-group">
+              <Link to="/users-list">
+                <div onClick={() => {setNavBarSubSelectedIndex(0);}}>
+                  <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 0?"selected":""}`}>Parents</label>
+                </div>
+              </Link>
+              <Link to="/users-list">
+                <div onClick={() => {setNavBarSubSelectedIndex(1);}}>
+                  <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 1?"selected":""}`}>Graines</label>
+                </div>
+              </Link>
+              <Link to="/users-list">
+                <div onClick={() => {setNavBarSubSelectedIndex(2);}}>
+                  <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 2?"selected":""}`}>Formateurs</label>
+                </div>
+              </Link>
+            </div>
           </div>
           <Link to="/group-list">
           <div className={`sideBar-btn ${navBarSelectedIndex == 3?"selected":""}`} onClick={() => {setNavBarSelectedIndex(3);}}>

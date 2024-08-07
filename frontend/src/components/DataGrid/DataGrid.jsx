@@ -1,9 +1,11 @@
 import "./dataGrid.css";
 import { useEffect, useState } from "react";
-import Select from "react-select";
 import { assets } from "../../assets/assets";
-import { customStyles } from './customStyles'; 
 import ArrowIcon from "../../assets/ArrowIcon";
+import EditIcon from "../../assets/EditIcon";
+import OptionsIcon from "../../assets/OptionsIcon";
+import DeleteIcon from "../../assets/DeleteIcon";
+import ViewIcon from "../../assets/ViewIcon";
 
 
 export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }) => {
@@ -12,6 +14,8 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
     const [initialMouseX, setInitialMouseX] = useState(0);
     const [initialWidth, setInitialWidth] = useState(0);
     const [widths, setWidths] = useState(initialColumns.map(column => column.width));
+    const [toggleOptions, setToggleOptions] = useState(-1);
+    const [toggleQuickEdit, settoggleQuickEdit] = useState(false);
 
     //example input
     /*const columns = [
@@ -87,51 +91,49 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
         };
     }, [isDragging, targetIndex, initialWidth, initialMouseX]);
 
-    const renderCell = (column, item, index) => {
+    function shadeColor(color, percent) {
+
+        var R = parseInt(color.substring(1,3),16);
+        var G = parseInt(color.substring(3,5),16);
+        var B = parseInt(color.substring(5,7),16);
+    
+        R = parseInt(R * (100 + percent) / 100);
+        G = parseInt(G * (100 + percent) / 100);
+        B = parseInt(B * (100 + percent) / 100);
+    
+        R = (R<255)?R:255;  
+        G = (G<255)?G:255;  
+        B = (B<255)?B:255;  
+    
+        R = Math.round(R)
+        G = Math.round(G)
+        B = Math.round(B)
+    
+        var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
+        var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
+        var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+    
+        return "#"+RR+GG+BB;
+    }
+
+    const renderCell = (column, item) => {
         switch (column.type) {
             case 'text':
                 return (
-                    <input
-                        type="text"
-                        value={item[column.field]}
-                        onChange={(e) => handleInputChange(index, column.field, e.target.value)}
-                    />
-                );
-            case 'number':
-                return (
-                    <input
-                        type="number"
-                        value={item[column.field]}
-                        onChange={(e) => handleInputChange(index, column.field, e.target.value)}
-                    />
-                );
-            case 'select':
-                const formattedOptions = column.options.map(option => ({ value: option, label: option }));
-                const selectedOption = formattedOptions.find(option => option.value === item[column.field]);
-                return (
-                    <Select
-                        menuPortalTarget={document.body}
-                        options={formattedOptions}
-                        defaultValue={selectedOption}
-                        styles={customStyles}
-                    />
+                    <>
+                        {column.img && <img className="row-img" src={item[column.img]}></img>}
+                        <span>{item[column.field]}</span>
+                    </>
                 );
             case 'status':
-            return(
-                <div className="data-grid-status" style={{backgroundColor:`${column.options[item[column.field]]}`}}>
-                    <label>{item[column.field]}</label>
-                </div>
-            )
-            case 'edit':
-                return (
-                    <>
-                        <button className="data-grid-delete-button">
-                            <img src={assets.DeleteIcon} alt="Delete" />
-                        </button>
-                        <button className="data-grid-edit-button">
-                            <img src={assets.EditIcon} alt="Edit" />
-                        </button>
-                    </>
+                const backColor = column.options[item[column.field]][0];
+                const color = column.options[item[column.field]][1];
+                return(
+                    <div className="data-grid-status" style={{backgroundColor:`${backColor}`}}>
+                        <label style={{color:`${color}`}}>
+                            {item[column.field]}
+                        </label>
+                    </div>
                 );
             default:
                 console.error(`Precise a VALID type for column '${column.field}'`);
@@ -139,7 +141,7 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
         }
     };
 
-    function sortRows(column) {
+    const sortRows = (column) => {
         const sorted = [...items].sort((a, b) => {
             const aValue = a[column.field];
             const bValue = b[column.field];
@@ -154,8 +156,15 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
         setItems(sorted);
     }
 
+    const disableOffClickCheck = () => {
+        setToggleOptions(-1);
+        settoggleQuickEdit(false);
+    }
     return (
         <div className="data-grid" style={{maxHeight:`${maxHeight?maxHeight:'none'}`}}>
+            <div className={`offclick-check ${toggleOptions==-1?(toggleQuickEdit?"darkBlock":""):"block"}`}
+                onClick={disableOffClickCheck}></div>
+            <div className={`quick-edit ${toggleQuickEdit?"show":""}`}></div>
             <div className="data-grid-header">
                 {initialColumns.map((column, index) => (
                     <div
@@ -188,9 +197,35 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
                                 style={{ width: widths[columnIndex], minWidth: column.minWidth }}
                                 key={column.field}
                             >
-                                {renderCell(column, item, index)}
+                                {renderCell(column, item)}
                             </div>
                         ))}
+                        <div className="data-grid-quick-edit-button" onClick={() => settoggleQuickEdit(true)}>
+                            <EditIcon fillColor="#637381"/>
+                        </div>
+                        <div className={`data-grid-options-button ${toggleOptions==index?"show":""}`} onClick={() => setToggleOptions(index)}>
+                            <OptionsIcon fillColor="#637381"/>
+                            <div className="data-grid-popup">
+                                <div className="data-grid-popup-option">
+                                    <div className="data-grid-popup-button">
+                                        <ViewIcon fillColor="#1c252e"/>
+                                    </div>
+                                    <span>Voir</span>
+                                </div>
+                                <div className="data-grid-popup-option">
+                                    <div className="data-grid-popup-button">
+                                        <EditIcon fillColor="#1c252e"/>
+                                    </div>
+                                    <span>Editer</span>
+                                </div>
+                                <div className="data-grid-popup-option">
+                                    <div className="data-grid-popup-button">
+                                        <DeleteIcon fillColor="#ff5630"/>
+                                    </div>
+                                    <span>Supprimer</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
