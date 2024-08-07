@@ -1,4 +1,4 @@
-export default function DashboardIcon({ fillColor }) {
+export default DashboardIcon = ({ fillColor }) => {
     return (
         <svg
             viewBox="0 0 24 24"

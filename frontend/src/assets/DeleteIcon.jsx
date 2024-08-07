@@ -1,4 +1,4 @@
-export default function DeleteIcon({ fillColor }) {
+export default DeleteIcon = ({ fillColor }) => {
   return (
     <svg
       viewBox="0 0 13 13"

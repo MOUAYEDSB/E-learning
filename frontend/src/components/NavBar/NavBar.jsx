@@ -3,7 +3,7 @@ import Logo from '../../assets/grainesLogo.svg'
 import LoopIcon from '../../assets/loopIcon.svg'
 import "./navBar.css"
 
-export default function NavBar(){
+export default NavBar = () =>{
   const [navBarSelectedIndex, setNavBarSelectedIndex] = useState(-1);
   const [selectedContent, setSelectedContent] = useState(0);
   return (

@@ -1,26 +1,17 @@
-.add-group-wrapper{
-    gap: 6px;
-}
-.page_title{
-    width: 100%;
-    text-align: center;
-    font-family: "Poppins";
-    font-size: 30px;
-}
-.group-info-input-group{
+.quick-edit-input-group{
     display: flex;
     flex-direction:row;
     justify-content: space-between;
 }
-.group-info-label{
+.quick-edit-info-label{
     font-family: "Poppins";
     font-size: 18px;
 }
-.group-info-wrapper {
+.quick-edit-info-wrapper {
     display: flex;
     flex-direction: column;
 }
-.group-info-input {
+.quick-edit-info-input {
     width: 350px;
     height: 45px;
     border-radius: 0.5rem;
@@ -31,27 +22,29 @@
     font-size: 18px;
     box-sizing: border-box;
 }
-.group-info-input.full{
+.quick-edit-info-input.full{
     width: 100%;
 }
-.group-info-input:hover{
+.quick-edit-info-input:hover{
     border: 1px solid #b9b9b9;
 }
-.group-info-input:focus{
+.quick-edit-info-input:focus{
     border: 1px solid #949494;
 }
-.group-info-wrapper textarea{
+.quick-edit-info-wrapper textarea{
     width: 860px;
     height: 150px;
     padding: 0.5rem 1.5rem;
 }
-.group-info-wrapper .css-b62m3t-container{
+.quick-edit-info-wrapper .css-b62m3t-container{
     width: 350px;
 }
-.save-group-btn{
+.quick-edit-save-btn{
+    position: absolute;
     width: 180px;
     height: 50px;
-    margin-top: 3rem;
+    bottom: 2rem;
+    right: 2rem;
     border-radius: 0.5rem;
     border: none;
     background-color: #30BCED;

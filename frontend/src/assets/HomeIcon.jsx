@@ -1,4 +1,4 @@
-export default function HomeIcon({ fillColor }) {
+export default HomeIcon = ({ fillColor }) => {
     return (
         <svg
             viewBox="0 0 23 24"

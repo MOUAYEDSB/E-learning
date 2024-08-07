@@ -1,7 +1,7 @@
 import "./messages.css"
 import React, { useState } from 'react'
 
-export default function GroupList() {
+export default GroupList = () =>{
   const [selectedContent, setSelectedContent] = useState(0);
   return (
     

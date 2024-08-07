@@ -1,4 +1,4 @@
-export default function UserIcon({strokeColor, fillColor="none"}) {
+export default UserIcon = ({strokeColor, fillColor="none"}) => {
     return (
         <svg
             viewBox="0 0 24 24"

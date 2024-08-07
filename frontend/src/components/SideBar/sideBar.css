@@ -8,6 +8,9 @@
     flex-direction: column;
     align-items: center;
     background-color: #2E2A4F;
+    font-size: 14px;
+    font-family: "Inter";
+    user-select: none;
 }
 .seperator{
     width: var(--side-btn-width);
@@ -63,7 +66,7 @@
     font-family: "Inter";
     font-weight:500;
     color: white;
-    cursor: pointer
+    cursor: pointer;
 }
 .sideBar-btn.selected label{
     color: #2E294E;

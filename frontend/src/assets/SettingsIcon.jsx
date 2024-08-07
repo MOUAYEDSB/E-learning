@@ -1,4 +1,4 @@
-export default function SettingsIcon({ fillColor }) {
+export default SettingsIcon = ({ fillColor }) => {
     return (
         <svg
             viewBox="0 0 24 24"

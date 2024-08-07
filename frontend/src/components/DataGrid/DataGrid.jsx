@@ -6,10 +6,11 @@ import EditIcon from "../../assets/EditIcon";
 import OptionsIcon from "../../assets/OptionsIcon";
 import DeleteIcon from "../../assets/DeleteIcon";
 import ViewIcon from "../../assets/ViewIcon";
+import QuickEdit from "../QuickEdit/QuickEdit"
 
 
 export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }) => {
-    const [isDragging, setIsDragging] = useState(false);
+    const [isResizing, setIsResizing] = useState(false);
     const [targetIndex, setTargetIndex] = useState(0);
     const [initialMouseX, setInitialMouseX] = useState(0);
     const [initialWidth, setInitialWidth] = useState(0);
@@ -49,7 +50,7 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
         if (target) {
             const index = target.getAttribute("id");
             if (index !== null) {
-                setIsDragging(true);
+                setIsResizing(true);
                 setTargetIndex(index);
                 setInitialMouseX(e.clientX);
                 setInitialWidth(parseInt(widths[index], 10));
@@ -64,12 +65,12 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
     };
 
     const handleMouseUp = () => {
-        setIsDragging(false);
+        setIsResizing(false);
         document.body.classList.remove('resizing-active');
     };
 
     const handleMouseMove = (e) => {
-        if (isDragging) {
+        if (isResizing) {
             const mouseMoveX = e.clientX - initialMouseX;
             const newWidth = initialWidth + mouseMoveX;
             setWidths(prevWidths => {
@@ -89,7 +90,7 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
             window.removeEventListener('mouseup', handleMouseUp);
             window.removeEventListener('mousemove', handleMouseMove);
         };
-    }, [isDragging, targetIndex, initialWidth, initialMouseX]);
+    }, [isResizing, targetIndex, initialWidth, initialMouseX]);
 
     function shadeColor(color, percent) {
 
@@ -164,7 +165,9 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
         <div className="data-grid" style={{maxHeight:`${maxHeight?maxHeight:'none'}`}}>
             <div className={`offclick-check ${toggleOptions==-1?(toggleQuickEdit?"darkBlock":""):"block"}`}
                 onClick={disableOffClickCheck}></div>
-            <div className={`quick-edit ${toggleQuickEdit?"show":""}`}></div>
+            <div className={`quick-edit ${toggleQuickEdit?"show":""}`}>
+                <QuickEdit></QuickEdit>
+            </div>
             <div className="data-grid-header">
                 {initialColumns.map((column, index) => (
                     <div

@@ -9,7 +9,7 @@ import SettingsIcon from "../../assets/SettingsIcon";
 import NavbarArrowIcon from "../../assets/NavbarArrowIcon";
 import "./sideBar.css"
 
-export default function SideBar(){
+export default SideBar = () =>{
   
   const [navBarSelectedIndex, setNavBarSelectedIndex] = useState(-1);
   const [navBarSubSelectedIndex, setNavBarSubSelectedIndex] = useState(-1);

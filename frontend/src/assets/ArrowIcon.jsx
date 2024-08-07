@@ -1,4 +1,4 @@
-export default function ArrowIcon({ fillColor }) {
+export default ArrowIcon = ({ fillColor }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

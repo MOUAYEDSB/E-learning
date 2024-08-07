@@ -38,14 +38,18 @@ body.resizing-active {
 .quick-edit{
     width: 800px;
     height: 750px;
+    padding: 4rem 2rem 2rem 2rem;
     position: fixed;
     top: 50%;
     left: 50%;
     translate: -50% -50%;
     z-index: 2;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     background-color: white;
     box-shadow: 1px 1px 24px 1px #00000044;
+    display:flex;
+    flex-direction: column;
+    gap: 2rem;
     visibility: collapse;
 }
 .quick-edit.show{
@@ -212,14 +216,14 @@ body.resizing-active {
     background-color: white;
     padding: 4px;
     z-index: 2;
-    top: -10px;
+    top: -8px;
     left: -160px;
     display: flex;
     flex-direction: column;
     gap: 4px;
     box-shadow: -2px 2px 12px 1px #eeeeee;
 }
-.data-grid-popup::after {
+/*.data-grid-popup::after {
     content: "";
     position: absolute;
     top: 24px;
@@ -228,6 +232,22 @@ body.resizing-active {
     border-width: 6px;
     border-style: solid;
     border-color: transparent transparent transparent white;
+}*/
+.data-grid-popup::after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    border-bottom-left-radius: 3.5px;
+    clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+    background-color: white;
+    border: solid 1px #919eab1f;
+    background-repeat: no-repeat;
+    background-size: 42px 42px;
+    background-position: right top;
+    right: -6.5px;
+    top: 15px;
+    rotate:-135deg;
 }
 .data-grid-options-button.show .data-grid-popup {
     visibility: visible;

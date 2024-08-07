@@ -1,4 +1,4 @@
-export default function OptionsIcon({ fillColor }) {
+export default OptionsIcon = ({ fillColor }) => {
   return (
     <svg 
       viewBox="0 0 24 24"

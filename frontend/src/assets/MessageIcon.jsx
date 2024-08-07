@@ -1,4 +1,4 @@
-export default function MessageIcon({ fillColor }) {
+export default MessageIcon = ({ fillColor }) => {
     return (
         <svg
         viewBox="0 0 24 24"

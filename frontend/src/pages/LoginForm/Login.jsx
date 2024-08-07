@@ -4,7 +4,7 @@ import loginBackground from "../../assets/loginBackground.png"
 import grainesLogo from "../../assets/grainesLogo.svg"
 import "./login.css";
 
-function Login() {
+export default Login = () => {
   const [toggled, setToggled] = useState(false);
   
   return (
@@ -42,4 +42,3 @@ function Login() {
     </div>
   );
 }
-export default Login;

@@ -2,14 +2,14 @@ import "./usersList.css"
 import React, { useState } from 'react'
 import { DataGrid } from "../../components/DataGrid/DataGrid";
 
-export default function UsersList() {
+export default UsersList = () =>{
   const [selectedContent, setSelectedContent] = useState(0);
   
   const columns = [
-    { field: 'fullName', headerName: 'Nom', type : 'text', img: 'profilePicUrl', width: '250px', minWidth: '120px', sort: true, },
+    { field: 'fullName', headerName: 'Nom', type : 'text', img: 'profilePicUrl', width: '250px', minWidth: '200px', sort: true, },
     { field: 'email', headerName: 'Adresse E-mail', type : 'text', width: '320px', minWidth: '250px'},
     { field: 'phone', headerName: 'Téléphone', type : 'text', width: '180px',minWidth: "120px"},
-    { field: 'status', headerName: 'Status', type : 'status',options: {online: ['#d3efdf','#508d57'],offline: ['#f7ddd8','#b71d18']}, width: '110px',minWidth: '80px', sort: true},
+    { field: 'status', headerName: 'Status', type : 'status',options: {online: ['#d3efdf','#508d57'],offline: ['#f7ddd8','#b71d18']}, width: '110px',minWidth: '76px', sort: true},
   ];
 
   const [items, setItems] = useState([

@@ -1,4 +1,4 @@
-export default function GroupIcon({ fillColor }) {
+export default GroupIcon = ({ fillColor }) => {
     return (
         <svg
             viewBox="0 0 24 24"
