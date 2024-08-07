@@ -2,9 +2,9 @@ import "./groupList.css"
 import React, { useState } from 'react'
 import {Link} from 'react-router-dom';
 import { assets } from "../../assets/assets"
-import Groupcard from "../../components/GroupCard/GroupCard"
+import {GroupCard} from "../../components/GroupCard/GroupCard"
 
-export default GroupList = () => {
+export const GroupList = () => {
   const [selectedContent, setSelectedContent] = useState(0);
   return (
     <div className="container">
@@ -12,12 +12,12 @@ export default GroupList = () => {
       <div className="group-list-panel">
         <Link to="/group-info">
         <div onClick={() => {}}>
-          <Groupcard groupName ="Groupe 1" groupAge="8 Membres | 8-12 Ans" color="#30BCED" />
+          <GroupCard groupName ="Groupe 1" groupAge="8 Membres | 8-12 Ans" color="#30BCED" />
         </div>
         </Link>
         <Link to="/group-info">
           <div onClick={() => {}}>
-            <Groupcard groupName ="Groupe 2" groupAge="6 Membres | 10-16 Ans" color="#FFD237"/>
+            <GroupCard groupName ="Groupe 2" groupAge="6 Membres | 10-16 Ans" color="#FFD237"/>
           </div>
         </Link>
         <Link to="/add-group">

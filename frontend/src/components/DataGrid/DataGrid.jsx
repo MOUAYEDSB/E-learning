@@ -1,13 +1,12 @@
 import "./dataGrid.css";
 import { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
-import ArrowIcon from "../../assets/ArrowIcon";
-import EditIcon from "../../assets/EditIcon";
-import OptionsIcon from "../../assets/OptionsIcon";
-import DeleteIcon from "../../assets/DeleteIcon";
-import ViewIcon from "../../assets/ViewIcon";
-import QuickEdit from "../QuickEdit/QuickEdit"
-
+import {ArrowIcon} from "../../assets/ArrowIcon";
+import {EditIcon} from "../../assets/EditIcon";
+import {OptionsIcon} from "../../assets/OptionsIcon";
+import {DeleteIcon} from "../../assets/DeleteIcon";
+import {ViewIcon} from "../../assets/ViewIcon";
+import {QuickEdit} from "../QuickEdit/QuickEdit"
 
 export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }) => {
     const [isResizing, setIsResizing] = useState(false);

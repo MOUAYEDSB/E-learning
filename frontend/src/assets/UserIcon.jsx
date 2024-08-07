@@ -1,4 +1,4 @@
-export default UserIcon = ({strokeColor, fillColor="none"}) => {
+export const UserIcon = ({strokeColor, fillColor="none"}) => {
     return (
         <svg
             viewBox="0 0 24 24"

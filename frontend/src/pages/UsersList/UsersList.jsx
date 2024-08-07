@@ -1,8 +1,11 @@
 import "./usersList.css"
 import React, { useState } from 'react'
 import { DataGrid } from "../../components/DataGrid/DataGrid";
+import { useParams } from "react-router-dom";
 
-export default UsersList = () =>{
+export const UsersList = () =>{
+  const {type} = useParams();
+  const label = {parents:'Parents', seeds:'Graines', mentors:'Formateurs'};
   const [selectedContent, setSelectedContent] = useState(0);
   
   const columns = [
@@ -102,7 +105,7 @@ export default UsersList = () =>{
   return (
     <div className="container">
       <label className="nav-label">Pages / Espace Admin </label>
-      <label className="nav-label2">Liste d’utilisateurs / Parents</label>
+      <label className="nav-label2">Liste d’utilisateurs / {label[type]}</label>
       <DataGrid columns={columns} items={items} setItems={setItems} maxHeight='500px'></DataGrid>
     </div>
   )

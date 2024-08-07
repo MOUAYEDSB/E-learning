@@ -1,4 +1,4 @@
-export default DashboardIcon = ({ fillColor }) => {
+export const DashboardIcon = ({ fillColor }) => {
     return (
         <svg
             viewBox="0 0 24 24"

@@ -1,4 +1,4 @@
-export default GroupIcon = ({ fillColor }) => {
+export const GroupIcon = ({ fillColor }) => {
     return (
         <svg
             viewBox="0 0 24 24"

@@ -4,7 +4,7 @@ import loginBackground from "../../assets/loginBackground.png"
 import grainesLogo from "../../assets/grainesLogo.svg"
 import "./login.css";
 
-export default Login = () => {
+export const Login = () =>{
   const [toggled, setToggled] = useState(false);
   
   return (

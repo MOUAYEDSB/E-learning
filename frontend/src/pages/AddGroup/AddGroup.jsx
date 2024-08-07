@@ -4,7 +4,7 @@ import Select from "react-select";
 import { assets } from "../../assets/assets"
 import { DataGrid } from "../../components/DataGrid/DataGrid";
 
-export default AddGroup = () =>{
+export const AddGroup = () =>{
   const [selectedContent, setSelectedContent] = useState(0);
   const options = [
     { value: 'chocolate', label: 'Chocolate' },

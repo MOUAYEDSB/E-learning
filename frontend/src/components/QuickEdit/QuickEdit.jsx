@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Select from "react-select";
 import { assets } from "../../assets/assets"
 
-export default QuickEdit = () => {
+export const QuickEdit = () => {
   const [selectedContent, setSelectedContent] = useState(0);
   const options = [
     { value: 'chocolate', label: 'Chocolate' },

@@ -1,4 +1,4 @@
-export default NavbarArrowIcon = ({ fillColor }) => {
+export const NavbarArrowIcon = ({ fillColor }) => {
   return (
     <svg
       viewBox="0 0 14 7"

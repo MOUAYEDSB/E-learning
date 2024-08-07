@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import {Link} from 'react-router-dom';
-import DashboardIcon from "../../assets/DashboardIcon";
-import HomeIcon from "../../assets/HomeIcon";
-import UserIcon from "../../assets/UserIcon";
-import GroupIcon from "../../assets/GroupIcon";
-import MessageIcon from "../../assets/MessageIcon";
-import SettingsIcon from "../../assets/SettingsIcon";
-import NavbarArrowIcon from "../../assets/NavbarArrowIcon";
+import {DashboardIcon} from "../../assets/DashboardIcon";
+import {HomeIcon} from "../../assets/HomeIcon";
+import {UserIcon} from "../../assets/UserIcon";
+import {GroupIcon} from "../../assets/GroupIcon";
+import {MessageIcon} from "../../assets/MessageIcon";
+import {SettingsIcon} from "../../assets/SettingsIcon";
+import {NavbarArrowIcon} from "../../assets/NavbarArrowIcon";
 import "./sideBar.css"
 
-export default SideBar = () =>{
+export const SideBar = () =>{
   
   const [navBarSelectedIndex, setNavBarSelectedIndex] = useState(-1);
   const [navBarSubSelectedIndex, setNavBarSubSelectedIndex] = useState(-1);
@@ -40,17 +40,17 @@ export default SideBar = () =>{
               </div>
             </div>
             <div className="sideBar-subBtn-group">
-              <Link to="/users-list">
+              <Link to="/users/parents">
                 <div onClick={() => {setNavBarSubSelectedIndex(0);}}>
                   <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 0?"selected":""}`}>Parents</label>
                 </div>
               </Link>
-              <Link to="/users-list">
+              <Link to="/users/seeds">
                 <div onClick={() => {setNavBarSubSelectedIndex(1);}}>
                   <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 1?"selected":""}`}>Graines</label>
                 </div>
               </Link>
-              <Link to="/users-list">
+              <Link to="/users/mentors">
                 <div onClick={() => {setNavBarSubSelectedIndex(2);}}>
                   <label className={`sideBar-subBtn-label ${navBarSubSelectedIndex == 2?"selected":""}`}>Formateurs</label>
                 </div>

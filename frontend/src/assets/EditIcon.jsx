@@ -1,4 +1,4 @@
-export default EditIcon = ({ fillColor }) => {
+export const EditIcon = ({ fillColor }) => {
   return (
     <svg
       viewBox="0 0 12 12"

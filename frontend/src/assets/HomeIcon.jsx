@@ -1,4 +1,4 @@
-export default HomeIcon = ({ fillColor }) => {
+export const HomeIcon = ({ fillColor }) => {
     return (
         <svg
             viewBox="0 0 23 24"
