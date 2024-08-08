@@ -1,11 +1,9 @@
-export default function UserIcon({strokeColor, fillColor="none"}) {
+export const UserIcon = () => {
     return (
         <svg
-            width="24"
-            height="24"
             viewBox="0 0 24 24"
-            stroke={ strokeColor }
-            fill={ fillColor }
+            stroke='inherit'
+            fill='none'
             xmlns="http://www.w3.org/2000/svg">
         <path
             d="m 11.51188,10.842903 c 0.111787,-0.01117 0.245933,-0.01117 0.368898,0 2.66054,-0.08943 4.773321,-2.2692834 4.773321,-4.9521803 0,-2.7387907 -2.213389,-4.96335947 -4.963359,-4.96335947 -2.7387907,0 -4.9633594,2.22456877 -4.9633594,4.96335947 0.011179,2.6828969 2.1239601,4.8627503 4.7844994,4.9521803 z"

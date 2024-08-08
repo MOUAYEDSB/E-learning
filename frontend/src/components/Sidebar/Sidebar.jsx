@@ -2,60 +2,82 @@ import React, { useState } from 'react'
 import './sideBar.css'
 import { assets } from '../../assets/assets';
 import {  NavLink, useNavigate } from 'react-router-dom';
-const Sidebar = () => {
+import Logo from '../../assets/grainesLogo.svg'
+import {DashboardIcon} from "../../assets/DashboardIcon";
+import {HomeIcon} from "../../assets/HomeIcon";
+import {UserIcon} from "../../assets/UserIcon";
+import {GroupIcon} from "../../assets/GroupIcon";
+import {MessageIcon} from "../../assets/MessageIcon";
+import {SettingsIcon} from "../../assets/SettingsIcon";
+import {NavbarArrowIcon} from "../../assets/NavbarArrowIcon";
+
+export const Sidebar = () => {
     const Navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className='sidebar'>
-        <div className="sidebar-logo-container">
-            <div className="sidebar-logo">
-                <img src={assets.LOGO}  alt="logo" />
-            </div>
-        </div>
-        
+    <div className='sideBar'>
+        <img className="sideBar-logo" src= {Logo} />
         <hr />
-        <NavLink exact to="/" activeClassName='active' className='sidebar-menu-item' onClick={()=>Navigate("/")}>
-            <img src={assets.dashboardIcon} alt="" />
-            <p>Dashboard</p>
-            
-        </NavLink>
-        <NavLink exact to="/home" activeClassName='active' className="sidebar-menu-item" onClick={()=>Navigate("/home")}>
-            <img src={assets.HomeIcon} alt=""  class="icon"/>
-            <p>Home</p>
-        </NavLink>
-        <NavLink exact to="/users/formateur" activeClassName='active' className="sidebar-menu-item" onClick={()=>{Navigate("/users/formateur"),setIsOpen(!isOpen)}}>
-            <img src={assets.usersIcon} alt="" />
-            <p>Liste d'utilisateurs</p>
-            <img src={assets.arrowDown} alt="" className="arrow" />
-        </NavLink>
-        {isOpen?<div>
-            <div  className="sidebar-menu-item child" onClick={()=>Navigate("/users/formateur")}>
-                <p>Formateurs</p>
+        <div className="sideBar-buttons">
+            <NavLink exact to="/" activeClassName='active' className='sideBar-btn' onClick={()=>Navigate("/")}>
+                <div className="sideBar-btn-icon">
+                <DashboardIcon/>
+                </div>
+                <label>Dashboard</label>
+            </NavLink>
+            <NavLink exact to="/home" activeClassName='active' className="sideBar-btn" onClick={()=>Navigate("/home")}>
+                <div className="sideBar-btn-icon">
+                <HomeIcon/>
+                </div>
+                <label>Home</label>
+            </NavLink>
+            <div className={`sideBar-btn-group ${isOpen?"open":""}`}>
+                <div className={`sideBar-btn ${isOpen?"active":""}`} onClick={() => {setIsOpen(!isOpen)}}>
+                    <div className="sideBar-btn-icon">
+                        <UserIcon/>
+                    </div>
+                    <label >Liste des utilisateurs</label>
+                    <div className="sideBar-btn-arrow-icon">
+                        <NavbarArrowIcon/>
+                    </div>
+                </div>
+                <div className="sideBar-subBtn-group">
+                    <NavLink exact to="/users/parents" activeClassName='active' className="sideBar-subBtn" onClick={()=>Navigate("/users/parents")}>
+                        <div>
+                            <label>Parents</label>
+                        </div>
+                    </NavLink>
+                    <NavLink exact to="/users/seeds" activeClassName='active' className="sideBar-subBtn" onClick={()=>Navigate("/users/seeds")}>
+                        <div>
+                            <label>Graines</label>
+                        </div>
+                    </NavLink>
+                    <NavLink exact to="/users/mentors" activeClassName='active' className="sideBar-subBtn" onClick={()=>Navigate("/users/mentors")}>
+                        <div>
+                            <label>Formateurs</label>
+                        </div>
+                    </NavLink>
+                </div>
             </div>
-            <div   className="sidebar-menu-item child" onClick={()=>Navigate("/users/enfant")}>
-                <p>Graines</p>
-            </div>
-            <div  className="sidebar-menu-item child" onClick={()=>Navigate("/users/parent")}>
-                <p>Parents</p>
-            </div>
-        </div>:<></>}
-        
-        <NavLink exact to="/groupe" activeClassName='active' className="sidebar-menu-item" onClick={()=>Navigate("/groupe")}>
-            <img src={assets.usersIcon} alt="" />
-            <p>Groupes</p>
-        </NavLink>
-        <NavLink exact to="/message" activeClassName='active' className="sidebar-menu-item" onClick={()=>Navigate("/message")}>
-            <img src={assets.MessageIcon} alt="" />
-            <p>Message</p>
-        </NavLink>
-        <NavLink exact to="/parametre" activeClassName='active' className="sidebar-menu-item" onClick={()=>Navigate("/parametre")}>
-            <img src={assets.ParametreIcon} alt="" />
-            <p>Parametre</p>
-        </NavLink>
-        
-        
+            <NavLink exact to="/group-list" activeClassName='active' className="sideBar-btn" onClick={()=>Navigate("/group-list")}>
+                <div className="sideBar-btn-icon">
+                <GroupIcon/>
+                </div>
+                <label>Groupes</label>
+            </NavLink>
+            <NavLink exact to="/messages" activeClassName='active' className="sideBar-btn" onClick={()=>Navigate("/Messages")}>
+                <div className="sideBar-btn-icon">
+                <MessageIcon/>
+                </div>
+                <label>Messages</label>
+            </NavLink>
+            <NavLink exact to="/settings" activeClassName='active' className="sideBar-btn" onClick={()=>Navigate("/settings")}>
+                <div className="sideBar-btn-icon">
+                <SettingsIcon/>
+                </div>
+                <label>Paramétres</label>
+            </NavLink>
+        </div>
     </div>
   )
 }
-
-export default Sidebar;

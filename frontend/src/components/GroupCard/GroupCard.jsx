@@ -1,6 +1,6 @@
-import GroupIcon from "../../assets/GroupIcon";
+import {GroupIcon} from "../../assets/GroupIcon";
 import "./groupCard.css";
-export default function GroupCard(props){
+export const GroupCard = (props) =>{
     return(
     <div className="group-card" style={{backgroundColor:`${props.color}`}}>
         <div className="group-info">
