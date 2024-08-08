@@ -9,22 +9,24 @@
     display: none;
   }
 .sideBar{
-    --sidebar-width: 275px;
-    --side-btn-width: 215px;
+    --sidebar-width: 270px;
+    --side-btn-width: 220px;
     --side-btn-height: 40px;
     --side-item-gap: 0.25rem;
     min-width: var(--sidebar-width);
     width: var(--sidebar-width);
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
+    padding: 0 25px 0 25px;
     overflow: hidden;
     background-color: #2E2A4F;
     font-size: 14px;
     font-family: "Inter";
     user-select: none;
     z-index: 1000;
-    transition: 0.25s;
+    transition: width 0.25s, min-width 0.25s;
 }
 .sideBar-logo{
     /*width: 190px;*/
@@ -145,24 +147,24 @@
 }
 
 @media (max-width:1100px) {
-    .sideBar:hover && .overlay {
+    .sideBar:hover + .overlay {
         display: block;
     }
     .sideBar{
         position: absolute;
-        padding: 0 1rem 0 1rem;
         width: 72px;
         min-width: 72px;
         display: flex;
         flex-direction: column;
+        padding: 0 1rem 0 1rem;
         align-items: start;
         transition: 0s;
     }
     .sideBar:hover{
         width: var(--sidebar-width);
         min-width: var(--sidebar-width);
-        padding: 0 0 0 30px;
-        transition: 0.25s;
+        padding: 0 25px 0 25px;
+        transition: width 0.25s, min-width 0.25s;
     }
     .sideBar-btn {
         width: var(--side-btn-height);

@@ -13,137 +13,96 @@ export const AddGroup = () =>{
   ];
 
   const columns = [
-    { field: 'title', headerName: 'Titre', type : 'select', options: ['Mr','Mme'] , width: '120px', minWidth: '85px'},
-    { field: 'lastName', headerName: 'Nom', type : 'text', width: '100px', minWidth: '80px', sort: true},
-    { field: 'firstName', headerName: 'Prénom', type : 'text', width: '100px', minWidth: '90px', sort: true},
-    { field: 'email', headerName: 'Adresse E-mail', type : 'text', width: '250px', minWidth: '250px'},
-    { field: 'address', headerName: 'Adresse', type : 'text', width: '150px',minWidth: "100px"},
-    { field: 'phone', headerName: 'Téléphone', type : 'text', width: '150px',minWidth: "120px"},
-    { field: 'age', headerName: 'Age', type : 'number', width: '60px', minWidth: "60px", sort: true},
-    { field: 'status', headerName: 'Status', type : 'status',options: {online: '#48BB78',offline: '#d0d0d0'}, width: '80px',minWidth: '80px'},
-    { field: 'action', headerName: 'Action', type : 'edit', width: '100px', minWidth: '65px'},
+    { field: 'fullName', headerName: 'Nom', type : 'text', img: 'profilePicUrl', width: '250px', minWidth: '200px', sort: true, },
+    { field: 'email', headerName: 'Adresse E-mail', type : 'text', width: '320px', minWidth: '250px'},
+    { field: 'phone', headerName: 'Téléphone', type : 'text', width: '180px',minWidth: "120px"},
+    { field: 'status', headerName: 'Status', type : 'status',options: {online: ['#d3efdf','#508d57'],offline: ['#f7ddd8','#b71d18']}, width: '110px',minWidth: '76px', sort: true},
   ];
 
   const [items, setItems] = useState([
     {
-      title: "Mme",
-      lastName: "Smith",
-      firstName: "Jane",
+      fullName: "Jane Smith",
       email: "jane.smith@example.com",
-      address: "456 Oak St",
       phone: "987-654-3210",
       status: "offline",
-      age: 28
+      profilePicUrl: "https://randomuser.me/api/portraits/women/1.jpg"
     },
     {
-      title: "Mr",
-      lastName: "Johnson",
-      firstName: "John",
+      fullName: "John Johnson",
       email: "john.johnson@example.com",
-      address: "123 Maple Ave",
       phone: "555-123-4567",
       status: "online",
-      age: 35
+      profilePicUrl: "https://randomuser.me/api/portraits/men/1.jpg"
     },
     {
-      title: "Mme",
-      lastName: "Williams",
-      firstName: "Emily",
+      fullName: "Emily Williams",
       email: "emily.williams@example.com",
-      address: "789 Pine Rd",
       phone: "555-987-6543",
       status: "offline",
-      age: 42
+      profilePicUrl: "https://randomuser.me/api/portraits/women/2.jpg"
     },
     {
-      title: "Mr",
-      lastName: "Brown",
-      firstName: "Michael",
+      fullName: "Michael Brown",
       email: "michael.brown@example.com",
-      address: "321 Elm St",
       phone: "555-555-5555",
       status: "online",
-      age: 30
+      profilePicUrl: "https://randomuser.me/api/portraits/men/2.jpg"
     },
     {
-      title: "Mme",
-      lastName: "Jones",
-      firstName: "Laura",
+      fullName: "Laura Jones",
       email: "laura.jones@example.com",
-      address: "654 Birch Blvd",
       phone: "555-666-7777",
       status: "offline",
-      age: 27
+      profilePicUrl: "https://randomuser.me/api/portraits/women/3.jpg"
     },
     {
-      title: "Mr",
-      lastName: "Garcia",
-      firstName: "Carlos",
+      fullName: "Carlos Garcia",
       email: "carlos.garcia@example.com",
-      address: "987 Cedar Ln",
       phone: "555-444-3333",
       status: "online",
-      age: 40
+      profilePicUrl: "https://randomuser.me/api/portraits/men/3.jpg"
     },
     {
-      title: "Mme",
-      lastName: "Martinez",
-      firstName: "Sofia",
+      fullName: "Sofia Martinez",
       email: "sofia.martinez@example.com",
-      address: "345 Oakwood Dr",
       phone: "555-111-2222",
       status: "offline",
-      age: 33
+      profilePicUrl: "https://randomuser.me/api/portraits/women/4.jpg"
     },
     {
-      title: "Mme",
-      lastName: "Rodriguez",
-      firstName: "Ana",
+      fullName: "Ana Rodriguez",
       email: "ana.rodriguez@example.com",
-      address: "876 Maplewood Ave",
       phone: "555-888-9999",
       status: "online",
-      age: 29
+      profilePicUrl: "https://randomuser.me/api/portraits/women/5.jpg"
     },
     {
-      title: "Mr",
-      lastName: "Lee",
-      firstName: "David",
+      fullName: "David Lee",
       email: "david.lee@example.com",
-      address: "234 Cedar Ave",
       phone: "555-777-6666",
       status: "offline",
-      age: 37
+      profilePicUrl: "https://randomuser.me/api/portraits/men/4.jpg"
     },
     {
-      title: "Mme",
-      lastName: "Taylor",
-      firstName: "Olivia",
+      fullName: "Olivia Taylor",
       email: "olivia.taylor@example.com",
-      address: "543 Willow St",
       phone: "555-222-3333",
       status: "online",
-      age: 31
+      profilePicUrl: "https://randomuser.me/api/portraits/women/6.jpg"
     },
     {
-      title: "Mr",
-      lastName: "Wilson",
-      firstName: "James",
+      fullName: "James Wilson",
       email: "james.wilson@example.com",
-      address: "678 Pine St",
       phone: "555-999-8888",
       status: "offline",
-      age: 45
+      profilePicUrl: "https://randomuser.me/api/portraits/men/5.jpg"
     },
     {
-      title: "Mme",
-      lastName: "Anderson",
-      firstName: "Sarah",
+      fullName: "Sarah Anderson",
       email: "sarah.anderson@example.com",
-      address: "432 Maplewood Dr",
       phone: "555-333-4444",
       status: "online",
-      age: 26
+      profilePicUrl: "https://randomuser.me/api/portraits/women/7.jpg"
     }
   ]);
 
