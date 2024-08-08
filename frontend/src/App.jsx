@@ -22,25 +22,23 @@ function App() {
     {!login?
     <div className="app">
     <Sidebar />
-    <div className='app-main'>
-      <Navbar />
-      <div className="container">
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/home" element={<CreateUser />} />
-        <Route path="/users/seeds" element={<UsersList role={"seed"} />} />
-        <Route path="/users/parents" element={<UsersList role={"parent"} />} />
-        <Route path="/users/mentors" element={<UsersList role={"mentor"} />} />
-        <Route path="/group-list" element={<GroupList/>} />
-        <Route path="/group-info" element={<GroupInfo/>}/>
-        <Route path="/add-group" element={<AddGroup  />} />
-        <Route path="/messages" element={<>tst</>} />
-        <Route path="/settings" element={<>parametre</>} />
-        <Route path="/userprofile/:id" element={<ParentProfile />} />
-        <Route path="/profile" element={<ParentProfile />} />
-      </Routes>
+      <div className='main-wrapper'>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/home" element={<CreateUser />} />
+          <Route path="/users/seeds" element={<UsersList role={"seed"} />} />
+          <Route path="/users/parents" element={<UsersList role={"parent"} />} />
+          <Route path="/users/mentors" element={<UsersList role={"mentor"} />} />
+          <Route path="/group-list" element={<GroupList/>} />
+          <Route path="/group-info" element={<GroupInfo/>}/>
+          <Route path="/add-group" element={<AddGroup  />} />
+          <Route path="/messages" element={<>tst</>} />
+          <Route path="/settings" element={<>parametre</>} />
+          <Route path="/userprofile/:id" element={<ParentProfile />} />
+          <Route path="/profile" element={<ParentProfile />} />
+        </Routes>
       </div>
-    </div>
     </div>:<Login />
     }
     </>
