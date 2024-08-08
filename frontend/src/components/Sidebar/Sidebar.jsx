@@ -19,13 +19,13 @@ export const Sidebar = () => {
         <img className="sideBar-logo" src= {Logo} />
         <hr />
         <div className="sideBar-buttons">
-            <NavLink exact to="/" activeClassName='active' className='sideBar-btn' onClick={()=>Navigate("/")}>
+            <NavLink exact to="/" activeClassName='active' className='sideBar-btn' onClick={()=>{Navigate("/"), setIsOpen(false)}}>
                 <div className="sideBar-btn-icon">
                 <DashboardIcon/>
                 </div>
                 <label>Dashboard</label>
             </NavLink>
-            <NavLink exact to="/home" activeClassName='active' className="sideBar-btn" onClick={()=>Navigate("/home")}>
+            <NavLink exact to="/home" activeClassName='active' className="sideBar-btn" onClick={()=>{Navigate("/home"), setIsOpen(false)}}>
                 <div className="sideBar-btn-icon">
                 <HomeIcon/>
                 </div>
@@ -59,19 +59,19 @@ export const Sidebar = () => {
                     </NavLink>
                 </div>
             </div>
-            <NavLink exact to="/group-list" activeClassName='active' className="sideBar-btn" onClick={()=>Navigate("/group-list")}>
+            <NavLink exact to="/group-list" activeClassName='active' className="sideBar-btn" onClick={()=>{Navigate("/group-list"), setIsOpen(false)}}>
                 <div className="sideBar-btn-icon">
                 <GroupIcon/>
                 </div>
                 <label>Groupes</label>
             </NavLink>
-            <NavLink exact to="/messages" activeClassName='active' className="sideBar-btn" onClick={()=>Navigate("/Messages")}>
+            <NavLink exact to="/messages" activeClassName='active' className="sideBar-btn" onClick={()=>{Navigate("/Messages"), setIsOpen(false)}}>
                 <div className="sideBar-btn-icon">
                 <MessageIcon/>
                 </div>
                 <label>Messages</label>
             </NavLink>
-            <NavLink exact to="/settings" activeClassName='active' className="sideBar-btn" onClick={()=>Navigate("/settings")}>
+            <NavLink exact to="/settings" activeClassName='active' className="sideBar-btn" onClick={()=>{Navigate("/settings"), setIsOpen(false)}}>
                 <div className="sideBar-btn-icon">
                 <SettingsIcon/>
                 </div>

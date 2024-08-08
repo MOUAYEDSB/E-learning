@@ -11,10 +11,12 @@
     font-size: 14px;
     font-family: "Inter";
     user-select: none;
+    position: relative;
 }
 .sideBar-logo{
-    width: 190px;
-    margin: 1.5rem 0 1.5rem 0;
+    /*width: 190px;*/
+    height: 60px;
+    margin: 20px 0 20px 0;
 }
 .sideBar hr {
     border: none;
@@ -61,7 +63,7 @@
 .sideBar-btn label{
     margin-left: 1rem;
     font-size: 14px;
-    font-family: "Inter";
+    font-family: "Poppins";
     font-weight:500;
     color: white;
     cursor: pointer;
@@ -113,6 +115,7 @@
 
 .sideBar-subBtn div{
     height: 40px;
+    border-radius: 0.5rem;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -120,7 +123,7 @@
 .sideBar-subBtn label{
     padding-left: 8px;
     font-size: 14px;
-    font-family: "Inter";
+    font-family: "Poppins";
     color: white;
     cursor: pointer;
 }
@@ -133,11 +136,46 @@
         width: fit-content;
         min-width: fit-content;
     }
-    .sideBar-btn label ,.sideBar-btn-arrow-icon, .sideBar-subBtn-group {
-        display: none;
+    .sideBar{
+        padding-top: 9rem;
     }
-    .sideBar-logo, .sideBar hr {
-        width: 0;
+    .sideBar-btn {
+        width: var(--side-btn-height);
+        justify-content: center;
+    }
+    .sideBar-btn:hover, .sideBar-btn.active{
+        padding-left: 0;
+    }
+    .sideBar-btn-group.open .sideBar-subBtn-group {
+        display:flex;
+        z-index: 2;
+        height: fit-content;
+        width: 106px;
+        position: absolute;
+        border-radius: 0.5rem;
+        padding: 0.25rem;
+        top: 200px;
+        right: -110px;
+        background-color: white;
+        box-shadow: 1px 1px 12px 1px #eeeeee;
+    }
+    .sideBar-subBtn{
+        margin: 0 !important;
+    }
+    .sideBar-subBtn div{
+        height: 30px;
+    }
+    .sideBar-subBtn div:hover{
+        background-color: #e0e0e0;
+    }
+    .sideBar-subBtn label{
+        color: black;
+        cursor: pointer;
+    }
+    .sideBar-btn-group.open{
+        height: 40px;;
+    }
+    .sideBar-btn label ,.sideBar-btn-arrow-icon, .sideBar-btn-group .sideBar-subBtn-group, .sideBar-logo, .sideBar hr{
         display: none;
     }
 }
