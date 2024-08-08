@@ -43,17 +43,17 @@ export const Sidebar = () => {
                         </div>
                     </div>
                     <div className="sideBar-subBtn-group">
-                        <NavLink exact to="/users/parents" activeClassName='active' className="sideBar-subBtn" onClick={()=>Navigate("/users/parents")}>
+                        <NavLink exact to="/user/list/parents" activeClassName='active' className="sideBar-subBtn" onClick={()=>Navigate("/user/list/parents")}>
                             <div>
                                 <label>Parents</label>
                             </div>
                         </NavLink>
-                        <NavLink exact to="/users/seeds" activeClassName='active' className="sideBar-subBtn" onClick={()=>Navigate("/users/seeds")}>
+                        <NavLink exact to="/user/list/seeds" activeClassName='active' className="sideBar-subBtn" onClick={()=>Navigate("/user/list/seeds")}>
                             <div>
                                 <label>Graines</label>
                             </div>
                         </NavLink>
-                        <NavLink exact to="/users/mentors" activeClassName='active' className="sideBar-subBtn" onClick={()=>Navigate("/users/mentors")}>
+                        <NavLink exact to="/user/list/mentors" activeClassName='active' className="sideBar-subBtn" onClick={()=>Navigate("/user/list/mentors")}>
                             <div>
                                 <label>Formateurs</label>
                             </div>

@@ -7,8 +7,10 @@ import {OptionsIcon} from "../../assets/OptionsIcon";
 import {DeleteIcon} from "../../assets/DeleteIcon";
 import {ViewIcon} from "../../assets/ViewIcon";
 import {QuickEdit} from "../QuickEdit/QuickEdit"
+import { useNavigate } from "react-router-dom";
 
-export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }) => {
+export const DataGrid = ({ role, columns: initialColumns, items, setItems, maxHeight }) => {
+    const navigate = useNavigate();
     const [isResizing, setIsResizing] = useState(false);
     const [targetIndex, setTargetIndex] = useState(0);
     const [initialMouseX, setInitialMouseX] = useState(0);
@@ -160,6 +162,20 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
         setToggleOptions(-1);
         settoggleQuickEdit(false);
     }
+
+    const viewProfile = () =>{
+        switch(role){
+            case 'seed':
+                navigate("/user/kid1");
+                break;
+            case 'parent':
+                navigate("/user/parent1");
+                break;
+            case 'mentor':
+                navigate("/user/mentor1");
+                break;
+        }
+    }
     return (
         <div className="data-grid" style={{maxHeight:`${maxHeight?maxHeight:'none'}`}}>
             <div className={`offclick-check ${toggleOptions==-1?(toggleQuickEdit?"darkBlock":""):"block"}`}
@@ -208,7 +224,7 @@ export const DataGrid = ({ columns: initialColumns, items, setItems, maxHeight }
                         <div className={`data-grid-options-button ${toggleOptions==index?"show":""}`} onClick={() => setToggleOptions(index)}>
                             <OptionsIcon fillColor="#637381"/>
                             <div className="data-grid-popup">
-                                <div className="data-grid-popup-option">
+                                <div className="data-grid-popup-option" onClick={() => viewProfile()}>
                                     <div className="data-grid-popup-button">
                                         <ViewIcon fillColor="#1c252e"/>
                                     </div>

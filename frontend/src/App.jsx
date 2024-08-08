@@ -5,14 +5,14 @@ import { useState } from 'react'
 import Login from './pages/LoginForm/Login'
 import {Sidebar} from './components/Sidebar/Sidebar';
 import Navbar from './components/Navbar/Navbar';
-import ParentProfile from './pages/userProfile/parentProfile';
-import CreateUser from './pages/createUser/createUser';
-import Dashboard from './pages/Dashboard/Dashboard';
-import {UsersList} from './pages/UsersList/UsersList';
-import {GroupList} from './pages/GroupList/GroupList';
-import {GroupInfo} from "./pages/GroupInfo/GroupInfo"
-import {AddGroup} from './pages/AddGroup/AddGroup';
-function App() {
+import {CreateUser} from './pages/CreateUser/CreateUser';
+import {Dashboard} from './pages/Dashboard/Dashboard';
+import { UsersList } from './pages/UsersList/UsersList';
+import { GroupList } from './pages/GroupList/GroupList';
+import { GroupInfo } from './pages/GroupInfo/GroupInfo';
+import { AddGroup } from './pages/CreateGroup/CreateGroup';
+import { UserProfile } from './pages/UserProfile/UserProfile';
+export default function App() {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
   const [login, setLogin] = useState(false);
@@ -24,25 +24,24 @@ function App() {
     <Sidebar />
       <div className='main-wrapper'>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/home" element={<CreateUser />} />
-          <Route path="/users/seeds" element={<UsersList role={"seed"} />} />
-          <Route path="/users/parents" element={<UsersList role={"parent"} />} />
-          <Route path="/users/mentors" element={<UsersList role={"mentor"} />} />
-          <Route path="/group-list" element={<GroupList/>} />
-          <Route path="/group-info" element={<GroupInfo/>}/>
-          <Route path="/add-group" element={<AddGroup  />} />
-          <Route path="/messages" element={<>tst</>} />
-          <Route path="/settings" element={<>parametre</>} />
-          <Route path="/userprofile/:id" element={<ParentProfile />} />
-          <Route path="/profile" element={<ParentProfile />} />
-        </Routes>
+        <div className='content-wrapper'>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/home" element={<CreateUser/>} />
+            <Route path="/user/list/seeds" element={<UsersList role={"seed"} />} />
+            <Route path="/user/list/parents" element={<UsersList role={"parent"} />} />
+            <Route path="/user/list/mentors" element={<UsersList role={"mentor"} />} />
+            <Route path="/user/:id" element={<UserProfile/>} />
+            <Route path="/group-list" element={<GroupList/>} />
+            <Route path="/group-info" element={<GroupInfo/>}/>
+            <Route path="/add-group" element={<AddGroup  />} />
+            <Route path="/messages" element={<>tst</>} />
+            <Route path="/settings" element={<>parametre</>} />
+          </Routes>
+        </div>
       </div>
     </div>:<Login />
     }
     </>
   );
 }
-
-export default App

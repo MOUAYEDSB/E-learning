@@ -4,14 +4,15 @@ body.resizing-active {
 }
 .data-grid {
     width: 100%;
-    border-collapse: collapse;
-    max-height: 500px;
     max-width: 100%;
+    max-height: 500px;
     overflow-x: auto;
     overflow-y:hidden;
     margin-top: 20px;
     background-color: white;
-    border-radius: 0.25rem;
+    border: 1px solid #ebebeb;
+    border-radius: 0.5rem;
+    border-collapse: collapse;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -184,7 +185,7 @@ body.resizing-active {
 }
 .data-grid-options-button {
     position: relative;
-    margin-left: 1rem;
+    margin: 0 1rem;
     width: 31px;
     height: 31px;
     padding: 4px;

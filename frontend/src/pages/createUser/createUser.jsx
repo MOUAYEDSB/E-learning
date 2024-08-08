@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "../userProfile/userProfile.css";
+import "./createUser.css";
 import { assets } from "../../assets/assets.js";
 
-const CreateUser = () => {
+
+export const CreateUser = () => {
   const [formValues, setFormValues] = useState({
     nom: "",
     prenom: "",
@@ -77,9 +78,9 @@ const CreateUser = () => {
 
   return (
     <div className="container">
-      <label className="nav-label">Pages / Espace Admin </label>
-      <label className="nav-label2">Groupes / Creer Groupe</label>
-      <div className="create-user-profile">
+      <label className="nav-label">Pages &gt; Espace Admin </label>
+      <label className="nav-label2">Groupes &gt; Creer Un Compte</label>
+      <div className="view-wrapper create-user-wrapper">
         <h3>Créer un compte</h3>
         <form onSubmit={submitHandler}>
           <div className="userProfile-image-container">
@@ -278,5 +279,3 @@ const CreateUser = () => {
     </div>
   );
 };
-
-export default CreateUser;

@@ -103,8 +103,11 @@ export const UsersList = ({role}) => {
   return (
     <div className="container">
       <label className="nav-label">Pages / Espace Admin </label>
-      <label className="nav-label2">Liste d’utilisateurs / {label[role]}</label>
-      <DataGrid columns={columns} items={items} setItems={setItems} maxHeight='500px'></DataGrid>
+      <label className="nav-label2">Liste d’utilisateurs &gt; {label[role]}</label>
+      <div className="view-wrapper">
+        <span className="page-title">Listes des {label[role]}</span>
+        <DataGrid role={role} columns={columns} items={items} setItems={setItems} maxHeight='500px'></DataGrid>
+      </div>
     </div>
   )
 }

@@ -1,52 +1,50 @@
-.userProfileContainer {
+.user-profile-wrapper {
     display: flex;
-    padding: 7vh 5vw;
-    margin: 7vh auto;
-    gap: 7dvw;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-    width: 60vw;
-}
-.create-user-profile {
-    display: flex;
-    flex-direction: column;
-    padding: 7vh 5vw;
-    margin: 7vh auto;
+    flex-direction: row;
+    padding: 4rem 0;
     gap: 5vh;
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-    width: 50vw;
 }
-.create-user-profile h3 {
-    font-size: 26px;
-    font-weight: 500;
-    color: #333333;
-    text-align: center;
-}
-.userProfile-image-container {
+.user-profile-image-container {
     display: flex;
     flex-direction: column;
     gap: 10vh;
-    align-items: center;
-    text-align: center;
-}
-.userProfile-image-container img {
-    border-radius: 50%;
-    border: 2px solid black;
-    height: 20vh;
+    /*align-items: center;*/
 }
 .user-image {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2dvh;
+    gap: 0rem;
+}
+.user-image img {
+    margin: 1rem 3rem;
+    border-radius: 50%;
+    border: 3px solid black;
+    height: 170px;
+}
+.user-image span{
+    font-family: 'Poppins';
+    font-size: 18px;
+    font-weight: 600;
 }
 .account-info {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+}
+.account-info span{
+    height: 50px;
+    width: 250px;
+    align-content: center;
+    font-family: 'Poppins';
+    font-size: 18px;
+    padding-left: 3rem;
+    border-radius: 0px 25px 25px 0px;
+}
+.account-info .active {
+    color: #000000;
+    font-weight: bold;
+    background-color: #cfcfcf;
 }
 .userProfile-info , .mot-de-passe-info ,.child-section{
     display: flex;
@@ -138,9 +136,4 @@
     border-radius: 10px;
     text-align: center;
     
-}
-.acount-info .active {
-    color: #000000;
-    background-color: #FFD237;
-    border-radius: 10px;
 }

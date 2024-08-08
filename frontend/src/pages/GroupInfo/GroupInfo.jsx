@@ -151,8 +151,8 @@ export const GroupInfo = () =>{
 
   return (
     <div className="container">
-        <label className="nav-label">Pages / Espace Admin </label>
-        <label className="nav-label2">Groupes / Creer Groupe</label>
+        <label className="nav-label">Pages &gt; Espace Admin </label>
+        <label className="nav-label2">Groupes &gt; nomGroupe</label>
         <div className="view-wrapper add-group-wrapper">
             <div className="group-info-wrapper">
                 <label className="group-info-label">Nom du groupe</label>
