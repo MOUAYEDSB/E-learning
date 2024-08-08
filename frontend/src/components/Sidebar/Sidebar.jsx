@@ -16,6 +16,7 @@ export const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
   return (
     <div className='sideBar'>
+        <div class="overlay"></div>
         <img className="sideBar-logo" src= {Logo} />
         <hr />
         <div className="sideBar-buttons">
@@ -61,19 +62,19 @@ export const Sidebar = () => {
             </div>
             <NavLink exact to="/group-list" activeClassName='active' className="sideBar-btn" onClick={()=>{Navigate("/group-list"), setIsOpen(false)}}>
                 <div className="sideBar-btn-icon">
-                <GroupIcon/>
+                    <GroupIcon/>
                 </div>
                 <label>Groupes</label>
             </NavLink>
             <NavLink exact to="/messages" activeClassName='active' className="sideBar-btn" onClick={()=>{Navigate("/Messages"), setIsOpen(false)}}>
                 <div className="sideBar-btn-icon">
-                <MessageIcon/>
+                    <MessageIcon/>
                 </div>
                 <label>Messages</label>
             </NavLink>
             <NavLink exact to="/settings" activeClassName='active' className="sideBar-btn" onClick={()=>{Navigate("/settings"), setIsOpen(false)}}>
                 <div className="sideBar-btn-icon">
-                <SettingsIcon/>
+                    <SettingsIcon/>
                 </div>
                 <label>Paramétres</label>
             </NavLink>

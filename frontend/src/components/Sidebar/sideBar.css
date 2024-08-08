@@ -1,17 +1,30 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+  }
 .sideBar{
-    --sidebar-width: 280px;
+    --sidebar-width: 275px;
     --side-btn-width: 215px;
     --side-btn-height: 40px;
     --side-item-gap: 0.25rem;
     min-width: var(--sidebar-width);
+    width: var(--sidebar-width);
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
     background-color: #2E2A4F;
     font-size: 14px;
     font-family: "Inter";
     user-select: none;
-    position: relative;
+    z-index: 1000;
+    transition: 0.25s;
 }
 .sideBar-logo{
     /*width: 190px;*/
@@ -132,50 +145,70 @@
 }
 
 @media (max-width:1100px) {
-    .sideBar, .sideBar-btn {
-        width: fit-content;
-        min-width: fit-content;
+    .sideBar:hover && .overlay {
+        display: block;
     }
     .sideBar{
-        padding-top: 9rem;
+        position: absolute;
+        padding: 0 1rem 0 1rem;
+        width: 72px;
+        min-width: 72px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        transition: 0s;
+    }
+    .sideBar:hover{
+        width: var(--sidebar-width);
+        min-width: var(--sidebar-width);
+        padding: 0 0 0 30px;
+        transition: 0.25s;
     }
     .sideBar-btn {
         width: var(--side-btn-height);
         justify-content: center;
     }
+    .sideBar:hover .sideBar-btn {
+        width: var(--side-btn-width);
+        justify-content: start;
+    }
     .sideBar-btn:hover, .sideBar-btn.active{
         padding-left: 0;
     }
-    .sideBar-btn-group.open .sideBar-subBtn-group {
-        display:flex;
-        z-index: 2;
-        height: fit-content;
-        width: 106px;
-        position: absolute;
-        border-radius: 0.5rem;
-        padding: 0.25rem;
-        top: 200px;
-        right: -110px;
-        background-color: white;
-        box-shadow: 1px 1px 12px 1px #eeeeee;
+    .sideBar:hover .sideBar-btn:hover ,.sideBar:hover .sideBar-btn.active{
+        padding-left: 0.75rem;
     }
-    .sideBar-subBtn{
-        margin: 0 !important;
-    }
-    .sideBar-subBtn div{
-        height: 30px;
+    .sideBar:hover .sideBar-subBtn{
+        margin-left: 44px;
     }
     .sideBar-subBtn div:hover{
         background-color: #e0e0e0;
     }
-    .sideBar-subBtn label{
-        color: black;
-        cursor: pointer;
+    .sideBar-btn-group{
+        height: 40px;
     }
     .sideBar-btn-group.open{
-        height: 40px;;
+        height: 40px;
     }
-    .sideBar-btn label ,.sideBar-btn-arrow-icon, .sideBar-btn-group .sideBar-subBtn-group, .sideBar-logo, .sideBar hr{
+    .sideBar:hover .sideBar-btn-group.open{
+        height: 172px;
+    }
+    .sideBar:hover .sideBar-subBtn-group{
+        display: flex;
+    }
+    .sideBar-logo, .sideBar hr{
+        width: 0;
+    }
+    .sideBar:hover .sideBar-logo{
+        width: fit-content;
+    }
+    .sideBar:hover hr{
+        width: var(--side-btn-width);
+    }
+    .sideBar-btn label ,.sideBar-btn-arrow-icon, .sideBar-subBtn-group{
         display: none;
+    }
+    .sideBar:hover .sideBar-btn label, .sideBar:hover .sideBar-btn-arrow-icon{
+        display: block;
     }
 }

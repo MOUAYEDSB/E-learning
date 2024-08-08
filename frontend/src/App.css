@@ -30,6 +30,7 @@ a {
 
 @media (max-width: 1100px) {
   .app-main {
+    margin-left: 72px;
   }
 }
 #root{
