@@ -15,11 +15,11 @@ import { UserProfile } from './pages/UserProfile/UserProfile';
 export default function App() {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
 
   return (
     <>
-    {!login?
+    {login?
     <div className="app">
     <Sidebar />
       <div className='main-wrapper'>
@@ -31,6 +31,7 @@ export default function App() {
             <Route path="/user/list/seeds" element={<UsersList role={"seed"} />} />
             <Route path="/user/list/parents" element={<UsersList role={"parent"} />} />
             <Route path="/user/list/mentors" element={<UsersList role={"mentor"} />} />
+            <Route path='/user/create' element={<CreateUser />} />
             <Route path="/user/:id" element={<UserProfile/>} />
             <Route path="/group-list" element={<GroupList/>} />
             <Route path="/group-info" element={<GroupInfo/>}/>
@@ -40,7 +41,7 @@ export default function App() {
           </Routes>
         </div>
       </div>
-    </div>:<Login />
+    </div>:<Login setLogin={setLogin} />
     }
     </>
   );

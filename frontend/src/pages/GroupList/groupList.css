@@ -9,8 +9,6 @@
     flex-flow: row wrap;
     justify-content: flex-start;
     gap: 1.5rem 20px;
-    box-sizing: border-box;
-    padding: 1rem 0 0 0;
 }
 .add-group-btn{
     width: 350px;
@@ -24,22 +22,7 @@
     justify-content:flex-start;
     cursor: pointer;
 }
-.add-group-btn-label{
-    font-size: 18px;
-    font-family: "Inter";
-    font-weight: bold;
-    color: #2E2A4F;
-    position: absolute;
-    left: 2rem;
-}
-.add-group-btn-icon-border{
-    width: 75px;
-    height: 75px;
-    border-radius: 0.75rem;
-    background-color: #c7c7c7;
-    position: absolute;
-    right: 2rem;
-}
+
 .student-list{ 
     padding:  0;
 }
@@ -112,4 +95,27 @@
     width: 100%;
     background-color: #E2E8F0;
     margin: 0.75rem 0;
+}
+.add-group {
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.201);
+}
+.add-group .group-image-border{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    background-color: rgba(186, 186, 186, 0.603);
+    padding: 15px ;
+}
+.add-group .group-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(147, 147, 147);
 }

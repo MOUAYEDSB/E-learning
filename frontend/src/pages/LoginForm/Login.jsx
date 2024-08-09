@@ -4,7 +4,7 @@ import {assets} from "../../assets/assets"
 import "./login.css";
 import axios from "axios";
 
-function Login() {
+function Login({setLogin}) {
   const [toggled, setToggled] = useState(false);
   const [data , setData] = useState({email:"",motdepasse:""});
   const onLogin = async (event)=>{
@@ -17,6 +17,8 @@ function Login() {
     if (response.data.success) {
       localStorage.setItem("token",response.data.token);
       localStorage.setItem("role",response.data.role);
+
+      setLogin(true);
     } else {
       alert(response.data.message);
     }

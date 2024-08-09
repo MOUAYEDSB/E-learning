@@ -1,49 +1,40 @@
 
 .group-card{
-    width: 350px;
-    height: 120px;
     border-radius: 1rem;
-    position:relative;
+    padding: 1rem 1.5rem;
     display: flex;
-    flex-direction: row;
+    gap: 1rem;
     align-items: center;
-    justify-content:flex-start;
     cursor: pointer;
 }
 .group-info{
     display:flex;
     flex-direction: column; 
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
+    gap: 15px;
 }
 .group-name{
     font-size: 18px;
-    font-family: "Inter";
+
     font-weight: bold;
     color: White;
-    cursor: pointer
 }
 .group-age{
-    font-size: 18px;
-    font-family: "Inter";
+    font-size: 16px;
     font-weight: bold;
     color: #2E2A4F;
-    margin-top: 0.75rem;
-    cursor: pointer
+
 }
 .group-image-border{
-    width: 75px;
-    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 0.75rem;
     background-color: white;
-    position: absolute;
-    right: 2rem;
+    padding: 15px ;
 }
 .group-card-icon{
-    height: 45px;
-    width: 45px;
-    margin: 15px 0 0 15px;
+    height: 35px;
+    width: 35px;
 }
 .collapsed{
     display:none;

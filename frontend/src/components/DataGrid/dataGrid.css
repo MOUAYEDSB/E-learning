@@ -276,3 +276,13 @@ body.resizing-active {
     font-family: "Poppins";
     font-size: 14px;
 }
+.data-grid-add {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 30px;
+}
+.data-grid-add p {
+    color: black;
+    padding: 15px 20px;
+}

@@ -1,5 +1,5 @@
 import "./dataGrid.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import {ArrowIcon} from "../../assets/ArrowIcon";
 import {EditIcon} from "../../assets/EditIcon";
@@ -8,8 +8,10 @@ import {DeleteIcon} from "../../assets/DeleteIcon";
 import {ViewIcon} from "../../assets/ViewIcon";
 import {QuickEdit} from "../QuickEdit/QuickEdit"
 import { useNavigate } from "react-router-dom";
-
+import {UserContext} from "../../context/userContext";
 export const DataGrid = ({ role, columns: initialColumns, items, setItems, maxHeight }) => {
+    const {users,deleteUser} = useContext(UserContext);
+
     const navigate = useNavigate();
     const [isResizing, setIsResizing] = useState(false);
     const [targetIndex, setTargetIndex] = useState(0);
@@ -45,118 +47,123 @@ export const DataGrid = ({ role, columns: initialColumns, items, setItems, maxHe
         status: "online",
     },
     ]);*/
-    
-    const handleMouseDown = (e) => {
-        const target = e.target.closest('.data-grid-resize-handle');
-        if (target) {
-            const index = target.getAttribute("id");
-            if (index !== null) {
-                setIsResizing(true);
-                setTargetIndex(index);
-                setInitialMouseX(e.clientX);
-                setInitialWidth(parseInt(widths[index], 10));
-                document.body.classList.add('resizing-active');
-                console.log(`Resizing column: ${index}`);
-            } else {
-                console.error('Column index is null');
-            }
-        } else {
-            console.error('No resize handle found');
-        }
-    };
 
-    const handleMouseUp = () => {
-        setIsResizing(false);
-        document.body.classList.remove('resizing-active');
-    };
-
-    const handleMouseMove = (e) => {
-        if (isResizing) {
-            const mouseMoveX = e.clientX - initialMouseX;
-            const newWidth = initialWidth + mouseMoveX;
-            setWidths(prevWidths => {
-                const minWidth = initialColumns[targetIndex].minWidth ? parseInt(initialColumns[targetIndex].minWidth, 10) : 0;
-                const updatedWidths = [...prevWidths];
-                updatedWidths[targetIndex] = newWidth >= minWidth ? `${newWidth}px` : minWidth;
-                return updatedWidths;
-            });
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('mouseup', handleMouseUp);
-        window.addEventListener('mousemove', handleMouseMove);
-
-        return () => {
-            window.removeEventListener('mouseup', handleMouseUp);
-            window.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, [isResizing, targetIndex, initialWidth, initialMouseX]);
-
-    function shadeColor(color, percent) {
-
-        var R = parseInt(color.substring(1,3),16);
-        var G = parseInt(color.substring(3,5),16);
-        var B = parseInt(color.substring(5,7),16);
-    
-        R = parseInt(R * (100 + percent) / 100);
-        G = parseInt(G * (100 + percent) / 100);
-        B = parseInt(B * (100 + percent) / 100);
-    
-        R = (R<255)?R:255;  
-        G = (G<255)?G:255;  
-        B = (B<255)?B:255;  
-    
-        R = Math.round(R)
-        G = Math.round(G)
-        B = Math.round(B)
-    
-        var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
-        var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
-        var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
-    
-        return "#"+RR+GG+BB;
+  const handleMouseDown = (e) => {
+    const target = e.target.closest(".data-grid-resize-handle");
+    if (target) {
+      const index = target.getAttribute("id");
+      if (index !== null) {
+        setIsResizing(true);
+        setTargetIndex(index);
+        setInitialMouseX(e.clientX);
+        setInitialWidth(parseInt(widths[index], 10));
+        document.body.classList.add("resizing-active");
+        console.log(`Resizing column: ${index}`);
+      } else {
+        console.error("Column index is null");
+      }
+    } else {
+      console.error("No resize handle found");
     }
+  };
 
-    const renderCell = (column, item) => {
-        switch (column.type) {
-            case 'text':
-                return (
-                    <>
-                        {column.img && <img className="row-img" src={item[column.img]}></img>}
-                        <span>{item[column.field]}</span>
-                    </>
-                );
-            case 'status':
-                const backColor = column.options[item[column.field]][0];
-                const color = column.options[item[column.field]][1];
-                return(
-                    <div className="data-grid-status" style={{backgroundColor:`${backColor}`}}>
-                        <label style={{color:`${color}`}}>
-                            {item[column.field]}
-                        </label>
-                    </div>
-                );
-            default:
-                console.error(`Precise a VALID type for column '${column.field}'`);
-                return null;
-        }
-    };
+  const handleMouseUp = () => {
+    setIsResizing(false);
+    document.body.classList.remove("resizing-active");
+  };
 
-    const sortRows = (column) => {
-        const sorted = [...items].sort((a, b) => {
-            const aValue = a[column.field];
-            const bValue = b[column.field];
-
-            if (typeof aValue === 'string') {
-                return aValue.localeCompare(bValue);
-            } else if (typeof aValue === 'number') {
-                return aValue - bValue;
-            }
-            return 0;
-        });
-        setItems(sorted);
+  const handleMouseMove = (e) => {
+    if (isResizing) {
+      const mouseMoveX = e.clientX - initialMouseX;
+      const newWidth = initialWidth + mouseMoveX;
+      setWidths((prevWidths) => {
+        const minWidth = initialColumns[targetIndex].minWidth
+          ? parseInt(initialColumns[targetIndex].minWidth, 10)
+          : 0;
+        const updatedWidths = [...prevWidths];
+        updatedWidths[targetIndex] =
+          newWidth >= minWidth ? `${newWidth}px` : minWidth;
+        return updatedWidths;
+      });
     }
+  };
+
+  useEffect(() => {
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [isResizing, targetIndex, initialWidth, initialMouseX]);
+
+  function shadeColor(color, percent) {
+    var R = parseInt(color.substring(1, 3), 16);
+    var G = parseInt(color.substring(3, 5), 16);
+    var B = parseInt(color.substring(5, 7), 16);
+
+    R = parseInt((R * (100 + percent)) / 100);
+    G = parseInt((G * (100 + percent)) / 100);
+    B = parseInt((B * (100 + percent)) / 100);
+
+    R = R < 255 ? R : 255;
+    G = G < 255 ? G : 255;
+    B = B < 255 ? B : 255;
+
+    R = Math.round(R);
+    G = Math.round(G);
+    B = Math.round(B);
+
+    var RR = R.toString(16).length == 1 ? "0" + R.toString(16) : R.toString(16);
+    var GG = G.toString(16).length == 1 ? "0" + G.toString(16) : G.toString(16);
+    var BB = B.toString(16).length == 1 ? "0" + B.toString(16) : B.toString(16);
+
+    return "#" + RR + GG + BB;
+  }
+
+  const renderCell = (column, item) => {
+    switch (column.type) {
+      case "text":
+        return (
+          <>
+            {column.img && (
+              <img className="row-img" src={item[column.img]}></img>
+            )}
+            <span>{item[column.field]}</span>
+          </>
+        );
+      case "status":
+        const backColor = column.options[item[column.field]][0];
+        const color = column.options[item[column.field]][1];
+        return (
+          <div
+            className="data-grid-status"
+            style={{ backgroundColor: `${backColor}` }}
+          >
+            <label style={{ color: `${color}` }}>{item[column.field]}</label>
+          </div>
+        );
+      default:
+        console.error(`Precise a VALID type for column '${column.field}'`);
+        return null;
+    }
+  };
+
+  const sortRows = (column) => {
+    const sorted = [...items].sort((a, b) => {
+      const aValue = a[column.field];
+      const bValue = b[column.field];
+
+      if (typeof aValue === "string") {
+        return aValue.localeCompare(bValue);
+      } else if (typeof aValue === "number") {
+        return aValue - bValue;
+      }
+      return 0;
+    });
+    setItems(sorted);
+  };
 
     const disableOffClickCheck = () => {
         setToggleOptions(-1);
@@ -240,13 +247,14 @@ export const DataGrid = ({ role, columns: initialColumns, items, setItems, maxHe
                                     <div className="data-grid-popup-button">
                                         <DeleteIcon fillColor="#ff5630"/>
                                     </div>
-                                    <span>Supprimer</span>
+                                    <span onClick={() => deleteUser(item._id)}>Supprimer</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
+            <div onClick={()=>navigate("/user/create")}>Ajouter</div>
         </div>
     );
 };

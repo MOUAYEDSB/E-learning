@@ -183,9 +183,7 @@
     .sideBar:hover .sideBar-subBtn{
         margin-left: 44px;
     }
-    .sideBar-subBtn div:hover{
-        background-color: #e0e0e0;
-    }
+    
     .sideBar-btn-group{
         height: 40px;
     }
