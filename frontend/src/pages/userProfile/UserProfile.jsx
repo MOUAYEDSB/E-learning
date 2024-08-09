@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { ParentProfile } from './ParentProfile'
-import { KidProfile } from './KidProfile'
+import { ParentProfile } from './parentProfile'
+import { KidProfile } from './kidProfile'
 import { MentorProfile } from './MentorProfile'
 
 export const UserProfile = () => {
