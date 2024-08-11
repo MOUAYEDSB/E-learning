@@ -1,53 +1,54 @@
-import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import axiosInstance from '../api/axiosConfig';
 
 export const UserContext = createContext(null);
 
 const UserContextProvider = (props) => {
-    
-   
-    const [token,setToken] = useState("");
-    const [users,setUsers] = useState([]);
-    const url ="http://localhost:3000";
+    const [token, setToken] = useState("");
+    const [users, setUsers] = useState([]);
 
+    // Function to add a user
     const addUser = async (user) => {
         try {
-            const response = await axios.post(`${url}/api/user/create`, user);
-            setUsers([...users, response.data]);
+            const response = await axiosInstance.post('/user/create', user);
+            setUsers((prevUsers) => [...prevUsers, response.data]);
         } catch (error) {
-            console.log(error.message);
+            console.error('Error adding user:', error.message);
         }
-    }
+    };
 
+    // Function to update a user
     const updateUser = async (id, user) => {
         try {
-            const response = await axios.put(`${url}/api/user/${id}`, user);
-            setUsers(users.map((u) => (u._id === id ? response.data : u)));
+            const response = await axiosInstance.put(`/user/${id}`, user);
+            setUsers((prevUsers) => prevUsers.map((u) => (u._id === id ? response.data : u)));
         } catch (error) {
-            console.log(error.message);
+            console.error('Error updating user:', error.message);
         }
-    }
+    };
 
-    
+    // Function to delete a user
     const deleteUser = async (id) => {
         try {
-            const response = await axios.delete(`${url}/api/user/${id}`);
-            setUsers(users.filter((user) => user._id !== id));
+            await axiosInstance.delete(`/user/${id}`);
+            setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
         } catch (error) {
-            console.log(error.message);
+            console.error('Error deleting user:', error.message);
         }
-    }
+    };
+
+    // Fetch users on component mount
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get(`${url}/api/user/`);
+                const response = await axiosInstance.get('/user/');
                 setUsers(response.data);
             } catch (error) {
-                console.log(error.message);
+                console.error('Error fetching users:', error.message);
             }
         };
         fetchUsers();
-    }, [users])
+    }, []);
 
     const contextValue = {
         addUser,
@@ -57,15 +58,13 @@ const UserContextProvider = (props) => {
         setUsers,
         token,
         setToken,
-        url
-    }
-
-
+    };
 
     return (
         <UserContext.Provider value={contextValue}>
             {props.children}
         </UserContext.Provider>
-    )
-} 
-export default UserContextProvider ;
+    );
+};
+
+export default UserContextProvider;

@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Login from './pages/LoginForm/Login'
 import {Sidebar} from './components/Sidebar/Sidebar';
 import Navbar from './components/Navbar/Navbar';
-import {CreateUser} from './pages/createUser/createUser';
+import {CreateUser} from './pages/createUser/CreateUser';
 import {Dashboard} from './pages/Dashboard/Dashboard';
 import { UsersList } from './pages/UsersList/UsersList';
 import { GroupList } from './pages/GroupList/GroupList';

@@ -1,34 +1,41 @@
 import React, { useState } from "react";
+import axiosInstance from "../../api/axiosConfig.js";
 import "./createUser.css";
 import { assets } from "../../assets/assets.js";
-
 
 export const CreateUser = () => {
   const [formValues, setFormValues] = useState({
     nom: "",
     prenom: "",
     email: "",
-    tel: "",
+    telephone: "",
     adresse: "",
     age: "",
+    motdepasse: "",
+    titre: "",
+    bio: "",
     children: [],
-    titre:"",
-    bio:""
   });
-  const [image,setImage] = useState(false);
+  const [image, setImage] = useState(null);
   const [userType, setUserType] = useState("");
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     const nameParts = name.split("-");
 
-    if (nameParts.length === 1) {
-      // Simple property
+    if (name === "role") {
+      setUserType(value);
+    } else if (name === "motdepasse") {
       setFormValues({
         ...formValues,
         [name]: value,
       });
-    } else if (nameParts[0] === "child") {
-      // Children property
+    } else if (nameParts.length === 1) {
+      setFormValues({
+        ...formValues,
+        [name]: value,
+      });
+    } else if (nameParts[0] === "children") {
       const index = parseInt(nameParts[1]);
       const key = nameParts[2];
       const updatedChildren = formValues.children.map((child, i) =>
@@ -38,24 +45,47 @@ export const CreateUser = () => {
         ...formValues,
         children: updatedChildren,
       });
-    } else {
-      // Nested property
-      const [parent, key] = nameParts;
-      setFormValues({
-        ...formValues,
-        [parent]: {
-          ...formValues[parent],
-          [key]: value,
-        },
-      });
     }
-
-    console.log(formValues);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    // Add form submission logic here
+
+    const formData = new FormData();
+    formData.append("role", userType); // Append role to form data
+
+    // Append form fields
+    Object.keys(formValues).forEach((key) => {
+      if (key === "children") {
+        formValues[key].forEach((child, index) => {
+          Object.keys(child).forEach((childKey) => {
+            formData.append(`children[${index}][${childKey}]`, child[childKey]);
+          });
+        });
+      } else {
+        formData.append(key, formValues[key]);
+      }
+    });
+
+    if (image) {
+      formData.append("profileImgURL", image);
+    }
+
+    try {
+      const response = await axiosInstance.post("user/create", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("User created successfully:", response.data);
+      // Handle success (e.g., redirect or show success message)
+    } catch (error) {
+      console.error(
+        "Error creating user:",
+        error.response?.data || error.message
+      );
+      // Handle error (e.g., show error message)
+    }
   };
 
   const addChild = () => {
@@ -63,7 +93,7 @@ export const CreateUser = () => {
       ...formValues,
       children: [
         ...formValues.children,
-        { nom: "", prenom: "", age: "", educationSystem: "" },
+        { nom: "", prenom: "", age: "", systemeScolaire: "", email: "" },
       ],
     });
   };
@@ -79,14 +109,25 @@ export const CreateUser = () => {
   return (
     <div className="container">
       <label className="nav-label">Pages &gt; Espace Admin </label>
-      <label className="nav-label2">Groupes &gt; Creer Un Compte</label>
+      <label className="nav-label2">Groupes &gt; Créer Un Compte</label>
       <div className="view-wrapper create-user-wrapper">
         <h3>Créer un compte</h3>
         <form onSubmit={submitHandler}>
           <div className="userProfile-image-container">
             <div className="user-image">
-              <img src={image?URL.createObjectURL(image) :assets.defaultProfileImage} alt="" />
-              <input type="file" name="profileImage" onChange={(e)=>setImage(e.target.files[0])}/>
+              <img
+                src={
+                  image
+                    ? URL.createObjectURL(image)
+                    : assets.defaultProfileImage
+                }
+                alt=""
+              />
+              <input
+                type="file"
+                name="profileImage"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
             </div>
           </div>
           <div className="cell">
@@ -101,12 +142,12 @@ export const CreateUser = () => {
               />
             </div>
             <div className="input-box">
-              <label>Prenom</label>
+              <label>Prénom</label>
               <input
                 type="text"
                 name="prenom"
+                placeholder="Prénom"
                 value={formValues.prenom}
-                placeholder="Prenom"
                 onChange={changeHandler}
               />
             </div>
@@ -116,19 +157,29 @@ export const CreateUser = () => {
             <input
               type="email"
               name="email"
-              value={formValues.email}
               placeholder="Email"
+              value={formValues.email}
+              onChange={changeHandler}
+            />
+          </div>
+          <div className="input-box">
+            <label>Mot de Passe</label>
+            <input
+              type="password"
+              name="motdepasse"
+              placeholder="Mot de Passe"
+              value={formValues.motdepasse}
               onChange={changeHandler}
             />
           </div>
           <div className="cell">
             <div className="input-box">
-              <label>Telephone</label>
+              <label>Téléphone</label>
               <input
                 type="text"
-                name="tel"
-                value={formValues.tel}
-                placeholder="Telephone"
+                name="telephone"
+                placeholder="Téléphone"
+                value={formValues.telephone}
                 onChange={changeHandler}
               />
             </div>
@@ -137,40 +188,40 @@ export const CreateUser = () => {
               <input
                 type="text"
                 name="adresse"
+                placeholder="Adresse"
                 value={formValues.adresse}
-                placeholder="Votre adresse"
                 onChange={changeHandler}
               />
             </div>
           </div>
           <div className="cell">
             <div className="input-box">
-              <label>Age</label>
+              <label>Âge</label>
               <input
-                type="text"
+                type="number"
                 name="age"
+                placeholder="Âge"
                 value={formValues.age}
-                placeholder="Votre age"
                 onChange={changeHandler}
               />
             </div>
             <div className="input-box">
               <label>Type d'utilisateur</label>
               <select
-                name="userType"
+                name="role"
                 value={userType}
                 onChange={(e) => setUserType(e.target.value)}
               >
                 <option value="">Sélectionner</option>
-                <option value="formateur">Formateur</option>
-                <option value="parent">parent</option>
+                <option value="Formateur">Formateur</option>
+                <option value="Parent">Parent</option>
+                <option value="Enfant">Enfant</option>
               </select>
             </div>
           </div>
           <hr />
-          {userType === "parent" ? (
+          {userType === "Parent" && (
             <>
-              {/* -------------------  Children Section -------------------------*/}
               <h4>Enfants</h4>
               {formValues.children.map((child, index) => (
                 <div key={index} className="child-section">
@@ -180,45 +231,44 @@ export const CreateUser = () => {
                       <label>Nom</label>
                       <input
                         type="text"
-                        name={`child-${index}-nom`}
-                        value={child.nom}
+                        name={`children-${index}-nom`}
                         placeholder="Nom"
+                        value={child.nom}
                         onChange={changeHandler}
                       />
                     </div>
                     <div className="input-box">
-                      <label>Prenom</label>
+                      <label>Prénom</label>
                       <input
                         type="text"
-                        name={`child-${index}-prenom`}
+                        name={`children-${index}-prenom`}
+                        placeholder="Prénom"
                         value={child.prenom}
-                        placeholder="Prenom"
                         onChange={changeHandler}
                       />
                     </div>
                   </div>
                   <div className="cell">
                     <div className="input-box">
-                      <label>Age</label>
+                      <label>Âge</label>
                       <input
-                        type="text"
-                        name={`child-${index}-age`}
+                        type="number"
+                        name={`children-${index}-age`}
+                        placeholder="Âge"
                         value={child.age}
-                        placeholder="Age"
                         onChange={changeHandler}
                       />
                     </div>
                     <div className="input-box">
-                      <label>Systéme educatif</label>
+                      <label>Système éducatif</label>
                       <select
-                        name={`child-${index}-educationSystem`}
-                        value={child.educationSystem}
+                        name={`children-${index}-systemeScolaire`}
+                        value={child.systemeScolaire}
                         onChange={changeHandler}
                       >
                         <option value="">Sélectionner</option>
                         <option value="Tunisien">Tunisien</option>
-                        <option value="Canadien">Canadien</option>
-                        <option value="Francais">Francais</option>
+                        <option value="International">International</option>
                       </select>
                     </div>
                   </div>
@@ -226,54 +276,46 @@ export const CreateUser = () => {
                     <label>Email</label>
                     <input
                       type="email"
-                      name={`child-${index}-email`}
+                      name={`children-${index}-email`}
+                      placeholder="Email"
                       value={child.email}
-                      placeholder="child email"
                       onChange={changeHandler}
                     />
                   </div>
-                  <button
-                    className="submit-btn"
-                    type="button"
-                    onClick={() => removeChild(index)}
-                  >
-                    Remove Child
+                  <button type="button" onClick={() => removeChild(index)}>
+                    Supprimer Enfant
                   </button>
-                  <hr />
                 </div>
               ))}
-              <button type="button" className="submit-btn" onClick={addChild}>
-                Add Child
+              <button type="button" onClick={addChild}>
+                Ajouter Enfant
               </button>
             </>
-          ) : (
+          )}
+          {userType === "Formateur" && (
             <>
-              {/* -------------------  Formateur Section -------------------------*/}
               <div className="input-box">
                 <label>Titre</label>
                 <input
                   type="text"
                   name="titre"
-                  value={formValues.titre}
                   placeholder="Titre"
+                  value={formValues.titre}
                   onChange={changeHandler}
                 />
               </div>
               <div className="input-box">
                 <label>Bio</label>
                 <textarea
-                  type="text"
                   name="bio"
-                  rows={5}
-                  cols={30}
-                  value={formValues.bio}
                   placeholder="Bio"
+                  value={formValues.bio}
                   onChange={changeHandler}
                 />
               </div>
             </>
           )}
-          <button className="submit-btn">Submit</button>
+          <button type="submit">Créer</button>
         </form>
       </div>
     </div>

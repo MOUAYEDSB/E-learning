@@ -16,7 +16,7 @@ const userSchema = new Schema({
   telephone: String,
   profileImgURL: String,
   age: Number,
-  role: { type: String, enum: ['formateur', 'admin', 'enfant', 'parent'], required: true }
+  role: { type: String, enum: ['formateur', 'enfant', 'parent'], required: true }
 }, options);
 
 // Pre-save hook to hash passwords
