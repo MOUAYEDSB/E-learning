@@ -5,28 +5,33 @@ const Parent = require('../models/modeleParent');
 const upload = require('../middlewares/uploadMiddleware');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { sendPasswordEmail } = require('../utils/sendPasswordEmail'); // Import the email sending function
+
 // Middleware to handle image uploads
 exports.uploadImage = upload.single('profileImgURL');
 
 // Create a new user (Parent, Formateur, Enfant)
 exports.createUser = async (req, res) => {
   try {
-    const { role, ...rest } = req.body;
+    const { role, motdepasse, ...rest } = req.body;
     let user;
+
+    // Hash the password before saving the user
+    const hashedPassword = await bcrypt.hash(motdepasse, 10);
 
     // Create the user based on the role
     switch (role) {
       case 'Parent':
-        user = new Parent(rest);
+        user = new Parent({ ...rest, motdepasse: hashedPassword });
         break;
       case 'Formateur':
-        user = new Formateur(rest);
+        user = new Formateur({ ...rest, motdepasse: hashedPassword });
         break;
       case 'Enfant':
-        user = new Enfant(rest);
+        user = new Enfant({ ...rest, motdepasse: hashedPassword });
         break;
       default:
-        return res.status(400).json({ message: 'Invalid role' });
+        return res.status(400).json({ success: false, message: 'Invalid role' });
     }
 
     // Assign the file path to profileImgURL if a file was uploaded
@@ -36,21 +41,25 @@ exports.createUser = async (req, res) => {
 
     // Save the new user to the database
     await user.save();
-    res.status(201).json({success: true, user: user});
+
+    // Send password to the user's email after saving the user
+    await sendPasswordEmail(user.email, motdepasse);
+
+    res.status(201).json({ success: true, user });
   } catch (error) {
     console.error('Error creating user:', error);
-    res.status(500).json({success: false ,message: 'Internal Server Error', error: error.message });
+    res.status(500).json({ success: false, message: 'Internal Server Error', error: error.message });
   }
 };
 
-// Get all users 
+// Get all users
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).json(users);
+    res.status(200).json({ success: true, users });
   } catch (error) {
     console.error('Error fetching users:', error);
-    res.status(500).json({success: false, message: 'Internal Server Error', error: error.message });
+    res.status(500).json({ success: false, message: 'Internal Server Error', error: error.message });
   }
 };
 
@@ -58,11 +67,13 @@ exports.getUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({success: false, message: 'User not found' });
-    res.status(200).json({success: true,user});
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    res.status(200).json({ success: true, user });
   } catch (error) {
     console.error('Error fetching user by ID:', error);
-    res.status(500).json({success: false, message: 'Internal Server Error', error: error.message });
+    res.status(500).json({ success: false, message: 'Internal Server Error', error: error.message });
   }
 };
 
@@ -78,8 +89,9 @@ exports.updateUser = async (req, res) => {
 
     // Update the user in the base User model
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-
-    if (!user) return res.status(404).json({success:false, message: 'User not found' });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
 
     // Update the specific model based on role
     switch (role) {
@@ -92,12 +104,14 @@ exports.updateUser = async (req, res) => {
       case 'Enfant':
         await Enfant.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         break;
+      default:
+        return res.status(400).json({ success: false, message: 'Invalid role' });
     }
 
-    res.status(200).json({success: true,user: user});
+    res.status(200).json({ success: true, user });
   } catch (error) {
     console.error('Error updating user by ID:', error);
-    res.status(500).json({success: false, message: 'Internal Server Error', error: error.message });
+    res.status(500).json({ success: false, message: 'Internal Server Error', error: error.message });
   }
 };
 
@@ -105,41 +119,44 @@ exports.updateUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) return res.status(404).json({ message: 'User not found' });
-    res.status(200).json({success:true, message: 'User deleted successfully' });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    res.status(200).json({ success: true, message: 'User deleted successfully' });
   } catch (error) {
     console.error('Error deleting user by ID:', error);
-    res.status(500).json({success: false, message: 'Internal Server Error', error: error.message });
+    res.status(500).json({ success: false, message: 'Internal Server Error', error: error.message });
   }
 };
 
+// User login
 exports.loginUser = async (req, res) => {
-    const { email, motdepasse } = req.body;
-    
-    try {
-        const user = await User.findOne({ email });
+  const { email, motdepasse } = req.body;
 
-        if (!user) {
-            return res.status(404).json({ success: false, message: "User does not exist" });
-        }
+  try {
+    const user = await User.findOne({ email });
 
-        const isMatch = await bcrypt.compare(motdepasse, user.motdepasse);
-
-        if (!isMatch) {
-            return res.status(401).json({ success: false, message: "Invalid email or password" });
-        }
-
-        // Generate a token and include the user's role and ID
-        const token = createToken(user._id, user.role);
-        
-        res.status(200).json({ success: true, token: token, role: user.role });
-        console.log('loged in')
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Server error",error: error.message });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User does not exist" });
     }
+
+    const isMatch = await bcrypt.compare(motdepasse, user.motdepasse);
+
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: "Invalid email or password" });
+    }
+
+    // Generate a token and include the user's role and ID
+    const token = createToken(user._id, user.role);
+
+    res.status(200).json({ success: true, token, role: user.role });
+    console.log('Logged in');
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ success: false, message: "Server error", error: error.message });
+  }
 }
 
-const createToken = (id,role)=>{
-    return jwt.sign({id,role},process.env.JWT_SECRET)
+const createToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 }

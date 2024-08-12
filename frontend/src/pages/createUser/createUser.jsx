@@ -18,6 +18,8 @@ export const CreateUser = () => {
   });
   const [image, setImage] = useState(null);
   const [userType, setUserType] = useState("");
+  const [feedbackMessage, setFeedbackMessage] = useState(""); // For user feedback
+  const [loading, setLoading] = useState(false); // For loading state
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -50,6 +52,8 @@ export const CreateUser = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading state
+    setFeedbackMessage(""); // Clear feedback message
 
     const formData = new FormData();
     formData.append("role", userType); // Append role to form data
@@ -78,13 +82,12 @@ export const CreateUser = () => {
         },
       });
       console.log("User created successfully:", response.data);
-      // Handle success (e.g., redirect or show success message)
+      setFeedbackMessage('User created successfully. Please check your email for the password.');
     } catch (error) {
-      console.error(
-        "Error creating user:",
-        error.response?.data || error.message
-      );
-      // Handle error (e.g., show error message)
+      console.error("Error creating user:", error.response?.data || error.message);
+      setFeedbackMessage('Error creating user. Please try again.');
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -206,7 +209,7 @@ export const CreateUser = () => {
               />
             </div>
             <div className="input-box">
-              <label>Type d'utilisateur</label>
+              <label>Type D'utilisateur</label>
               <select
                 name="role"
                 value={userType}
@@ -268,7 +271,8 @@ export const CreateUser = () => {
                       >
                         <option value="">Sélectionner</option>
                         <option value="Tunisien">Tunisien</option>
-                        <option value="International">International</option>
+                        <option value="Canadien">Canadien</option>
+                        <option value="Francais">Francais</option>
                       </select>
                     </div>
                   </div>
@@ -288,7 +292,7 @@ export const CreateUser = () => {
                 </div>
               ))}
               <button type="button" onClick={addChild}>
-                Ajouter Enfant
+                Ajouter un Enfant
               </button>
             </>
           )}
@@ -315,7 +319,10 @@ export const CreateUser = () => {
               </div>
             </>
           )}
-          <button type="submit">Créer</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Création en cours..." : "Créer Utilisateur"}
+          </button>
+          {feedbackMessage && <p className="feedback-message">{feedbackMessage}</p>}
         </form>
       </div>
     </div>
