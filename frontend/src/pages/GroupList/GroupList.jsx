@@ -1,39 +1,75 @@
 import "./groupList.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { assets } from "../../assets/assets";
+import axios from "../../api/axiosConfig";
 import { GroupCard } from "../../components/GroupCard/GroupCard";
+import { assets } from "../../assets/assets";
 
 export const GroupList = () => {
   const [selectedContent, setSelectedContent] = useState(0);
+  const [groups, setGroups] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  // Define a set of colors
+  const colors = ["#30BCED", "#FFD237", "#F92A82",];
+
+  useEffect(() => {
+    console.log("Component mounted, fetching groups...");
+    fetchGroups();
+  }, []);
+
+  const fetchGroups = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("/groupes");
+      console.log("Raw API Response:", response);
+      if (response.data && Array.isArray(response.data.groupes)) {
+        setGroups(response.data.groupes);
+        console.log("Updated Groups State:", response.data.groupes);
+      } else {
+        console.error("Unexpected data structure:", response.data);
+        setError("Unexpected data structure from API.");
+      }
+    } catch (error) {
+      console.error("Error fetching groups:", error);
+      setError("Error fetching groups.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Groups state has been updated:", groups);
+  }, [groups]);
+
   return (
     <div className="container">
       <label className="group-list-title">
-        {selectedContent == 0
+        {selectedContent === 0
           ? "Listes des groupes"
-          : selectedContent == 1
+          : selectedContent === 1
           ? "Groupe 1 | 8-12 Ans"
           : "Ajouter un groupe"}
       </label>
       <div className="group-list-panel">
-        <Link to="/group-info">
-          <div onClick={() => {}}>
-            <GroupCard
-              groupName="Graine de créatif"
-              groupAge="8 Membres | 8-12 Ans"
-              color="#30BCED"
-            />
-          </div>
-        </Link>
-        <Link to="/group-info">
-          <div onClick={() => {}}>
-            <GroupCard
-              groupName="Graine de Styliste"
-              groupAge="6 Membres | 10-16 Ans"
-              color="#FFD237"
-            />
-          </div>
-        </Link>
+        {loading && <p>Loading...</p>}
+        {error && <p className="error-message">{error}</p>}
+        {groups.length > 0 ? (
+          groups.map((group, index) => (
+            <Link to={`/group-info/${group._id}`} key={group._id}>
+              <div>
+                <GroupCard
+                  groupName={group.nom}
+                  groupAge={`${group.enfants_id.length} Membres | ${group.trancheAge}`}
+                  color={colors[index % colors.length]} // Cycle through the colors array
+                />
+              </div>
+            </Link>
+          ))
+        ) : (
+          !loading && <p>No groups available.</p>
+        )}
         <Link to="/add-group">
           <div className="add-group">
             <label className="group-name">Ajouter un groupe</label>
