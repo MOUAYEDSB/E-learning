@@ -26,14 +26,16 @@ mongoose.connect(process.env.MONGODB_URI)
 // Import routes
 const userRouter = require('./routes/userRoutes');
 const groupeRouter = require('./routes/groupeRoutes');
+const sessionRouter = require('./routes/sessionRouter');
 
 // Use routes
 app.use('/api/user', userRouter);
 app.use('/api/groupes', groupeRouter);
+app.use('/api/session', sessionRouter);
 
 // Handle unknown routes
 app.use((req, res, next) => {
-    res.status(404).json({ message: 'Not Found' });
+    res.status(404).json({success:false, message: 'Not Found' });
 });
 
 // Error handling middleware

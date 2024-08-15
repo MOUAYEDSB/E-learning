@@ -282,12 +282,12 @@ export const CreateUser = () => {
                       onChange={changeHandler}
                     />
                   </div>
-                  <button type="button" onClick={() => removeChild(index)}>
+                  <button type="button" className="submit-btn" onClick={() => removeChild(index)}>
                     Supprimer Enfant
                   </button>
                 </div>
               ))}
-              <button type="button" onClick={addChild}>
+              <button type="button" className="submit-btn" onClick={addChild}>
                 Ajouter Enfant
               </button>
             </>
@@ -315,7 +315,7 @@ export const CreateUser = () => {
               </div>
             </>
           )}
-          <button type="submit">Créer</button>
+          <button type="submit" className="submit-btn">Créer</button>
         </form>
       </div>
     </div>
