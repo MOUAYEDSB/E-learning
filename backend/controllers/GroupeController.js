@@ -7,46 +7,60 @@ exports.createGroupe = async (req, res) => {
   try {
     const { nom, trancheAge, description, formateur_id, enfants_id } = req.body;
 
-    // Log the request body for debugging
-    console.log('Request Body:', req.body);
-
-    // Validate input
-    if (!nom || !trancheAge || !formateur_id || !enfants_id || !Array.isArray(enfants_id)) {
-      return res.status(400).json({ error: 'nom, trancheAge, formateur_id, and enfants_id are required' });
+    // Validate formateur_id and enfants_id
+    const formateur = await Formateur.findById(formateur_id);
+    if (!formateur) {
+      return res.status(404).json({ success: false, message: "Formateur not found" });
     }
 
-    // Create and save the new group
-    const groupe = new Groupe({ nom, trancheAge, description, formateur_id, enfants_id });
-    await groupe.save();
+    const enfants = await Enfant.find({ _id: { $in: enfants_id } });
+    if (enfants.length !== enfants_id.length) {
+      return res.status(404).json({ success: false, message: "One or more enfants not found" });
+    }
 
-    // Respond with the created group
-    res.status(201).json(groupe);
+    // Create the new group
+    const groupe = new Groupe({
+      nom,
+      trancheAge,
+      description,
+      formateur_id,
+      enfants_id
+    });
+
+    await groupe.save();
+    res.status(201).json({ success: true, groupe });
   } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error("Error creating group:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
   }
 };
 
-// Get all groups
+// Fetch all groups
 exports.getGroupes = async (req, res) => {
   try {
-    const groupes = await Groupe.find().populate('formateur_id').populate('enfants_id');
-    res.status(200).json(groupes);
+    const groupes = await Groupe.find()
+      .populate('formateur_id', 'nom prenom')
+      .populate('enfants_id', 'nom prenom');
+    res.status(200).json({ success: true, groupes });
   } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error("Error fetching groupes:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
   }
 };
 
-// Get a single group by ID
+// Fetch a single group by ID
 exports.getGroupeById = async (req, res) => {
   try {
-    const groupe = await Groupe.findById(req.params.id).populate('formateur_id').populate('enfants_id');
-    if (!groupe) return res.status(404).send('Group not found');
-    res.status(200).json(groupe);
+    const groupe = await Groupe.findById(req.params.id)
+      .populate('formateur_id', 'nom prenom')
+      .populate('enfants_id', 'nom prenom');
+    if (!groupe) {
+      return res.status(404).json({ success: false, message: "Groupe not found" });
+    }
+    res.status(200).json({ success: true, groupe });
   } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error("Error fetching groupe by ID:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
   }
 };
 
@@ -55,28 +69,38 @@ exports.updateGroupe = async (req, res) => {
   try {
     const { nom, trancheAge, description, formateur_id, enfants_id } = req.body;
 
-    // Log the request body for debugging
-    console.log('Request Body:', req.body);
-
-    if (!nom || !trancheAge || !formateur_id || !enfants_id || !Array.isArray(enfants_id)) {
-      return res.status(400).json({ error: 'nom, trancheAge, formateur_id, and enfants_id are required' });
+    // Validate formateur_id and enfants_id
+    if (formateur_id) {
+      const formateur = await Formateur.findById(formateur_id);
+      if (!formateur) {
+        return res.status(404).json({ success: false, message: "Formateur not found" });
+      }
     }
 
-    const updatedGroupe = await Groupe.findByIdAndUpdate(req.params.id, {
+    if (enfants_id && enfants_id.length > 0) {
+      const enfants = await Enfant.find({ _id: { $in: enfants_id } });
+      if (enfants.length !== enfants_id.length) {
+        return res.status(404).json({ success: false, message: "One or more enfants not found" });
+      }
+    }
+
+    // Update the group
+    const groupe = await Groupe.findByIdAndUpdate(req.params.id, {
       nom,
       trancheAge,
       description,
       formateur_id,
       enfants_id
-    }, { new: true, runValidators: true })
-    .populate('formateur_id')
-    .populate('enfants_id');
+    }, { new: true });
 
-    if (!updatedGroupe) return res.status(404).send('Group not found');
-    res.status(200).json(updatedGroupe);
+    if (!groupe) {
+      return res.status(404).json({ success: false, message: "Groupe not found" });
+    }
+
+    res.status(200).json({ success: true, groupe });
   } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error("Error updating group:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
   }
 };
 
@@ -84,10 +108,12 @@ exports.updateGroupe = async (req, res) => {
 exports.deleteGroupe = async (req, res) => {
   try {
     const groupe = await Groupe.findByIdAndDelete(req.params.id);
-    if (!groupe) return res.status(404).send('Group not found');
-    res.status(200).json({ message: 'Group deleted successfully' });
+    if (!groupe) {
+      return res.status(404).json({ success: false, message: "Groupe not found" });
+    }
+    res.status(200).json({ success: true, message: "Groupe deleted successfully" });
   } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error("Error deleting group:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
   }
 };

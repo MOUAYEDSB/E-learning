@@ -26,7 +26,14 @@ const UserContextProvider = (props) => {
             console.error('Error updating user:', error.message);
         }
     };
-
+    const getUser = async (id) => {
+        try {
+            const response = await axiosInstance.get(`/user/${id}`);
+            return response.data.user;
+        } catch (error) {
+            console.error('Error updating user:', error.message);
+        }
+    }
     // Function to delete a user
     const deleteUser = async (id) => {
         try {
@@ -42,18 +49,19 @@ const UserContextProvider = (props) => {
         const fetchUsers = async () => {
             try {
                 const response = await axiosInstance.get('/user/');
-                setUsers(response.data);
+                setUsers(response.data.users);
             } catch (error) {
                 console.error('Error fetching users:', error.message);
             }
         };
         fetchUsers();
-    }, []);
+    }, [users]);
 
     const contextValue = {
         addUser,
         updateUser,
         deleteUser,
+        getUser,
         users,
         setUsers,
         token,

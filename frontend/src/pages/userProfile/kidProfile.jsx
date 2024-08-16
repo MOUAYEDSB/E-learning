@@ -1,8 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './userProfile.css';
 import { assets } from '../../assets/assets.js';
-
-export const KidProfile = (id) => {
+import { UserContext } from '../../context/userContext';
+export const KidProfile = ({id}) => {
+    const {getUser} = useContext(UserContext);
+    const [user, setUser] = useState({});
+    useEffect(() => {
+        const fetchUser = async () => {
+        try {
+            const userr = await getUser(id);
+        
+            setUser(userr); 
+        } catch (error) {
+            console.error('Error fetching user:', error); 
+        }
+    };
+    
+    fetchUser(); 
+  }, []);
     const [formValues, setFormValues] = useState({
         nom: '',
         prenom: '',
@@ -60,12 +75,12 @@ export const KidProfile = (id) => {
     return (
         <div className='container'>
             <label className="nav-label">Pages &gt; Espace Admin </label>
-            <label className="nav-label2">Profiles &gt; nomGraines</label>
+            <label className="nav-label2">Profiles &gt; {user.nom +' '+user.prenom}</label>
             <div className='view-wrapper user-profile-wrapper'>
                 <div className="user-profile-image-container">
                     <div className="user-image">
-                        <img src={assets.profileImageUser} alt="" />
-                        <span>Youssef Ahmed</span>
+                        <img src={user.profileImgURL} alt="" />
+                        <span>{user.nom + ' ' + user.prenom}</span>
                     </div>
                     <div className="account-info">
                         <span className={view && 'active'} onClick={() => setView(true)}>Paramétres</span>
@@ -80,31 +95,31 @@ export const KidProfile = (id) => {
                                 <div className="cell">
                                     <div className='input-box'>
                                         <label>Nom</label>
-                                        {isEditing ? <input type="text" name='nom' placeholder='Nom' value={formValues.nom} onChange={changeHandler} /> : <p>{formValues.nom}</p>}
+                                        {isEditing ? <input type="text" name='nom' placeholder='Nom' value={formValues.nom} onChange={changeHandler} /> : <p>{user.nom}</p>}
                                     </div>
                                     <div className='input-box'>
                                         <label>Prenom</label>
-                                        {isEditing ? <input type="text" name='prenom' value={formValues.prenom} placeholder='Prenom' onChange={changeHandler} /> : <p>{formValues.prenom}</p>}
+                                        {isEditing ? <input type="text" name='prenom' value={formValues.prenom} placeholder='Prenom' onChange={changeHandler} /> : <p>{user.prenom}</p>}
                                     </div>
                                 </div>
                                 <div className='input-box'>
                                     <label>Email</label>
-                                    {isEditing ? <input type="email" name='email' value={formValues.email} placeholder='Email' onChange={changeHandler} /> : <p>{formValues.email}</p>}
+                                    {isEditing ? <input type="email" name='email' value={formValues.email} placeholder='Email' onChange={changeHandler} /> : <p>{user.email}</p>}
                                 </div>
                                 <div className="cell">
                                     <div className='input-box'>
                                         <label>Telephone</label>
-                                        {isEditing ? <input type="text" name='tel' value={formValues.tel} placeholder='Telephone' onChange={changeHandler} /> : <p>{formValues.tel}</p>}
+                                        {isEditing ? <input type="text" name='tel' value={formValues.tel} placeholder='Telephone' onChange={changeHandler} /> : <p>{user.telephone}</p>}
                                     </div>
                                     <div className='input-box'>
                                         <label>Adresse</label>
-                                        {isEditing ? <input type="text" name='adresse' value={formValues.adresse} placeholder='Votre adresse' onChange={changeHandler} /> : <p>{formValues.adresse}</p>}
+                                        {isEditing ? <input type="text" name='adresse' value={formValues.adresse} placeholder='Votre adresse' onChange={changeHandler} /> : <p>{user.adresse}</p>}
                                     </div>
                                 </div>
                                 <div className="cell">
                                     <div className='input-box'>
                                         <label>Age</label>
-                                        {isEditing ? <input type="text" name='age' value={formValues.age} placeholder='Votre age' onChange={changeHandler} /> : <p>{formValues.age}</p>}
+                                        {isEditing ? <input type="text" name='age' value={formValues.age} placeholder='Votre age' onChange={changeHandler} /> : <p>{user.age}</p>}
                                     </div>
                                     <div className='input-box'>
                                         <label>Systéme educatif</label>
@@ -116,7 +131,7 @@ export const KidProfile = (id) => {
                                                 <option value='Francais'>Francais</option>
                                             </select>
                                         ) : (
-                                            <p>{formValues.educationSystem}</p>
+                                            <p>{user.systemeScolaire}</p>
                                         )}
                                     </div>
                                 </div>

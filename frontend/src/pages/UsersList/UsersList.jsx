@@ -65,100 +65,15 @@ export const UsersList = ({ role }) => {
   //   { field: 'status', headerName: 'Status', type : 'status',options: {online: ['#d3efdf','#508d57'],offline: ['#f7ddd8','#b71d18']}, width: '110px',minWidth: '76px', sort: true},
   // ];
 
-  // const [items, setItems] = useState([
-  //   {
-  //     fullName: "Jane Smith",
-  //     email: "jane.smith@example.com",
-  //     phone: "987-654-3210",
-  //     status: "offline",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/women/1.jpg",
-  //   },
-  //   {
-  //     fullName: "John Johnson",
-  //     email: "john.johnson@example.com",
-  //     phone: "555-123-4567",
-  //     status: "online",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/men/1.jpg",
-  //   },
-  //   {
-  //     fullName: "Emily Williams",
-  //     email: "emily.williams@example.com",
-  //     phone: "555-987-6543",
-  //     status: "offline",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/women/2.jpg",
-  //   },
-  //   {
-  //     fullName: "Michael Brown",
-  //     email: "michael.brown@example.com",
-  //     phone: "555-555-5555",
-  //     status: "online",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/men/2.jpg",
-  //   },
-  //   {
-  //     fullName: "Laura Jones",
-  //     email: "laura.jones@example.com",
-  //     phone: "555-666-7777",
-  //     status: "offline",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/women/3.jpg",
-  //   },
-  //   {
-  //     fullName: "Carlos Garcia",
-  //     email: "carlos.garcia@example.com",
-  //     phone: "555-444-3333",
-  //     status: "online",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/men/3.jpg",
-  //   },
-  //   {
-  //     fullName: "Sofia Martinez",
-  //     email: "sofia.martinez@example.com",
-  //     phone: "555-111-2222",
-  //     status: "offline",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/women/4.jpg",
-  //   },
-  //   {
-  //     fullName: "Ana Rodriguez",
-  //     email: "ana.rodriguez@example.com",
-  //     phone: "555-888-9999",
-  //     status: "online",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/women/5.jpg",
-  //   },
-  //   {
-  //     fullName: "David Lee",
-  //     email: "david.lee@example.com",
-  //     phone: "555-777-6666",
-  //     status: "offline",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/men/4.jpg",
-  //   },
-  //   {
-  //     fullName: "Olivia Taylor",
-  //     email: "olivia.taylor@example.com",
-  //     phone: "555-222-3333",
-  //     status: "online",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/women/6.jpg",
-  //   },
-  //   {
-  //     fullName: "James Wilson",
-  //     email: "james.wilson@example.com",
-  //     phone: "555-999-8888",
-  //     status: "offline",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/men/5.jpg",
-  //   },
-  //   {
-  //     fullName: "Sarah Anderson",
-  //     email: "sarah.anderson@example.com",
-  //     phone: "555-333-4444",
-  //     status: "online",
-  //     profilePicUrl: "https://randomuser.me/api/portraits/women/7.jpg",
-  //   },
-  // ]);
+  
 
   return (
     <div className="container">
       <label className="nav-label">Pages / Espace Admin </label>
-      <label className="nav-label2">Liste d’utilisateurs &gt; {label[role]}</label>
+      <label className="nav-label2">Liste d’utilisateurs &gt; {role}s</label>
       <div className="view-wrapper">
-        <span className="page-title">Listes des {label[role]}</span>
-        <DataGrid role={role} columns={columns} items={users.filter((user) => user.role ===label[role])} setItems={setUsers} maxHeight='500px'></DataGrid>
+        <span className="page-title">Listes des {role}s</span>
+        <DataGrid role={role} columns={columns} items={users.filter((user) => user.role.toLowerCase() === role)} setItems={setUsers} maxHeight='500px'></DataGrid>
       </div>
     </div>
   );

@@ -66,11 +66,10 @@ a {
   align-items: center;
 }
 .view-wrapper{
-  width: 100%;
+  width: 60dvw;
   flex-grow: 1;
   margin-top: 1rem;
   padding: 1.5rem 3.5rem 1.5rem 3.5rem;
-  box-sizing: border-box;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgb(0 0 0 / 10%);

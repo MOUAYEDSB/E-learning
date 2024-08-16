@@ -1,143 +1,181 @@
-import "./createGroup.css"
-import React, { useState } from 'react'
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { assets } from "../../assets/assets"
-import { DataGrid } from "../../components/DataGrid/DataGrid";
+import axios from "../../api/axiosConfig";
+import "./createGroup.css";
 
-export const AddGroup = () =>{
-  const [selectedContent, setSelectedContent] = useState(0);
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ];
+const  CreateGroup = () => {
+  const [formateurOptions, setFormateurOptions] = useState([]);
+  const [enfantOptions, setEnfantOptions] = useState([]);
+  const [selectedEnfants, setSelectedEnfants] = useState([]);
+  const [groupData, setGroupData] = useState({
+    nom: "",
+    trancheAge: "",
+    description: "",
+    formateur_id: "",
+    enfants_id: [],
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const columns = [
-    { field: 'fullName', headerName: 'Nom', type : 'text', img: 'profilePicUrl', width: '230px', minWidth: '200px', sort: true, },
-    { field: 'email', headerName: 'Adresse E-mail', type : 'text', width: '320px', minWidth: '250px'},
-    { field: 'phone', headerName: 'Téléphone', type : 'text', width: '180px',minWidth: "120px"},
-    { field: 'status', headerName: 'Status', type : 'status',options: {online: ['#d3efdf','#508d57'],offline: ['#f7ddd8','#b71d18']}, width: '110px',minWidth: '76px', sort: true},
-  ];
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("/user");
+        
+        if (response.data && Array.isArray(response.data.users)) {
+          const { users } = response.data;
 
-  const [items, setItems] = useState([
-    {
-      fullName: "Jane Smith",
-      email: "jane.smith@example.com",
-      phone: "987-654-3210",
-      status: "offline",
-      profilePicUrl: "https://randomuser.me/api/portraits/women/1.jpg"
-    },
-    {
-      fullName: "John Johnson",
-      email: "john.johnson@example.com",
-      phone: "555-123-4567",
-      status: "online",
-      profilePicUrl: "https://randomuser.me/api/portraits/men/1.jpg"
-    },
-    {
-      fullName: "Emily Williams",
-      email: "emily.williams@example.com",
-      phone: "555-987-6543",
-      status: "offline",
-      profilePicUrl: "https://randomuser.me/api/portraits/women/2.jpg"
-    },
-    {
-      fullName: "Michael Brown",
-      email: "michael.brown@example.com",
-      phone: "555-555-5555",
-      status: "online",
-      profilePicUrl: "https://randomuser.me/api/portraits/men/2.jpg"
-    },
-    {
-      fullName: "Laura Jones",
-      email: "laura.jones@example.com",
-      phone: "555-666-7777",
-      status: "offline",
-      profilePicUrl: "https://randomuser.me/api/portraits/women/3.jpg"
+          const formateurs = users.filter((user) => user.role === "Formateur");
+          setFormateurOptions(
+            formateurs.map((formateur) => ({
+              value: formateur._id,
+              label: `${formateur.nom} ${formateur.prenom}`,
+            }))
+          );
+
+          const enfants = users.filter((user) => user.role === "Enfant");
+          setEnfantOptions(
+            enfants.map((enfant) => ({
+              value: enfant._id,
+              label: `${enfant.nom} ${enfant.prenom}`,
+            }))
+          );
+        } else {
+          console.error("Unexpected API response structure:", response.data);
+          setError("Unexpected API response structure.");
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        setError("Error fetching users.");
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setGroupData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectFormateurChange = (selectedOption) => {
+    setGroupData((prevData) => ({
+      ...prevData,
+      formateur_id: selectedOption ? selectedOption.value : "",
+    }));
+  };
+
+  const handleSelectEnfantChange = (selectedOptions) => {
+    setSelectedEnfants(selectedOptions);
+    setGroupData((prevData) => ({
+      ...prevData,
+      enfants_id: selectedOptions.map((option) => option.value),
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccessMessage("");
+
+    try {
+      const response = await axios.post("/groupes", groupData);
+      if (response.data.success) {
+        setSuccessMessage("Group created successfully!");
+        setGroupData({
+          nom: "",
+          trancheAge: "",
+          description: "",
+          formateur_id: "",
+          enfants_id: [],
+        });
+        setSelectedEnfants([]);
+      }
+    } catch (error) {
+      console.error("Error creating group:", error);
+      setError("Error creating group.");
+    } finally {
+      setLoading(false);
     }
-  ]);
-
-  const customStyles = {
-    control: (provided, state) => ({
-      ...provided,
-      background: '#fff',
-      borderColor: '#D7D7D7',
-      borderRadius: "0.5rem",
-      minHeight: '45px',
-      height: '45px',
-      fontFamily: "Poppins",
-      color: "black !important",
-      boxShadow: state.isFocused ? null : null,
-    }),
-    option: (styles) => ({
-      ...styles,
-      fontFamily: "Poppins",
-    }),
-    singleValue: (provided) => ({
-      ...provided,
-      color: "black !important",
-    }),
-    valueContainer: (provided, state) => ({
-      ...provided,
-      height: '45px',
-      padding: '0 1.5rem',
-    }),
-    placeholder: (provided, state) => ({
-      ...provided,
-      fontSize: '18px'
-    }),
-    input: (provided, state) => ({
-      ...provided,
-      margin: '0px',
-      padding:'0px',
-    }),
-    indicatorSeparator: state => ({
-      display: 'none',
-    }),
-    indicatorsContainer: (provided, state) => ({
-      ...provided,
-      height: '45px',
-    }),
   };
 
   return (
     <div className="container">
-        <label className="nav-label">Pages &gt; Espace Admin </label>
-        <label className="nav-label2">Groupes &gt; Creer Groupe</label>
-        <div className="view-wrapper create-group-wrapper">
-            <form>
-              <span className="page-title">Créer un Groupe</span>
-              <div className="group-info-input-group">
-                <div className="group-info-wrapper">
-                    <label className="group-info-label">Nom du groupe</label>
-                    <input type="text" className="group-info-input"/>
-                </div>
-                <div className="group-info-wrapper">
-                    <label className="group-info-label">Formateur</label>
-                    <Select options={options} styles={customStyles} placeholder="Selectioner..." type="text" />
-                </div>
-              </div>
-              <div className="group-info-input-group">
-                  <div className="group-info-wrapper">
-                      <label className="group-info-label">Categorie</label>
-                      <input type="text" className="group-info-input"/>
-                  </div>
-                  <div className="group-info-wrapper">
-                      <label className="group-info-label">Tranche d'age</label>
-                      <input type="text" className="group-info-input"/>
-                  </div>
-              </div>
-              <div className="group-info-wrapper">
-                  <label className="group-info-label">Description</label>
-                  <textarea type="text" className="group-info-input"/>
-              </div>
-              <div className="group-info-wrapper">
-                  <label className="group-info-label">Liste des Graines</label>
-                  <DataGrid columns={columns} items={items} setItems={setItems}></DataGrid>
-              </div>
-              <button className="save-group-btn">Enregistrer</button>
-            </form>
-        </div>
+      <label className="nav-label">Pages &gt; Espace Admin</label>
+      <label className="nav-label2">Groupes &gt; Créer Groupe</label>
+      <div className="view-wrapper create-group-wrapper">
+        <form onSubmit={handleSubmit}>
+          <span className="page-title">Créer un Groupe</span>
+          {loading && <p>Loading...</p>}
+          {error && <p className="error-message">{error}</p>}
+          {successMessage && <p className="success-message">{successMessage}</p>}
+          <div className="group-info-input-group">
+            <div className="group-info-wrapper">
+              <label className="group-info-label">Nom du groupe</label>
+              <input
+                type="text"
+                className="group-info-input"
+                name="nom"
+                value={groupData.nom}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="group-info-wrapper">
+              <label className="group-info-label">Formateur</label>
+              <Select
+                options={formateurOptions}
+                placeholder="Sélectionner..."
+                onChange={handleSelectFormateurChange}
+                value={formateurOptions.find(option => option.value === groupData.formateur_id)}
+                required
+              />
+            </div>
+            <div className="group-info-wrapper">
+              <label className="group-info-label">Enfants</label>
+              <Select
+                options={enfantOptions}
+                isMulti
+                placeholder="Sélectionner des enfants..."
+                onChange={handleSelectEnfantChange}
+                value={enfantOptions.filter(option => groupData.enfants_id.includes(option.value))}
+              />
+            </div>
+          </div>
+          <div className="group-info-input-group">
+            <div className="group-info-wrapper">
+              <label className="group-info-label">Tranche d'âge</label>
+              <input
+                type="text"
+                className="group-info-input"
+                name="trancheAge"
+                value={groupData.trancheAge}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="group-info-wrapper">
+            <label className="group-info-label">Description</label>
+            <textarea
+              className="group-info-input"
+              name="description"
+              value={groupData.description}
+              onChange={handleInputChange}
+            />
+          </div>
+          <button className="save-group-btn" type="submit" disabled={loading}>
+            {loading ? "Saving..." : "Enregistrer"}
+          </button>
+        </form>
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default CreateGroup;
