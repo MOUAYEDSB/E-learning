@@ -18,8 +18,8 @@ export const CreateUser = () => {
   });
   const [image, setImage] = useState(null);
   const [userType, setUserType] = useState("");
-  const [feedbackMessage, setFeedbackMessage] = useState(""); // For user feedback
-  const [loading, setLoading] = useState(false); // For loading state
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -27,11 +27,6 @@ export const CreateUser = () => {
 
     if (name === "role") {
       setUserType(value);
-    } else if (name === "motdepasse") {
-      setFormValues({
-        ...formValues,
-        [name]: value,
-      });
     } else if (nameParts.length === 1) {
       setFormValues({
         ...formValues,
@@ -52,18 +47,18 @@ export const CreateUser = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading state
-    setFeedbackMessage(""); // Clear feedback message
+    setLoading(true);
+    setFeedbackMessage("");
 
     const formData = new FormData();
-    formData.append("role", userType); // Append role to form data
+    formData.append("role", userType);
 
     // Append form fields
     Object.keys(formValues).forEach((key) => {
       if (key === "children") {
-        formValues[key].forEach((child, index) => {
-          Object.keys(child).forEach((childKey) => {
-            formData.append(`children[${index}][${childKey}]`, child[childKey]);
+        formValues.children.forEach((child, index) => {
+          Object.keys(child).forEach((field) => {
+            formData.append(`children[${index}][${field}]`, child[field]);
           });
         });
       } else {
@@ -92,7 +87,7 @@ export const CreateUser = () => {
       );
       setFeedbackMessage("Error creating user. Please try again.");
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
@@ -170,16 +165,6 @@ export const CreateUser = () => {
               onChange={changeHandler}
             />
           </div>
-          <div className="input-box">
-            <label>Mot de Passe</label>
-            <input
-              type="password"
-              name="motdepasse"
-              placeholder="Mot de Passe"
-              value={formValues.motdepasse}
-              onChange={changeHandler}
-            />
-          </div>
           <div className="cell">
             <div className="input-box">
               <label>Téléphone</label>
@@ -206,7 +191,7 @@ export const CreateUser = () => {
             <div className="input-box">
               <label>Âge</label>
               <input
-                type="number"
+                type="text"
                 name="age"
                 placeholder="Âge"
                 value={formValues.age}
@@ -223,7 +208,6 @@ export const CreateUser = () => {
                 <option value="">Sélectionner</option>
                 <option value="Formateur">Formateur</option>
                 <option value="Parent">Parent</option>
-                <option value="Enfant">Enfant</option>
               </select>
             </div>
           </div>
@@ -260,7 +244,7 @@ export const CreateUser = () => {
                     <div className="input-box">
                       <label>Âge</label>
                       <input
-                        type="number"
+                        type="text"
                         name={`children-${index}-age`}
                         placeholder="Âge"
                         value={child.age}
@@ -291,6 +275,16 @@ export const CreateUser = () => {
                       onChange={changeHandler}
                     />
                   </div>
+                  <div className="input-box">
+                    <label>Mot de passe</label>
+                    <input
+                      type="password"
+                      name={`children-${index}-motdepasse`}
+                      placeholder="Mot de passe"
+                      value={child.motdepasse}
+                      onChange={changeHandler}
+                    />
+                  </div>
                   <button
                     type="button"
                     className="submit-btn"
@@ -301,38 +295,43 @@ export const CreateUser = () => {
                 </div>
               ))}
               <button type="button" onClick={addChild} className="submit-btn">
-                Ajouter un Enfant
+                Ajouter Enfant
               </button>
             </>
           )}
           {userType === "Formateur" && (
             <>
-              <div className="input-box">
-                <label>Titre</label>
-                <input
-                  type="text"
-                  name="titre"
-                  placeholder="Titre"
-                  value={formValues.titre}
-                  onChange={changeHandler}
-                />
-              </div>
-              <div className="input-box">
-                <label>Bio</label>
-                <textarea
-                  name="bio"
-                  placeholder="Bio"
-                  value={formValues.bio}
-                  onChange={changeHandler}
-                />
+              <div className="cell">
+                <div className="input-box">
+                  <label>Titre</label>
+                  <input
+                    type="text"
+                    name="titre"
+                    placeholder="Titre"
+                    value={formValues.titre}
+                    onChange={changeHandler}
+                  />
+                </div>
+                <div className="input-box">
+                  <label>Bio</label>
+                  <input
+                    type="text"
+                    name="bio"
+                    placeholder="Bio"
+                    value={formValues.bio}
+                    onChange={changeHandler}
+                  />
+                </div>
               </div>
             </>
           )}
-          <button type="submit" disabled={loading} className="submit-btn">
-            {loading ? "Création en cours..." : "Créer Utilisateur"}
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Enregistrement..." : "Créer Compte"}
           </button>
           {feedbackMessage && (
-            <p className="feedback-message">{feedbackMessage}</p>
+            <div className={`feedback ${loading ? "loading" : ""}`}>
+              {feedbackMessage}
+            </div>
           )}
         </form>
       </div>
