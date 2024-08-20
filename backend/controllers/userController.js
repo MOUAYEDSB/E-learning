@@ -4,60 +4,87 @@ const Formateur = require("../models/modeleFormateur");
 const Parent = require("../models/modeleParent");
 const upload = require("../middlewares/uploadMiddleware");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const { sendPasswordEmail } = require("../utils/sendPasswordEmail"); // Import the email sending function
 
 // Middleware to handle image uploads
 exports.uploadImage = upload.single("profileImgURL");
 
-// Create a new user (Parent, Formateur, Enfant)
+// Function to generate a random password
+const generateRandomPassword = () => {
+  return Math.random().toString(36).slice(-8); // Simple password generation for example purposes
+};
+
 exports.createUser = async (req, res) => {
   try {
-    const { role, motdepasse, children, ...rest } = req.body; // Changed `enfants_id` to `children`
+    const { role, children, ...rest } = req.body;
     let user;
+    let plainMotdepasse;
+    let hashedMotdepasse;
+    let childDetails = []; // To store child emails and passwords
 
-    let hashedPassword;
-
-    // Generate password if the role is Formateur or Parent
+    // Handle password generation and hashing
     if (role === "Formateur" || role === "Parent") {
-      hashedPassword = await bcrypt.hash(motdepasse, 10);
+      plainMotdepasse = generateRandomPassword();
+      hashedMotdepasse = await bcrypt.hash(plainMotdepasse, 10);
+      rest.motdepasse = hashedMotdepasse;
+    } else if (role === "Enfant") {
+      // Generate password if not provided
+      if (!req.body.motdepasse) {
+        plainMotdepasse = generateRandomPassword();
+        hashedMotdepasse = await bcrypt.hash(plainMotdepasse, 10);
+      } else {
+        plainMotdepasse = req.body.motdepasse;
+        hashedMotdepasse = await bcrypt.hash(plainMotdepasse, 10);
+      }
+      rest.motdepasse = hashedMotdepasse;
     }
 
     let childIds = [];
     if (children && Array.isArray(children) && children.length > 0) {
       childIds = await Promise.all(
         children.map(async (child) => {
-          if (!child.email) return null; // Skip if no email
+          if (!child.email) return null;
 
-          // Check if Enfant already exists; if not, create it
           let enfant = await Enfant.findOne({ email: child.email });
           if (!enfant) {
-            // Set password only for Enfant
-            const childHashedPassword = await bcrypt.hash(child.motdepasse, 10);
-            enfant = new Enfant({ ...child, motdepasse: childHashedPassword });
+            const childPlainMotdepasse = generateRandomPassword();
+            const childHashedMotdepasse = await bcrypt.hash(
+              childPlainMotdepasse,
+              10
+            );
+            enfant = new Enfant({
+              ...child,
+              motdepasse: childHashedMotdepasse,
+            });
             await enfant.save();
+            childDetails.push({
+              email: child.email,
+              motdepasse: childPlainMotdepasse,
+            });
+          } else {
+            childDetails.push({ email: enfant.email, motdepasse: "Existing" });
           }
           return enfant._id;
         })
       );
-      childIds = childIds.filter((id) => id); // Remove null values
+      childIds = childIds.filter((id) => id);
     }
 
     switch (role) {
       case "Parent":
         user = new Parent({
           ...rest,
-          motdepasse: hashedPassword,
+          motdepasse: hashedMotdepasse,
           enfants_id: childIds,
         });
         break;
       case "Formateur":
-        user = new Formateur({ ...rest, motdepasse: hashedPassword });
+        user = new Formateur({ ...rest, motdepasse: hashedMotdepasse });
         break;
       case "Enfant":
-        // Set password for Enfant directly from the request
-        const enfantPassword = await bcrypt.hash(motdepasse, 10);
-        user = new Enfant({ ...rest, motdepasse: enfantPassword });
+        user = new Enfant({ ...rest, motdepasse: hashedMotdepasse });
         break;
       default:
         return res
@@ -72,21 +99,23 @@ exports.createUser = async (req, res) => {
     const savedUser = await user.save();
     console.log("User created successfully:", savedUser);
 
-    // Send password email only for Formateur and Parent
-    if (role === "Formateur" || role === "Parent") {
-      await sendPasswordEmail(user.email, motdepasse);
+    // Send password email
+    if (role === "Parent") {
+      await sendPasswordEmail(user.email, plainMotdepasse, role, childDetails);
+    } else if (role === "Formateur") {
+      await sendPasswordEmail(user.email, plainMotdepasse, role);
+    } else if (role === "Enfant") {
+      // For Enfant, we assume it’s already handled or may need specific handling
     }
 
     res.status(201).json({ success: true, user: savedUser });
   } catch (error) {
     console.error("Error creating user:", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Internal Server Error",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
   }
 };
 
@@ -247,6 +276,8 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-const createToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+const createToken = (userId, role) => {
+  return jwt.sign({ userId, role }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
 };

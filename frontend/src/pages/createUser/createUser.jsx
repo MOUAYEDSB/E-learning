@@ -275,16 +275,6 @@ export const CreateUser = () => {
                       onChange={changeHandler}
                     />
                   </div>
-                  <div className="input-box">
-                    <label>Mot de passe</label>
-                    <input
-                      type="password"
-                      name={`children-${index}-motdepasse`}
-                      placeholder="Mot de passe"
-                      value={child.motdepasse}
-                      onChange={changeHandler}
-                    />
-                  </div>
                   <button
                     type="button"
                     className="submit-btn"

@@ -1,79 +1,125 @@
 import "./usersList.css";
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { DataGrid } from "../../components/DataGrid/DataGrid";
 import { UserContext } from "../../context/userContext";
+
 export const UsersList = ({ role }) => {
-  const { users, setUsers, addUser, updateUser, deleteUser } =
-    useContext(UserContext);
+  const { users, setUsers } = useContext(UserContext);
 
-  const label = { parent: "Parents", seed: "Graines", mentor: "Formateur" };
-  const [selectedContent, setSelectedContent] = useState(0);
-
-  const columns = [
+  // Common columns for all roles
+  const commonColumns = [
+    {
+      field: "profileImgURL",
+      headerName: "Image",
+      type: "image",
+      width: 100,
+      headerClassName: "header-column",
+    },
     {
       field: "prenom",
-      headerName: "Nom complet",
+      headerName: "Prénom",
       type: "text",
-      img: "profileImgURL",
-      width: "100px",
-      minWidth: "100px",
-      sort: true,
+      width: 200,
+      headerClassName: "header-column",
+    },
+    {
+      field: "nom",
+      headerName: "Nom",
+      type: "text",
+      width: 200,
+      headerClassName: "header-column",
     },
     {
       field: "email",
       headerName: "Adresse E-mail",
       type: "text",
-      width: "250px",
-      minWidth: "200px",
+      width: 280,
+      headerClassName: "header-column",
     },
     {
-      field: "telephone",
-      headerName: "Téléphone",
-      type: "text",
-      width: "180px",
-      minWidth: "80px",
-    },
-    {
-      field: "role",
-      headerName: "Rôle",
-      type: "text",
-      width: "150px",
-      minWidth: "90px",
-      sort: true,
-    },
-    {
-      field: "titre",
-      headerName: "Titre",
-      type: "text",
-      width: "200px",
-      minWidth: "150px",
-      sort: true,
-    },
-    {
-      field: "adresse",
-      headerName: "Adresse",
-      type: "text",
-      width: "300px",
-      minWidth: "180px",
+      field: "age",
+      headerName: "Age",
+      type: "number",
+      width: 130,
+      headerClassName: "header-column",
     },
   ];
 
-  // const columns = [
-  //   { field: 'fullName', headerName: 'Nom', type : 'text', img: 'profilePicUrl', width: '250px', minWidth: '200px', sort: true, },
-  //   { field: 'email', headerName: 'Adresse E-mail', type : 'text', width: '320px', minWidth: '250px'},
-  //   { field: 'phone', headerName: 'Téléphone', type : 'text', width: '180px',minWidth: "120px"},
-  //   { field: 'status', headerName: 'Status', type : 'status',options: {online: ['#d3efdf','#508d57'],offline: ['#f7ddd8','#b71d18']}, width: '110px',minWidth: '76px', sort: true},
-  // ];
+  // Conditional columns based on the role
+  const columns =
+    role === "parent"
+      ? [
+          ...commonColumns,
+          {
+            field: "adresse",
+            headerName: "Adresse",
+            type: "text",
+            width: 300,
+            headerClassName: "header-column",
+          },
+          {
+            field: "telephone",
+            headerName: "Numéro de Téléphone",
+            type: "text",
+            width: 150,
+            headerClassName: "header-column",
+          },
+        ]
+      : role === "enfant"
+      ? [
+          ...commonColumns,
+          {
+            field: "systemeScolaire",
+            headerName: "Système Scolaire",
+            type: "text",
+            width: 200,
+            headerClassName: "header-column",
+          },
+        ]
+      : role === "formateur"
+      ? [
+          ...commonColumns,
+          {
+            field: "titre",
+            headerName: "Titre",
+            type: "text",
+            width: 200,
+            headerClassName: "header-column",
+          },
+          {
+            field: "adresse",
+            headerName: "Adresse",
+            type: "text",
+            width: 170,
+            headerClassName: "header-column",
+          },
 
-  
+          {
+            field: "bio",
+            headerName: "Bio",
+            type: "text",
+            width: 400,
+            headerClassName: "header-column",
+          },
+
+        ]
+      : [];
 
   return (
     <div className="container">
-      <label className="nav-label">Pages / Espace Admin </label>
+      <label className="nav-label">Pages / Espace Admin</label>
       <label className="nav-label2">Liste d’utilisateurs &gt; {role}s</label>
       <div className="view-wrapper">
-        <span className="page-title">Listes des {role}s</span>
-        <DataGrid role={role} columns={columns} items={users.filter((user) => user.role.toLowerCase() === role)} setItems={setUsers} maxHeight='500px'></DataGrid>
+        <span className="page-title">Liste des {role}s</span>
+        <DataGrid
+          role={role}
+          columns={columns}
+          items={users.filter(
+            (user) => user.role && user.role.toLowerCase() === role
+          )}
+          setItems={setUsers}
+          maxHeight="500px"
+        />
       </div>
     </div>
   );

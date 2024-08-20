@@ -1,7 +1,7 @@
 import React, { useState,useEffect,useContext } from "react";
 import "./userProfile.css";
 import { assets } from "../../assets/assets.js";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../context/userContext.jsx";
 
 export const ParentProfile = ({id}) => {
   const [formValues, setFormValues] = useState({

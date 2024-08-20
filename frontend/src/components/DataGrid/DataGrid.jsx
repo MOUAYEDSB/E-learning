@@ -1,7 +1,6 @@
 import "./dataGrid.css";
 import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { assets } from "../../assets/assets";
 import { ArrowIcon } from "../../assets/ArrowIcon";
 import { EditIcon } from "../../assets/EditIcon";
 import { OptionsIcon } from "../../assets/OptionsIcon";
@@ -10,6 +9,7 @@ import { ViewIcon } from "../../assets/ViewIcon";
 import { QuickEdit } from "../QuickEdit/QuickEdit";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
+import defaultImage from "../../assets/defaultprofileimage.jpg"; // Updated path to default image
 
 export const DataGrid = ({
   role,
@@ -21,20 +21,17 @@ export const DataGrid = ({
   const { users, deleteUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // State management for resizing columns
   const [isResizing, setIsResizing] = useState(false);
   const [targetIndex, setTargetIndex] = useState(0);
   const [initialMouseX, setInitialMouseX] = useState(0);
   const [initialWidth, setInitialWidth] = useState(0);
   const [widths, setWidths] = useState(
-    initialColumns.map((column) => column.width)
+    initialColumns.map((column) => column.width || "auto")
   );
 
-  // State management for toggling options and quick edit mode
   const [toggleOptions, setToggleOptions] = useState(-1);
-  const [toggleQuickEdit, settoggleQuickEdit] = useState(false);
+  const [toggleQuickEdit, setToggleQuickEdit] = useState(false);
 
-  // Handling column resizing on mouse events
   const handleMouseDown = (e) => {
     const target = e.target.closest(".data-grid-resize-handle");
     if (target) {
@@ -43,7 +40,7 @@ export const DataGrid = ({
         setIsResizing(true);
         setTargetIndex(index);
         setInitialMouseX(e.clientX);
-        setInitialWidth(parseInt(widths[index], 10));
+        setInitialWidth(parseInt(widths[index], 10) || 0);
         document.body.classList.add("resizing-active");
       }
     }
@@ -64,13 +61,12 @@ export const DataGrid = ({
           : 0;
         const updatedWidths = [...prevWidths];
         updatedWidths[targetIndex] =
-          newWidth >= minWidth ? `${newWidth}px` : minWidth;
+          newWidth >= minWidth ? `${newWidth}px` : `${minWidth}px`;
         return updatedWidths;
       });
     }
   };
 
-  // Adding event listeners for mouse movements
   useEffect(() => {
     window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mousemove", handleMouseMove);
@@ -80,61 +76,41 @@ export const DataGrid = ({
     };
   }, [isResizing, targetIndex, initialWidth, initialMouseX]);
 
-  // Function to handle different types of cell rendering
   const renderCell = (column, item) => {
-    switch (column.type) {
+    const { type, field } = column;
+    const cellContent = item[field];
+    const imageUrl = field === 'profileImgURL' ? `${import.meta.env.VITE_API_BASE_URL}/${cellContent}` : '';
+  
+    const handleImageError = (e) => {
+      e.target.src = defaultImage;
+    };
+  
+    switch (type) {
       case "text":
+        return <span>{cellContent || "N/A"}</span>;
+  
+      case "image":
         return (
-          <>
-            {column.img && (
-              <img className="row-img" src={item[column.img]} alt="icon" />
-            )}
-            <span>{item[column.field]}</span>
-          </>
+          <img
+            src={imageUrl || defaultImage}
+            alt="Profile"
+            className="data-grid-image"
+            onError={handleImageError}
+          />
         );
-      case "status":
-        const backColor = column.options[item[column.field]][0];
-        const color = column.options[item[column.field]][1];
-        return (
-          <div
-            className="data-grid-status"
-            style={{ backgroundColor: `${backColor}` }}
-          >
-            <label style={{ color: `${color}` }}>{item[column.field]}</label>
-          </div>
-        );
+  
       default:
-        console.error(`Specify a valid type for column '${column.field}'`);
-        return null;
+        return <span>{cellContent || "N/A"}</span>;
     }
   };
 
-  // Sorting function for columns that support sorting
-  const sortRows = (column) => {
-    const sorted = [...items].sort((a, b) => {
-      const aValue = a[column.field];
-      const bValue = b[column.field];
-      if (typeof aValue === "string") {
-        return aValue.localeCompare(bValue);
-      } else if (typeof aValue === "number") {
-        return aValue - bValue;
-      }
-      return 0;
-    });
-    setItems(sorted);
-  };
-
-  // Functions for handling UI interactions
   const disableOffClickCheck = () => {
     setToggleOptions(-1);
-    settoggleQuickEdit(false);
+    setToggleQuickEdit(false);
   };
-  
+
   return (
-    <div
-      className="data-grid"
-      style={{ maxHeight: `${maxHeight ? maxHeight : "none"}` }}
-    >
+    <div className="data-grid" style={{ maxHeight: maxHeight || "none" }}>
       <div
         className={`offclick-check ${
           toggleOptions === -1 ? (toggleQuickEdit ? "darkBlock" : "") : "block"
@@ -171,7 +147,7 @@ export const DataGrid = ({
         ))}
       </div>
       <div className="data-grid-rows-wrapper">
-        {Array.isArray(items) && items.length > 0 ? (
+        {items.length > 0 ? (
           items.map((item, index) => (
             <div className="data-grid-row" key={index}>
               {initialColumns.map((column, columnIndex) => (
@@ -188,7 +164,7 @@ export const DataGrid = ({
               ))}
               <div
                 className="data-grid-quick-edit-button"
-                onClick={() => settoggleQuickEdit(true)}
+                onClick={() => setToggleQuickEdit(true)}
               >
                 <EditIcon fillColor="#637381" />
               </div>
@@ -200,7 +176,10 @@ export const DataGrid = ({
               >
                 <OptionsIcon fillColor="#637381" />
                 <div className="data-grid-popup">
-                  <div className="data-grid-popup-option" onClick={() => navigate(`/user/${item._id}`)}>
+                  <div
+                    className="data-grid-popup-option"
+                    onClick={() => navigate(`/user/${item._id}`)}
+                  >
                     <div className="data-grid-popup-button">
                       <ViewIcon fillColor="#1c252e" />
                     </div>
@@ -210,45 +189,47 @@ export const DataGrid = ({
                     <div className="data-grid-popup-button">
                       <EditIcon fillColor="#1c252e" />
                     </div>
-                    <span>Editer</span>
+                    <span>Éditer</span>
                   </div>
-                  <div className="data-grid-popup-option">
+                  <div
+                    className="data-grid-popup-option"
+                    onClick={() => {
+                      deleteUser(item._id);
+                      setItems(items.filter((user) => user._id !== item._id));
+                    }}
+                  >
                     <div className="data-grid-popup-button">
-                      <DeleteIcon fillColor="#ff5630" />
+                      <DeleteIcon fillColor="#1c252e" />
                     </div>
-                    <span onClick={() => deleteUser(item._id)}>Supprimer</span>
+                    <span>Supprimer</span>
                   </div>
                 </div>
               </div>
             </div>
           ))
         ) : (
-          <p>No data available</p>
+          <div className="data-grid-no-items">
+            <span>No data available</span>
+          </div>
         )}
-      </div>
-      <div
-        onClick={() => navigate("/user/create")}
-        className="data-grid-add-button"
-      >
-        Ajouter
       </div>
     </div>
   );
 };
 
 DataGrid.propTypes = {
-  role: PropTypes.string.isRequired,
+  role: PropTypes.string,
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       field: PropTypes.string.isRequired,
-      headerName: PropTypes.string,
-      width: PropTypes.string,
-      minWidth: PropTypes.string,
+      headerName: PropTypes.string.isRequired,
       type: PropTypes.string,
+      img: PropTypes.string,
       options: PropTypes.object,
+      minWidth: PropTypes.string,
     })
-  ).isRequired,
-  items: PropTypes.arrayOf(PropTypes.object),
+  ),
+  items: PropTypes.array,
   setItems: PropTypes.func.isRequired,
   maxHeight: PropTypes.string,
 };

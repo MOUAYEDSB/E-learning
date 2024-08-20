@@ -80,7 +80,7 @@ export const Sidebar = () => {
                 </NavLink>
             </div>
         </div>
-        <div class="overlay"></div>
+        <div className="overlay"></div>
     </>
   )
 }

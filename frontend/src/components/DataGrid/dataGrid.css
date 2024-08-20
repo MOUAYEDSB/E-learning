@@ -286,3 +286,14 @@ body.resizing-active {
     color: black;
     padding: 15px 20px;
 }
+
+/* dataGrid.css */
+
+.data-grid-image {
+    width: 50px; /* Adjust the size as needed */
+    height: 50px; /* Adjust the size as needed */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border: 2px solid #2E294E; /* Optional: add a border for better visibility */
+  }
+  

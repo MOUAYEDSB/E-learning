@@ -53,7 +53,7 @@ function Login({setLogin}) {
             ></Switch>
             <label className="remember-me-label">Se souvenir de moi</label>
           </div>
-          <button type="submit" class="login_button">Se Connecter</button>
+          <button type="submit" className="login_button">Se Connecter</button>
         </form>
       </div>
       <div className="footer">
