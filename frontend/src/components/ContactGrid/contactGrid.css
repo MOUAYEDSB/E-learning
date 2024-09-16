@@ -1,0 +1,187 @@
+.data-grid {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.data-grid-header {
+  display: flex;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ddd;
+}
+
+.data-grid-header-cell {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border-right: 1px solid #ddd;
+  position: relative;
+}
+
+.data-grid-header-cell span {
+  flex-grow: 1;
+}
+
+.data-grid-resize-handle {
+  position: absolute;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  cursor: col-resize;
+}
+
+.data-grid-rows-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-grid-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.data-grid-cell {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border-right: 1px solid #ddd;
+}
+
+.data-grid-delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.data-grid-no-items {
+  padding: 10px;
+  text-align: center;
+  color: #999;
+}
+
+.offclick-check {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.quick-edit {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.quick-edit.show {
+  display: block;
+}
+
+.darkBlock {
+  display: block;
+}
+.data-grid {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    background-color: #fff;
+  }
+  
+  .data-grid-header {
+    display: flex;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .data-grid-header-cell {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-right: 1px solid #ddd;
+    position: relative;
+  }
+  
+  .data-grid-header-cell span {
+    flex-grow: 1;
+  }
+  
+  .data-grid-resize-handle {
+    position: absolute;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    cursor: col-resize;
+  }
+  
+  .data-grid-rows-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .data-grid-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .data-grid-cell {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-right: 1px solid #ddd;
+  }
+  
+  .data-grid-delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    cursor: pointer;
+  }
+  
+  .data-grid-no-items {
+    padding: 10px;
+    text-align: center;
+    color: #999;
+  }
+  
+  .offclick-check {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .quick-edit {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quick-edit.show {
+    display: block;
+  }
+  
+  .darkBlock {
+    display: block;
+  }
+  
