@@ -27,11 +27,13 @@ mongoose.connect(process.env.MONGODB_URI)
 const userRouter = require('./routes/userRoutes');
 const groupeRouter = require('./routes/groupeRoutes');
 const sessionRouter = require('./routes/sessionRouter');
+const contactRouter = require('./routes/contactRouter')
 
 // Use routes
 app.use('/api/user', userRouter);
 app.use('/api/groupes', groupeRouter);
 app.use('/api/session', sessionRouter);
+app.use('/api/contact', contactRouter)
 
 // Handle unknown routes
 app.use((req, res, next) => {
