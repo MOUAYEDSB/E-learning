@@ -1,4 +1,3 @@
-import React from 'react'
 import './navBar.css'
 import { assets } from '../../assets/assets'
 import { useNavigate } from 'react-router-dom'
