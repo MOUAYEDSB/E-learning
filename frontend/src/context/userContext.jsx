@@ -48,7 +48,7 @@ const UserContextProvider = (props) => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axiosInstance.get('/user/');
+                const response = await axiosInstance.get('/user');
                 setUsers(response.data.users);
             } catch (error) {
                 console.error('Error fetching users:', error.message);

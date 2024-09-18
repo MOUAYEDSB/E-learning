@@ -16,44 +16,148 @@ import { ContactList } from './pages/ContactList/ContactList';
 export default function App() {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
 
-  // Effect to check if user is logged in
   useEffect(() => {
     if (token) {
       setLogin(true);
+    } else {
+      setLogin(false);
     }
   }, [token]);
 
   return (
-    <>
+    <Routes>
+      {/* Routes for when user is logged in and has admin role */}
       {login && role === "admin" ? (
-        <div className="app">
-          <Sidebar />
-          <div className="main-wrapper">
-            <Navbar role={role} />
-            <div className="content-wrapper">
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/home" element={<CreateUser />} />
-                <Route path="/user/list/seeds" element={<UsersList role={"enfant"} />} />
-                <Route path="/user/list/parents" element={<UsersList role={"parent"} />} />
-                <Route path="/user/list/mentors" element={<UsersList role={"formateur"} />} />
-                <Route path="/user/create" element={<CreateUser />} />
-                <Route path="/user/:id" element={<UserProfile />} />
-                <Route path="/group-list" element={<GroupList />} />
-                <Route path="/group-info/:id" element={<GroupInfo />} />
-                <Route path="/add-group" element={<CreateGroup />} />
-                <Route path="/messages" element={<>Messages Page</>} />
-                <Route path="/settings" element={<>Settings Page</>} />
-                <Route path="/contact" element={<ContactList />} />
-              </Routes>
+        <>
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/dashboard" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <Dashboard />
+              </div>
             </div>
-          </div>
-        </div>
+          </>} />
+          <Route path="/home" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <CreateUser />
+              </div>
+            </div>
+          </>} />
+          <Route path="/user/list/seeds" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <UsersList role={"enfant"} />
+              </div>
+            </div>
+          </>} />
+          <Route path="/user/list/parents" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <UsersList role={"parent"} />
+              </div>
+            </div>
+          </>} />
+          <Route path="/user/list/mentors" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <UsersList role={"formateur"} />
+              </div>
+            </div>
+          </>} />
+          <Route path="/user/create" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <CreateUser />
+              </div>
+            </div>
+          </>} />
+          <Route path="/user/:id" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <UserProfile />
+              </div>
+            </div>
+          </>} />
+          <Route path="/group-list" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <GroupList />
+              </div>
+            </div>
+          </>} />
+          <Route path="/group-info/:id" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <GroupInfo />
+              </div>
+            </div>
+          </>} />
+          <Route path="/add-group" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <CreateGroup />
+              </div>
+            </div>
+          </>} />
+          <Route path="/messages" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <>Messages Page</>
+              </div>
+            </div>
+          </>} />
+          <Route path="/settings" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <>Settings Page</>
+              </div>
+            </div>
+          </>} />
+          <Route path="/contact" element={<>
+            <Sidebar />
+            <div className="main-wrapper">
+              <Navbar role={role} setLogin={setLogin} />
+              <div className="content-wrapper">
+                <ContactList />
+              </div>
+            </div>
+          </>} />
+          {/* Redirect to dashboard if route is not found */}
+          <Route path="*" element={<Navigate to="/dashboard" />} />
+        </>
       ) : (
-        <Login setLogin={setLogin} />
+        <>
+          <Route path="/login" element={<Login setLogin={setLogin} />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </>
       )}
-    </>
+    </Routes>
   );
 }
