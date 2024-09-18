@@ -25,20 +25,31 @@ exports.createUser = async (req, res) => {
     let childDetails = []; // To store child emails and passwords
 
     // Handle password generation and hashing
-    if (role === "Formateur" || role === "Parent") {
-      plainMotdepasse = generateRandomPassword();
-      hashedMotdepasse = await bcrypt.hash(plainMotdepasse, 10);
-      rest.motdepasse = hashedMotdepasse;
-    } else if (role === "Enfant") {
-      // Generate password if not provided
+    if (["Formateur", "Parent", "Enfant"].includes(role)) {
       if (!req.body.motdepasse) {
         plainMotdepasse = generateRandomPassword();
         hashedMotdepasse = await bcrypt.hash(plainMotdepasse, 10);
+        rest.motdepasse = hashedMotdepasse;
       } else {
         plainMotdepasse = req.body.motdepasse;
         hashedMotdepasse = await bcrypt.hash(plainMotdepasse, 10);
+        rest.motdepasse = hashedMotdepasse;
       }
+    } else if (role === "admin") {
+      if (!req.body.motdepasse) {
+        return res.status(400).json({
+          success: false,
+          message: "Password is required for admin creation.",
+        });
+      }
+      plainMotdepasse = req.body.motdepasse;
+      hashedMotdepasse = await bcrypt.hash(plainMotdepasse, 10);
       rest.motdepasse = hashedMotdepasse;
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid role",
+      });
     }
 
     let childIds = [];
@@ -86,10 +97,13 @@ exports.createUser = async (req, res) => {
       case "Enfant":
         user = new Enfant({ ...rest, motdepasse: hashedMotdepasse });
         break;
-      default:
-        return res
-          .status(400)
-          .json({ success: false, message: "Invalid role" });
+      case "admin":
+        user = new User({
+          ...rest,
+          motdepasse: hashedMotdepasse,
+          role: "admin",
+        });
+        break;
     }
 
     if (req.file) {
@@ -99,13 +113,9 @@ exports.createUser = async (req, res) => {
     const savedUser = await user.save();
     console.log("User created successfully:", savedUser);
 
-    // Send password email
-    if (role === "Parent") {
+    // Send password email only if password was generated and role is not "admin"
+    if (plainMotdepasse && role !== "admin") {
       await sendPasswordEmail(user.email, plainMotdepasse, role, childDetails);
-    } else if (role === "Formateur") {
-      await sendPasswordEmail(user.email, plainMotdepasse, role);
-    } else if (role === "Enfant") {
-      // For Enfant, we assume it’s already handled or may need specific handling
     }
 
     res.status(201).json({ success: true, user: savedUser });
@@ -118,6 +128,7 @@ exports.createUser = async (req, res) => {
     });
   }
 };
+
 
 // Additional functions for getting, updating, and deleting users
 exports.getUsers = async (req, res) => {
@@ -263,6 +274,7 @@ exports.loginUser = async (req, res) => {
         .status(401)
         .json({ success: false, message: "Invalid email or password" });
     }
+    console.log("loged succefuly")
 
     const token = createToken(user._id, user.role);
 
@@ -280,4 +292,9 @@ const createToken = (userId, role) => {
   return jwt.sign({ userId, role }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
+};
+
+const logout = () => {
+  localStorage.removeItem("token"); // or sessionStorage.removeItem('token')
+  window.location.href = "/login";  // Redirect to login or homepage
 };
