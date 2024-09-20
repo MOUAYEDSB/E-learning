@@ -274,27 +274,26 @@ exports.loginUser = async (req, res) => {
         .status(401)
         .json({ success: false, message: "Invalid email or password" });
     }
-    console.log("loged succefuly")
 
-    const token = createToken(user._id, user.role);
+    console.log("Logged in successfully");
 
-    res.status(200).json({ success: true, token, role: user.role });
-    console.log("Logged in");
+    // Create a token including the user's role and profileImgURL
+    const token = createToken(user._id, user.role, user.profileImgURL);
+
+    // Respond with the token, role, and profile image URL
+    res.status(200).json({
+      success: true,
+      token,
+      role: user.role,
+      profileImgURL: user.profileImgURL, // Send profile image URL
+    });
+
   } catch (error) {
     console.error("Error during login:", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Server error", error: error.message });
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
   }
-};
-
-const createToken = (userId, role) => {
-  return jwt.sign({ userId, role }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
-};
-
-const logout = () => {
-  localStorage.removeItem("token"); // or sessionStorage.removeItem('token')
-  window.location.href = "/login";  // Redirect to login or homepage
 };
