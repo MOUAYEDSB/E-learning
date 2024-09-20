@@ -5,35 +5,34 @@ import { useEffect, useState } from 'react';
 
 const Navbar = ({ setLogin }) => {
   const navigate = useNavigate();
-  const [profileImg, setProfileImg] = useState(assets.defaultProfileImage); // Default image
-  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:3000"; // Use VITE_BASE_URL from .env or fallback
+  const [profileImg, setProfileImg] = useState(assets.defaultProfileImage);
+  const [userName, setUserName] = useState("");
+  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
   useEffect(() => {
-    // Fetch the profile image from localStorage
     const storedProfileImg = localStorage.getItem("profileImgURL");
-    console.log(`Stored Profile Image URL: ${storedProfileImg}`);
+    const storedUserName = localStorage.getItem("nom"); // Get the user's name
 
-    // Check if the stored profile image is valid and not empty
     if (storedProfileImg && storedProfileImg !== "null" && storedProfileImg !== "undefined" && storedProfileImg !== "") {
-      // Prepend the base URL to the stored profile image URL
       setProfileImg(`${baseURL}/${storedProfileImg}`);
     } else {
-      // If no valid image is found, set the default profile image
       setProfileImg(assets.defaultProfileImage);
+    }
+
+    // Set the user's name if available
+    if (storedUserName) {
+      setUserName(storedUserName);
     }
   }, [baseURL]);
 
   // Logout function
   const logout = () => {
-    // Remove the token and profile image from localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     localStorage.removeItem("profileImgURL");
+    localStorage.removeItem("nom"); // Remove the user's name
 
-    // Update login state
     setLogin(false);
-
-    // Redirect to the login page
     navigate("/login");
   };
 
@@ -52,11 +51,10 @@ const Navbar = ({ setLogin }) => {
         </div>
         <div className="navbar-right-profile">
           <div className="profile-info">
-            <h4>Ahmed Trabelsi</h4>
+            <h4>{userName}</h4> {/* Display the user's name */}
             <p>Tunisia</p>
           </div>
           <div className='cell profile'>
-            {/* Dynamically render the user's profile image */}
             <img src={profileImg} onClick={() => navigate("/profile")} alt="Profile" />
           </div>
           <button className="logout-button" onClick={logout}>

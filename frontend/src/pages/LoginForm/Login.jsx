@@ -18,7 +18,8 @@ function Login({ setLogin }) {
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("role", response.data.role);
-        localStorage.setItem("profileImgURL", response.data.profileImgURL); // Store profile image
+        localStorage.setItem("profileImgURL", response.data.profileImgURL);
+        localStorage.setItem("nom", response.data.nom); // Store the user's name
 
         setLogin(true);
       } else {

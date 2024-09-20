@@ -277,15 +277,16 @@ exports.loginUser = async (req, res) => {
 
     console.log("Logged in successfully");
 
-    // Create a token including the user's role and profileImgURL
-    const token = createToken(user._id, user.role, user.profileImgURL);
+    // Create a token including the user's role, profileImgURL, and nom
+    const token = createToken(user._id, user.role, user.profileImgURL, user.nom);
 
-    // Respond with the token, role, and profile image URL
+    // Respond with the token, role, profile image URL, and user's name
     res.status(200).json({
       success: true,
       token,
       role: user.role,
-      profileImgURL: user.profileImgURL, // Send profile image URL
+      profileImgURL: user.profileImgURL,
+      nom: user.nom, // Include the user's name
     });
 
   } catch (error) {
@@ -296,4 +297,13 @@ exports.loginUser = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+// Updated createToken function
+const createToken = (id, role, profileImgURL, nom) => {
+  return jwt.sign(
+    { id, role, profileImgURL, nom },  // Include profileImgURL and nom in the token payload
+    process.env.JWT_SECRET, 
+    { expiresIn: "1h" }
+  );
 };
