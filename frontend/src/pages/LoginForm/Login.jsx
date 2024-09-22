@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import Switch from "../../components/Switch/Switch";
 import { assets } from "../../assets/assets";
 import "./login.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 function Login({ setLogin }) {
   const [toggled, setToggled] = useState(false);
@@ -13,15 +14,18 @@ function Login({ setLogin }) {
     let URL = "http://localhost:3000/api/user/login";
 
     try {
-      const response = await axios.post(URL, data, { headers: { "Content-Type": "application/json" } });
+      const response = await axios.post(URL, data, {
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("role", response.data.role.toLowerCase()); // Ensure role is in lowercase
         localStorage.setItem("profileImgURL", response.data.profileImgURL);
         localStorage.setItem("nom", response.data.nom); // Store the user's name
 
         setLogin(true);
+
       } else {
         alert(response.data.message);
       }
@@ -50,7 +54,7 @@ function Login({ setLogin }) {
           <div className="input-box">
             <label>Addresse Email</label>
             <input
-              type="Email"
+              type="email"
               placeholder="Votre addresse E-mail"
               name="email"
               value={data.email}
@@ -77,7 +81,9 @@ function Login({ setLogin }) {
             />
             <label className="remember-me-label">Se souvenir de moi</label>
           </div>
-          <button type="submit" className="login_button">Se Connecter</button>
+          <button type="submit" className="login_button">
+            Se Connecter
+          </button>
         </form>
       </div>
       <div className="footer">

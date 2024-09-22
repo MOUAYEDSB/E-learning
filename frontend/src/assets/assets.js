@@ -8,6 +8,8 @@ import profileImageUser from './profileImageUser.png'
 import defaultProfileImage from './defaultprofileimage.jpg'
 import searchIcon from "./searchIcon.svg"
 import PlusIcon from "./plusIcon.svg";
+import  sidebardown  from './sidebardown.png';
+
 
 export const assets = {
     loginBackground,
@@ -19,5 +21,6 @@ export const assets = {
     LOGO,
     profileImageUser,
     defaultProfileImage,
-    PlusIcon
+    PlusIcon,
+    sidebardown
 }

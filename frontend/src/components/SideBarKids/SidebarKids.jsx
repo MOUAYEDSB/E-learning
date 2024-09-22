@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./sideBar.css";
+import "./sidebarkids.css";
 import Logo from "../../assets/grainesLogo.svg";
 import { NavLink } from "react-router-dom";
 import { DashboardIcon } from "../../assets/DashboardIcon";
@@ -9,82 +9,83 @@ import { GroupIcon } from "../../assets/GroupIcon";
 import { MessageIcon } from "../../assets/MessageIcon";
 import { SettingsIcon } from "../../assets/SettingsIcon";
 import { NavbarArrowIcon } from "../../assets/NavbarArrowIcon";
+import sidebardown from "../../assets/sidebardown.png"; // Import the image
 
-export const Sidebar = () => {
+export const SidebarKids = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <div className="sideBar">
-        <img className="sideBar-logo" src={Logo} alt="Logo" />
+      <div className="sidebar-kids">
+        <img className="sidebar-kids-logo" src={Logo} alt="Logo" />
         <hr />
-        <div className="sideBar-buttons">
+        <div className="sidebar-kids-buttons">
           <NavLink
             to="/"
             end
             className={({ isActive }) =>
-              isActive ? "sideBar-btn active" : "sideBar-btn"
+              isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
           >
-            <div className="sideBar-btn-icon">
+            <div className="sidebar-kids-btn-icon">
               <DashboardIcon />
             </div>
             <label>Dashboard</label>
           </NavLink>
           <NavLink
-            to="/home"
+            to="/"
             end
             className={({ isActive }) =>
-              isActive ? "sideBar-btn active" : "sideBar-btn"
+              isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
           >
-            <div className="sideBar-btn-icon">
+            <div className="sidebar-kids-btn-icon">
               <HomeIcon />
             </div>
             <label>Home</label>
           </NavLink>
-          <div className={`sideBar-btn-group ${isOpen ? "open" : ""}`}>
+          <div className={`sidebar-kids-btn-group ${isOpen ? "open" : ""}`}>
             <div
-              className={`sideBar-btn ${isOpen ? "active" : ""}`}
+              className={`sidebar-kids-btn ${isOpen ? "active" : ""}`}
               onClick={() => setIsOpen(!isOpen)}
             >
-              <div className="sideBar-btn-icon">
+              <div className="sidebar-kids-btn-icon">
                 <UserIcon />
               </div>
-              <label>Liste des utilisateurs</label>
-              <div className="sideBar-btn-arrow-icon">
+              <label>Courses</label>
+              <div className="sidebar-kids-btn-arrow-icon">
                 <NavbarArrowIcon />
               </div>
             </div>
-            <div className="sideBar-subBtn-group">
+            <div className="sidebar-kids-subBtn-group">
               <NavLink
                 to="/user/list/parents"
                 className={({ isActive }) =>
-                  isActive ? "sideBar-subBtn active" : "sideBar-subBtn"
+                  isActive ? "sidebar-kids-subBtn active" : "sidebar-kids-subBtn"
                 }
               >
                 <div>
-                  <label>Parents</label>
+                  <label>Engalis</label>
                 </div>
               </NavLink>
               <NavLink
                 to="/user/list/seeds"
                 className={({ isActive }) =>
-                  isActive ? "sideBar-subBtn active" : "sideBar-subBtn"
+                  isActive ? "sidebar-kids-subBtn active" : "sidebar-kids-subBtn"
                 }
               >
                 <div>
-                  <label>Graines</label>
+                  <label>Francais</label>
                 </div>
               </NavLink>
               <NavLink
                 to="/user/list/mentors"
                 className={({ isActive }) =>
-                  isActive ? "sideBar-subBtn active" : "sideBar-subBtn"
+                  isActive ? "sidebar-kids-subBtn active" : "sidebar-kids-subBtn"
                 }
               >
                 <div>
-                  <label>Formateurs</label>
+                  <label>Robotique</label>
                 </div>
               </NavLink>
             </div>
@@ -92,21 +93,21 @@ export const Sidebar = () => {
           <NavLink
             to="/group-list"
             className={({ isActive }) =>
-              isActive ? "sideBar-btn active" : "sideBar-btn"
+              isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
           >
-            <div className="sideBar-btn-icon">
+            <div className="sidebar-kids-btn-icon">
               <GroupIcon />
             </div>
-            <label>Groupes</label>
+            <label>Project</label>
           </NavLink>
           <NavLink
             to="/messages"
             className={({ isActive }) =>
-              isActive ? "sideBar-btn active" : "sideBar-btn"
+              isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
           >
-            <div className="sideBar-btn-icon">
+            <div className="sidebar-kids-btn-icon">
               <MessageIcon />
             </div>
             <label>Messages</label>
@@ -114,26 +115,29 @@ export const Sidebar = () => {
           <NavLink
             to="/contact"
             className={({ isActive }) =>
-              isActive ? "sideBar-btn active" : "sideBar-btn"
+              isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
           >
-            <div className="sideBar-btn-icon">
+            <div className="sidebar-kids-btn-icon">
               <MessageIcon />
             </div>
-            <label>Home contact</label>
+            <label>Calendreier</label>
           </NavLink>
           <NavLink
             to="/settings"
             className={({ isActive }) =>
-              isActive ? "sideBar-btn active" : "sideBar-btn"
+              isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
           >
-            <div className="sideBar-btn-icon">
+            <div className="sidebar-kids-btn-icon">
               <SettingsIcon />
             </div>
             <label>Paramétres</label>
           </NavLink>
         </div>
+
+        {/* Add the image at the bottom of the sidebar */}
+        <img className="sidebar-kids-bottom-image" src={sidebardown} alt="Bottom Image" />
       </div>
       <div className="overlay"></div>
     </>

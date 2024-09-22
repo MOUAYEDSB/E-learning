@@ -1,7 +1,6 @@
 import { useState } from "react";
-import "./Dashboard.css";
 import { DataGrid } from "../../components/DataGrid/DataGrid";
-export const Dashboard = () => {
+export const DashboardKids = () => {
   const columns = [
     {
       field: "fullName",
