@@ -46,7 +46,7 @@ export default function App() {
             }
           />
           <Route
-            path="/home"
+            path="/create-user"
             element={
               <>
                 <Sidebar />

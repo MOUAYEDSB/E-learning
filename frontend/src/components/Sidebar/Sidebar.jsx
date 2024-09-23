@@ -90,6 +90,17 @@ export const Sidebar = () => {
             </div>
           </div>
           <NavLink
+            to="/create-user"
+            className={({ isActive }) =>
+              isActive ? "sideBar-btn active" : "sideBar-btn"
+            }
+          >
+            <div className="sideBar-btn-icon">
+              <GroupIcon />
+            </div>
+            <label>Cree utilisateurs</label>
+          </NavLink>
+          <NavLink
             to="/group-list"
             className={({ isActive }) =>
               isActive ? "sideBar-btn active" : "sideBar-btn"
