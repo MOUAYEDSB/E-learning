@@ -15,6 +15,9 @@ import { ContactList } from "./pages/ContactList/ContactList";
 import { SidebarKids } from "./components/SideBarKids/SidebarKids";
 import NavbarKids from "./components/NavBarKids/NavbarKids";
 import { DashboardKids } from "./pages/KidsDashboard/KidsDashboard";
+import { DashboardParents } from "./pages/ParentsDashboard/ParentsDashboard";
+import { SidebarParents } from "./components/SideBarParents/SideBarParents";
+import NavbarParents from './components/NavBarParents/NavBarParents';
 
 export default function App() {
   const token = localStorage.getItem("token");
@@ -234,6 +237,42 @@ export default function App() {
             }
           />
           <Route path="*" element={<Navigate to="/dashboard/kids" />} />
+        </>
+      ) : login && role === "parent" ? (
+        <>
+          {/* Parent Routes */}
+          <Route path="/" element={<Navigate to="/dashboard/parent" />} />
+          <Route
+            path="/dashboard/parent"
+            element={
+              <>
+                {/* Add Sidebar and Navbar for parents, if needed */}
+                <SidebarParents />
+                <div className="main-wrapper">
+                  <NavbarParents role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <DashboardParents />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/parent/profile"
+            element={
+              <>
+                <SidebarParents />
+                <div className="main-wrapper">
+                  <NavbarParents role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <DashboardParents />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          {/* Add other parent-specific routes as needed */}
+          <Route path="*" element={<Navigate to="/dashboard/parent" />} />
         </>
       ) : (
         <>

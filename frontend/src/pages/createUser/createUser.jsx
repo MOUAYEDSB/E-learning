@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axiosInstance from "../../api/axiosConfig.js";
 import "./createUser.css";
 import { assets } from "../../assets/assets.js";

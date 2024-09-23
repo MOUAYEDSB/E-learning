@@ -1,0 +1,215 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+.sidebar-parents {
+    --sidebar-width: 270px;
+    --side-btn-width: 220px;
+    --side-btn-height: 40px;
+    --side-item-gap: 0.25rem;
+    min-width: var(--sidebar-width);
+    width: var(--sidebar-width);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 0 25px 0 25px;
+    overflow: hidden;
+    background-color: #3C168A;
+    font-size: 14px;
+    font-family: "Inter";
+    user-select: none;
+    z-index: 1000;
+    transition: width 0.25s, min-width 0.25s;
+}
+.sidebar-parents-logo {
+    height: 60px;
+    margin: 20px 0;
+}
+.sidebar-parents hr {
+    width: var(--side-btn-width);
+    height: 1px;
+    margin-bottom: 2rem;
+    background-color: #7c7c7c;
+}
+.sidebar-parents-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--side-item-gap);
+}
+.sidebar-parents-btn {
+    position: relative;
+    height: var(--side-btn-height);
+    width: var(--side-btn-width);
+    background-color: transparent;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0s, padding-left 0.25s;
+}
+.sidebar-parents-btn:hover {
+    background-color: #FFD237;
+    transition: background-color 0.25s, padding-left 0.25s;
+    padding-left: 0.75rem;
+}
+.sidebar-parents-btn.active {
+    background-color: white;
+    transition: background-color 0.25s, padding-left 0.25s;
+    padding-left: 0.75rem;
+}
+.sidebar-parents-btn-icon {
+    width: 22px;
+    height: 22px;
+    margin-left: 0;
+}
+.sidebar-parents-btn label {
+    margin-left: 1rem;
+    font-size: 14px;
+    font-family: "Poppins";
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+}
+.sidebar-parents-btn.active label {
+    color: #2E294E;
+}
+.sidebar-parents-btn div {
+    fill: white;
+    stroke: white;
+}
+.sidebar-parents-btn.active div {
+    fill: #eceaea;
+    stroke: #121213;
+}
+.sidebar-parents-btn-group {
+    height: 40px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+.sidebar-parents-btn-group.open {
+    height: 172px;
+}
+.sidebar-parents-btn-arrow-icon {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    display: flex;
+    justify-content: center;
+    top: 50%;
+    translate: 0 -50%;
+    rotate: -90deg;
+    right: 10px;
+}
+.sidebar-parents-btn-group.open .sidebar-parents-btn-arrow-icon {
+    rotate: 0deg;
+}
+.sidebar-parents-subBtn-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--side-item-gap);
+}
+.sidebar-parents-subBtn {
+    margin-left: 44px;
+}
+.sidebar-parents-subBtn:first-of-type {
+    margin-top: var(--side-item-gap);
+}
+.sidebar-parents-subBtn div {
+    height: 40px;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.sidebar-parents-subBtn label {
+    padding-left: 8px;
+    font-size: 14px;
+    font-family: "Poppins";
+    color: #CCCCCC;
+    cursor: pointer;
+}
+.sidebar-parents-bottom {
+    margin-top: auto;
+}
+
+/* Responsive Styles */
+@media (max-width: 1100px) {
+    .sidebar-parents:hover + .overlay {
+        display: block;
+    }
+    .sidebar-parents {
+        position: absolute;
+        width: 72px;
+        min-width: 72px;
+        display: flex;
+        flex-direction: column;
+        padding: 0 1rem;
+        align-items: start;
+        transition: 0s;
+    }
+    .sidebar-parents:hover {
+        width: var(--sidebar-width);
+        min-width: var(--sidebar-width);
+        padding: 0 25px;
+        transition: width 0.25s, min-width 0.25s;
+    }
+    .sidebar-parents-btn {
+        width: var(--side-btn-height);
+        justify-content: center;
+    }
+    .sidebar-parents:hover .sidebar-parents-btn {
+        width: var(--side-btn-width);
+        justify-content: start;
+    }
+    .sidebar-parents-btn:hover,
+    .sidebar-parents-btn.active {
+        padding-left: 0;
+    }
+    .sidebar-parents:hover .sidebar-parents-btn:hover,
+    .sidebar-parents:hover .sidebar-parents-btn.active {
+        padding-left: 0.75rem;
+    }
+    .sidebar-parents:hover .sidebar-parents-subBtn {
+        margin-left: 44px;
+    }
+    .sidebar-parents-btn-group {
+        height: 40px;
+    }
+    .sidebar-parents-btn-group.open {
+        height: 40px;
+    }
+    .sidebar-parents:hover .sidebar-parents-btn-group.open {
+        height: 172px;
+    }
+    .sidebar-parents:hover .sidebar-parents-subBtn-group {
+        display: flex;
+    }
+    .sidebar-parents-logo,
+    .sidebar-parents hr {
+        width: 0;
+    }
+    .sidebar-parents:hover .sidebar-parents-logo {
+        width: fit-content;
+    }
+    .sidebar-parents:hover hr {
+        width: var(--side-btn-width);
+    }
+    .sidebar-parents-btn label,
+    .sidebar-parents-btn-arrow-icon,
+    .sidebar-parents-subBtn-group {
+        display: none;
+    }
+    .sidebar-parents:hover .sidebar-parents-btn label,
+    .sidebar-parents:hover .sidebar-parents-btn-arrow-icon {
+        display: block;
+    }
+}

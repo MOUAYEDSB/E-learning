@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "../../api/axiosConfig";
 import "./createGroup.css";
