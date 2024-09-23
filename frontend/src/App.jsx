@@ -17,7 +17,11 @@ import NavbarKids from "./components/NavBarKids/NavbarKids";
 import { DashboardKids } from "./pages/KidsDashboard/KidsDashboard";
 import { DashboardParents } from "./pages/ParentsDashboard/ParentsDashboard";
 import { SidebarParents } from "./components/SideBarParents/SideBarParents";
-import NavbarParents from './components/NavBarParents/NavBarParents';
+import NavbarParents from "./components/NavBarParents/NavBarParents";
+import { DashboardFormateur } from "./pages/FormateurDashboard/FormateurDashboard";
+import { SideBarFormateur } from "./components/SideBarFormateur/SideBarFormateur";
+import NavbarFormateur from './components/NavBarFormateur/NavBarFormateur';
+
 
 export default function App() {
   const token = localStorage.getItem("token");
@@ -273,6 +277,27 @@ export default function App() {
           />
           {/* Add other parent-specific routes as needed */}
           <Route path="*" element={<Navigate to="/dashboard/parent" />} />
+        </>
+      ) : login && role === "formateur" ? (
+        <>
+          {/* Formateur Routes */}
+          <Route path="/" element={<Navigate to="/dashboard/formateur" />} />
+          <Route
+            path="/dashboard/formateur"
+            element={
+              <>
+                <SideBarFormateur />
+                <div className="main-wrapper">
+                  <NavbarFormateur role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <DashboardFormateur />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          {/* ... Other formateur-specific routes ... */}
+          <Route path="*" element={<Navigate to="/dashboard/formateur" />} />
         </>
       ) : (
         <>

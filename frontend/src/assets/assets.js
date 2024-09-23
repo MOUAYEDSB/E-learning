@@ -9,6 +9,7 @@ import defaultProfileImage from './defaultprofileimage.jpg'
 import searchIcon from "./searchIcon.svg"
 import PlusIcon from "./plusIcon.svg";
 import  sidebardown  from './sidebardown.png';
+import logograins from './logograines.svg'
 
 
 export const assets = {
@@ -22,5 +23,6 @@ export const assets = {
     profileImageUser,
     defaultProfileImage,
     PlusIcon,
-    sidebardown
+    sidebardown,
+    logograins
 }
