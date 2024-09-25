@@ -10,6 +10,7 @@ import { MessageIcon } from "../../assets/MessageIcon";
 import { SettingsIcon } from "../../assets/SettingsIcon";
 import { NavbarArrowIcon } from "../../assets/NavbarArrowIcon";
 
+
 export const SideBarFormateur = () => {
   const [isOpen, setIsOpen] = useState(false);
 

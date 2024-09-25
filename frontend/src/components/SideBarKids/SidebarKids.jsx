@@ -4,12 +4,15 @@ import Logo from "../../assets/grainesLogo.svg";
 import { NavLink } from "react-router-dom";
 import { DashboardIcon } from "../../assets/DashboardIcon";
 import { HomeIcon } from "../../assets/HomeIcon";
-import { UserIcon } from "../../assets/UserIcon";
 import { GroupIcon } from "../../assets/GroupIcon";
 import { MessageIcon } from "../../assets/MessageIcon";
 import { SettingsIcon } from "../../assets/SettingsIcon";
 import { NavbarArrowIcon } from "../../assets/NavbarArrowIcon";
-import sidebardown from "../../assets/sidebardown.png"; // Import the image
+import sidebardown from "../../assets/sidebardown.png";
+import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
+import FolderSpecialOutlinedIcon from '@mui/icons-material/FolderSpecialOutlined';
+import { assets } from "../../assets/assets";
+
 
 export const SidebarKids = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +53,7 @@ export const SidebarKids = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <div className="sidebar-kids-btn-icon">
-                <UserIcon />
+                <AutoStoriesOutlinedIcon sx={{color: "white"}}/>
               </div>
               <label>Courses</label>
               <div className="sidebar-kids-btn-arrow-icon">
@@ -97,9 +100,20 @@ export const SidebarKids = () => {
             }
           >
             <div className="sidebar-kids-btn-icon">
-              <GroupIcon />
+              <FolderSpecialOutlinedIcon sx={{color: "white"}}/>
             </div>
             <label>Project</label>
+          </NavLink>
+          <NavLink
+            to="/messages"
+            className={({ isActive }) =>
+              isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
+            }
+          >
+            <div className="sidebar-kids-btn-icon">
+              <GroupIcon />
+            </div>
+            <label>Collegues</label>
           </NavLink>
           <NavLink
             to="/messages"
@@ -119,7 +133,7 @@ export const SidebarKids = () => {
             }
           >
             <div className="sidebar-kids-btn-icon">
-              <MessageIcon />
+            <img src={assets.calendarIcon} alt="Calendar Icon"  style={{width: 23}}/>
             </div>
             <label>Calendreier</label>
           </NavLink>
