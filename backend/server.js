@@ -19,7 +19,7 @@ app.get("/",(request,response)=>{
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect("mongodb://localhost:27017/My_Final-project")
 .then(() => console.log('Connected to MongoDB'))
 .catch((error) => console.error('Connection error:', error));
 
@@ -27,11 +27,13 @@ mongoose.connect(process.env.MONGODB_URI)
 const userRouter = require('./routes/userRoutes');
 const groupeRouter = require('./routes/groupeRoutes');
 const sessionRouter = require('./routes/sessionRouter');
+const contactRouter = require('./routes/contactRouter');
 
 // Use routes
 app.use('/api/user', userRouter);
 app.use('/api/groupes', groupeRouter);
 app.use('/api/session', sessionRouter);
+app.use('/api/contact', contactRouter);
 
 // Handle unknown routes
 app.use((req, res, next) => {

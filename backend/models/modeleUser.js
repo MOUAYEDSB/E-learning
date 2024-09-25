@@ -11,7 +11,7 @@ const userSchema = new Schema({
   nom: String,
   prenom: String,
   email: { type: String, required: true, unique: true },
-  motdepasse: { type: String, required: true },
+  motdepasse: { type: String, required: false },
   adresse: String,
   telephone: String,
   profileImgURL: String,
