@@ -1,0 +1,104 @@
+.chart-card {
+    width: 440px;
+    height: 248.68px;
+    background-color: #fbfdfe;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chart-header h3 {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #464255;
+  }
+  
+  .chart-header p {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15.6px;
+    color: #b9bbbd;
+    margin-top: 4px;
+  }
+  
+  .save-report-btn {
+    display: flex;
+    align-items: center;
+    background: url('./assets/background-3.svg');
+    width: 140.67px;
+    height: 35.74px;
+    border: none;
+    color: #2d9cdb;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    cursor: pointer;
+    justify-content: center;
+  }
+  
+  .save-report-btn img {
+    margin-right: 8px;
+  }
+  
+  .chart-content {
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .chart-path {
+    width: 100%;
+  }
+  
+  .tooltip {
+    position: absolute;
+    left: 33%;
+    top: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tooltip-bg {
+    height: 46.39px;
+    width: 100.39px;
+  }
+  
+  .tooltip-text {
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 26.24px;
+    color: #464255;
+    background: white;
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .tooltip-dot {
+    height: 23.58px;
+    width: 23.44px;
+  }
+  
+  .chart-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 26px;
+    color: #464255;
+  }
+  

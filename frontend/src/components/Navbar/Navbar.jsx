@@ -26,7 +26,7 @@ const Navbar = () => {
           </div>
           <div className='cell profile'>
             <img src={assets.profileImg}  onClick={()=>Navigate("/profile")} />
-            <img src={assets.arrowDown}  className='arrow' />
+            <img src={assets.arrowdown1}  className='arrow' />
           </div>
         </div>
       </div>

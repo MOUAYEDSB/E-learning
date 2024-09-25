@@ -1,0 +1,46 @@
+.CardConponent {
+
+  padding: 150px 20px;
+}
+
+.container1 {
+  background-color: #30bced;
+  width: 1180px;
+  padding: 64px;
+
+
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 64px;
+}
+
+.heading-title {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.48px;
+  line-height: 120%;
+  color: #040000;
+  text-align: center;
+}
+
+.heading-subtitle {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+  color: #040000;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 64px;
+}

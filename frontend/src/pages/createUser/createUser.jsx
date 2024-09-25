@@ -218,6 +218,23 @@ export const CreateUser = () => {
               {formValues.children.map((child, index) => (
                 <div key={index} className="child-section">
                   <h5 className="child-header">Enfant {index + 1}</h5>
+                  <div className="userProfile-image-container">
+                    <div className="user-image">
+                      <img
+                        src={
+                          image
+                            ? URL.createObjectURL(image)
+                            : assets.defaultProfileImage
+                        }
+                        alt=""
+                      />
+                      <input
+                        type="file"
+                        name="profileImage"
+                        onChange={(e) => setImage(e.target.files[0])}
+                      />
+                    </div>
+                  </div>
                   <div className="cell">
                     <div className="input-box">
                       <label>Nom</label>

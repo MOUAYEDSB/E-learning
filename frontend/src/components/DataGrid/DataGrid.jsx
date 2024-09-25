@@ -80,15 +80,15 @@ export const DataGrid = ({
     const { type, field } = column;
     const cellContent = item[field];
     const imageUrl = field === 'profileImgURL' ? `${import.meta.env.VITE_API_BASE_URL}/${cellContent}` : '';
-  
+
     const handleImageError = (e) => {
       e.target.src = defaultImage;
     };
-  
+
     switch (type) {
       case "text":
         return <span>{cellContent || "N/A"}</span>;
-  
+
       case "image":
         return (
           <img
@@ -98,7 +98,7 @@ export const DataGrid = ({
             onError={handleImageError}
           />
         );
-  
+
       default:
         return <span>{cellContent || "N/A"}</span>;
     }
@@ -112,9 +112,8 @@ export const DataGrid = ({
   return (
     <div className="data-grid" style={{ maxHeight: maxHeight || "none" }}>
       <div
-        className={`offclick-check ${
-          toggleOptions === -1 ? (toggleQuickEdit ? "darkBlock" : "") : "block"
-        }`}
+        className={`offclick-check ${toggleOptions === -1 ? (toggleQuickEdit ? "darkBlock" : "") : "block"
+          }`}
         onClick={disableOffClickCheck}
       ></div>
       <div className={`quick-edit ${toggleQuickEdit ? "show" : ""}`}>
@@ -169,9 +168,8 @@ export const DataGrid = ({
                 <EditIcon fillColor="#637381" />
               </div>
               <div
-                className={`data-grid-options-button ${
-                  toggleOptions === index ? "show" : ""
-                }`}
+                className={`data-grid-options-button ${toggleOptions === index ? "show" : ""
+                  }`}
                 onClick={() => setToggleOptions(index)}
               >
                 <OptionsIcon fillColor="#637381" />
@@ -212,6 +210,8 @@ export const DataGrid = ({
             <span>No data available</span>
           </div>
         )}
+        
+
       </div>
     </div>
   );

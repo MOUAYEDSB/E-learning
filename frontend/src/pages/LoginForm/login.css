@@ -34,7 +34,7 @@
 }
 .wrapper{
     position: absolute;
-    top: 7rem;
+    top: 3rem;
     display:flex;
     flex-direction: column;
     justify-content: center;

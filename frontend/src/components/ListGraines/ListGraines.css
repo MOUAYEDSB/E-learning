@@ -1,0 +1,68 @@
+.carousel-container {
+    background-image: url('../../assets/Rectangle-4379.png');
+    width: 100%;
+    height: 500px;
+  }
+
+  .notregraine {
+    position: relative;
+    margin-left: 500px;
+    padding-top: 100px;
+  }
+  
+  .carousel-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 140px;
+    margin-left: 70px;
+    
+  }
+  
+  .image-container {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  .round-image {
+    width: 100%;
+    height: 100%;
+    
+   
+  }
+  
+  .description {
+    text-align: center;
+    font-size: 1em;
+    color: #fdfafa;
+    margin-top: 10px;
+  }
+  
+  .slick-prev {
+    z-index: 1;
+    color: #fff;
+    margin-left: 25px;
+    margin-top: 50px;
+  }
+  .slick-next {
+    z-index: 1;
+    color: #fff;
+    margin-right: 40px;   
+    margin-top: 50px;
+  }
+  
+  .slick-prev:hover, .slick-next:hover {
+    color: #ffffff; /* Darker color on hover */
+  }
+  
+  .slick-dots li button:before {
+    color: #ffffff; /* Customize dots color */
+  }
+  
+  .slick-dots li.slick-active button:before {
+    color: #ffffff; /* Active dot color */
+  }
+  

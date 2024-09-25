@@ -1,7 +1,7 @@
 .user-profile-wrapper {
     display: flex;
     flex-direction: row;
-    padding: 4rem 0;
+    padding: 4rem ;
     gap: 5vh;
     background-color: white;
 }

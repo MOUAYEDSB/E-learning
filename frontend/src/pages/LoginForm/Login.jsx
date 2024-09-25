@@ -56,11 +56,11 @@ function Login({setLogin}) {
           <button type="submit" className="login_button">Se Connecter</button>
         </form>
       </div>
-      <div className="footer">
+      {/*<div className="footer">
         <text>
           Copyrights © 2024 Graines d’Entrepreneurs®. All rights reserved.
-        </text> 
-      </div>
+        </text>
+      </div>  */}
     </div>
   );
 }

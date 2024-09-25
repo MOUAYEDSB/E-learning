@@ -1,0 +1,12 @@
+.headerImage {
+    background: url('../../assets/group-37356.svg') no-repeat;
+    width: 100%;
+    height: 780px;
+    align-content: center;
+}
+
+.ConnectButton {
+    position: absolute;
+    top: 45px;
+    left: 87%;
+}

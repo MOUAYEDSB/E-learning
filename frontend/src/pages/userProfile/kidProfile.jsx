@@ -2,22 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import './userProfile.css';
 import { assets } from '../../assets/assets.js';
 import { UserContext } from '../../context/userContext.jsx';
-export const KidProfile = ({id}) => {
-    const {getUser} = useContext(UserContext);
+
+export const KidProfile = ({ id }) => {
+    const { getUser } = useContext(UserContext);
     const [user, setUser] = useState({});
-    useEffect(() => {
-        const fetchUser = async () => {
-        try {
-            const userr = await getUser(id);
-        
-            setUser(userr); 
-        } catch (error) {
-            console.error('Error fetching user:', error); 
-        }
-    };
-    
-    fetchUser(); 
-  }, []);
     const [formValues, setFormValues] = useState({
         nom: '',
         prenom: '',
@@ -42,10 +30,35 @@ export const KidProfile = ({id}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [view, setView] = useState(true);
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const fetchedUser = await getUser(id);
+                setUser(fetchedUser);
+                // Update form values with fetched user data
+                setFormValues({
+                    nom: fetchedUser.nom || '',
+                    prenom: fetchedUser.prenom || '',
+                    email: fetchedUser.email || '',
+                    tel: fetchedUser.telephone || '', // Ensure this is correctly referenced
+                    adresse: fetchedUser.adresse || '', // Ensure this is correctly referenced
+                    age: fetchedUser.age || '',
+                    educationSystem: fetchedUser.educationSystem || '',
+
+
+                });
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            }
+        };
+
+        fetchUser();
+    }, [id]); // Ensure to include id as a dependency
+
     const changeHandler = (e) => {
         const { name, value } = e.target;
         const nameParts = name.split('-');
-        
+
         if (nameParts.length === 1) {
             // Simple property
             setFormValues({
@@ -75,7 +88,7 @@ export const KidProfile = ({id}) => {
     return (
         <div className='container'>
             <label className="nav-label">Pages &gt; Espace Admin </label>
-            <label className="nav-label2">Profiles &gt; {user.nom +' '+user.prenom}</label>
+            <label className="nav-label2">Profiles &gt; {user.nom + ' ' + user.prenom}</label>
             <div className='view-wrapper user-profile-wrapper'>
                 <div className="user-profile-image-container">
                     <div className="user-image">
@@ -84,7 +97,7 @@ export const KidProfile = ({id}) => {
                     </div>
                     <div className="account-info">
                         <span className={view && 'active'} onClick={() => setView(true)}>Paramétres</span>
-                        <span className={!view && 'active'} onClick={() => {setView(false);setIsEditing(false)}}>Mot de passe</span>
+                        <span className={!view && 'active'} onClick={() => { setView(false); setIsEditing(false) }}>Mot de passe</span>
                     </div>
                 </div>
                 <div className="userProfile-info">
@@ -106,16 +119,7 @@ export const KidProfile = ({id}) => {
                                     <label>Email</label>
                                     {isEditing ? <input type="email" name='email' value={formValues.email} placeholder='Email' onChange={changeHandler} /> : <p>{user.email}</p>}
                                 </div>
-                                <div className="cell">
-                                    <div className='input-box'>
-                                        <label>Telephone</label>
-                                        {isEditing ? <input type="text" name='tel' value={formValues.tel} placeholder='Telephone' onChange={changeHandler} /> : <p>{user.telephone}</p>}
-                                    </div>
-                                    <div className='input-box'>
-                                        <label>Adresse</label>
-                                        {isEditing ? <input type="text" name='adresse' value={formValues.adresse} placeholder='Votre adresse' onChange={changeHandler} /> : <p>{user.adresse}</p>}
-                                    </div>
-                                </div>
+
                                 <div className="cell">
                                     <div className='input-box'>
                                         <label>Age</label>
@@ -135,52 +139,14 @@ export const KidProfile = ({id}) => {
                                         )}
                                     </div>
                                 </div>
-                                <hr />
-                                {/*------------------------------- Parent 1 ------------------------------- */}
-                                <h4>Parent 1</h4>
-                                <div className="cell">
-                                    <div className='input-box'>
-                                        <label>Nom</label>
-                                        {isEditing ? <input type="text" name='parent1-nom' value={formValues.parent1.nom} placeholder='Nom' onChange={changeHandler} /> : <p>{formValues.parent1.nom}</p>}
-                                    </div>
-                                    <div className='input-box'>
-                                        <label>Prenom</label>
-                                        {isEditing ? <input type="text" name='parent1-prenom' value={formValues.parent1.prenom} placeholder='Prenom' onChange={changeHandler} /> : <p>{formValues.parent1.prenom}</p>}
-                                    </div>
-                                </div>
-                                <div className="cell">
-                                    <div className='input-box'>
-                                        <label>Email</label>
-                                        {isEditing ? <input type="email" name='parent1-email' value={formValues.parent1.email} placeholder='Email' onChange={changeHandler} /> : <p>{formValues.parent1.email}</p>}
-                                    </div>
-                                    <div className='input-box'>
-                                        <label>Telephone</label>
-                                        {isEditing ? <input type="text" name='parent1-tel' value={formValues.parent1.tel} placeholder='Telephone' onChange={changeHandler} /> : <p>{formValues.parent1.tel}</p>}
-                                    </div>
-                                </div>
-                                {/* -------------------  Parent 2 -------------------------*/}
-                                <h4>Parent 2</h4>
-                                <div className="cell">
-                                    <div className='input-box'>
-                                        <label>Nom</label>
-                                        {isEditing ? <input type="text" name='parent2-nom' value={formValues.parent2.nom} placeholder='Nom' onChange={changeHandler} /> : <p>{formValues.parent2.nom}</p>}
-                                    </div>
-                                    <div className='input-box'>
-                                        <label>Prenom</label>
-                                        {isEditing ? <input type="text" name='parent2-prenom' value={formValues.parent2.prenom} placeholder='Prenom' onChange={changeHandler} /> : <p>{formValues.parent2.prenom}</p>}
-                                    </div>
-                                </div>
-                                <div className="cell">
-                                    <div className='input-box'>
-                                        <label>Email</label>
-                                        {isEditing ? <input type="email" name='parent2-email' value={formValues.parent2.email} placeholder='Email' onChange={changeHandler} /> : <p>{formValues.parent2.email}</p>}
-                                    </div>
-                                    <div className='input-box'>
-                                        <label>Telephone</label>
-                                        {isEditing ? <input type="text" name='parent2-tel' value={formValues.parent2.tel} placeholder='Telephone' onChange={changeHandler} /> : <p>{formValues.parent2.tel}</p>}
-                                    </div>
-                                </div>
-                                <button className='submit-btn' type="button" onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Enregistrer' : 'Modifier'}</button>
+                                <button
+                                    type="button"
+                                    className="submit-btn"
+                                    onClick={() => setIsEditing((prev) => !prev)}
+                                >
+                                    {isEditing ? "Cancel" : "Edit"}
+                                </button>
+                                {isEditing && <button type="submit" className="submit-btn">Save</button>}
                             </form>
                         </>
                         :
@@ -206,4 +172,4 @@ export const KidProfile = ({id}) => {
             </div>
         </div>
     );
-}
+};

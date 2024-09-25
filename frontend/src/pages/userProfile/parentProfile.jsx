@@ -1,110 +1,89 @@
-import React, { useState,useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./userProfile.css";
-import { assets } from "../../assets/assets.js";
 import { UserContext } from "../../context/userContext.jsx";
 
-export const ParentProfile = ({id}) => {
+export const ParentProfile = ({ id }) => {
   const [formValues, setFormValues] = useState({
     nom: "",
     prenom: "",
     email: "",
     tel: "",
     adresse: "",
-    age: "",
+    profileImgURL: "",
     children: [],
   });
   const [isEditing, setIsEditing] = useState(false);
   const [view, setView] = useState(true);
   const [user, setUser] = useState({});
-  const { getUser } = useContext(UserContext);
+  const { getUser, updateUser } = useContext(UserContext);
+
+  // Fetch the user data and populate the form values on mount
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const userr = await getUser(id); // Await the getUser call
-
-        setUser(userr); // Set the fetched user data to state
+        const userData = await getUser(id);
+        setUser(userData);
+        setFormValues({
+          nom: userData.nom || "",
+          prenom: userData.prenom || "",
+          email: userData.email || "",
+          tel: userData.telephone || "",
+          adresse: userData.adresse || "",
+          profileImgURL: userData.profileImgURL || "",
+          children: userData.children || [],
+        });
       } catch (error) {
-        console.error("Error fetching user:", error); // Handle any errors
+        console.error("Error fetching user:", error);
       }
     };
+    fetchUser();
+  }, [id, getUser]);
 
-    fetchUser(); // Call the async function to fetch the user
-  }, []);
+  // Change handler for input fields
   const changeHandler = (e) => {
     const { name, value } = e.target;
-    const nameParts = name.split("-");
-
-    if (nameParts.length === 1) {
-      // Simple property
-      setFormValues({
-        ...formValues,
-        [name]: value,
-      });
-    } else if (nameParts[0] === "child") {
-      // Children property
-      const index = parseInt(nameParts[1]);
-      const key = nameParts[2];
-      const updatedChildren = formValues.children.map((child, i) =>
-        i === index ? { ...child, [key]: value } : child
-      );
-      setFormValues({
-        ...formValues,
-        children: updatedChildren,
-      });
-    } else {
-      // Nested property
-      const [parent, key] = nameParts;
-      setFormValues({
-        ...formValues,
-        [parent]: {
-          ...formValues[parent],
-          [key]: value,
-        },
-      });
-    }
-
-    console.log(formValues);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
-  const submitHandler = (e) => {
+  // Submit the form values
+  const submitHandler = async (e) => {
     e.preventDefault();
-    // Add form submission logic here
-  };
-
-  const addChild = () => {
-    setFormValues({
-      ...formValues,
-      children: [
-        ...formValues.children,
-        { nom: "", prenom: "", age: "", educationSystem: "" },
-      ],
-    });
-  };
-
-  const removeChild = (index) => {
-    const updatedChildren = formValues.children.filter((_, i) => i !== index);
-    setFormValues({
-      ...formValues,
-      children: updatedChildren,
-    });
+    try {
+      await updateUser(id, formValues); // Call updateUser to save the changes
+      setIsEditing(true); // Exit edit mode after saving
+      console.log("Form submitted with values:", formValues); // Debugging
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
   };
 
   return (
     <div className="container">
-      <label className="nav-label">Pages &gt; Espace Admin </label>
-      <label className="nav-label2">Profiles &gt; {user.nom + " " + user.prenom}</label>
+      <label className="nav-label">Pages &gt; Espace Admin</label>
+      <label className="nav-label2">
+        Profiles &gt; {`${user.nom} ${user.prenom}`}
+      </label>
       <div className="view-wrapper user-profile-wrapper">
         <div className="user-profile-image-container">
           <div className="user-image">
-            <img src={user.profileImgURL} alt="" />
-            <span>{user.nom+" "+user.prenom}</span>
+            <img
+              src={`http://localhost:3000/${formValues.profileImgURL}`}
+              alt={`${user.nom} ${user.prenom}`}
+            />
+            <span>{`${user.nom} ${user.prenom}`}</span>
           </div>
           <div className="account-info">
-            <span className={view && "active"} onClick={() => setView(true)}>
+            <span
+              className={view ? "active" : ""}
+              onClick={() => setView(true)}
+            >
               Paramétres
             </span>
             <span
-              className={!view && "active"}
+              className={!view ? "active" : ""}
               onClick={() => {
                 setView(false);
                 setIsEditing(false);
@@ -131,7 +110,7 @@ export const ParentProfile = ({id}) => {
                         onChange={changeHandler}
                       />
                     ) : (
-                      <p>{user.nom}</p>
+                      <p>{formValues.nom}</p>
                     )}
                   </div>
                   <div className="input-box">
@@ -145,189 +124,73 @@ export const ParentProfile = ({id}) => {
                         onChange={changeHandler}
                       />
                     ) : (
-                      <p>{user.prenom}</p>
+                      <p>{formValues.prenom}</p>
                     )}
                   </div>
-                </div>
-                <div className="input-box">
-                  <label>Email</label>
-                  {isEditing ? (
-                    <input
-                      type="email"
-                      name="email"
-                      value={formValues.email}
-                      placeholder="Email"
-                      onChange={changeHandler}
-                    />
-                  ) : (
-                    <p>{user.email}</p>
-                  )}
                 </div>
                 <div className="cell">
                   <div className="input-box">
-                    <label>Telephone</label>
+                    <label>Email</label>
                     {isEditing ? (
                       <input
-                        type="text"
-                        name="tel"
-                        value={formValues.tel}
-                        placeholder="Telephone"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={formValues.email}
                         onChange={changeHandler}
                       />
                     ) : (
-                      <p>{user.telephone}</p>
+                      <p>{formValues.email}</p>
                     )}
                   </div>
+                  <div className="input-box">
+                    <label>Tel</label>
+                    {isEditing ? (
+                      <input
+                        type="tel"
+                        name="tel"
+                        placeholder="Téléphone"
+                        value={formValues.tel}
+                        onChange={changeHandler}
+                      />
+                    ) : (
+                      <p>{formValues.tel}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="cell">
                   <div className="input-box">
                     <label>Adresse</label>
                     {isEditing ? (
                       <input
                         type="text"
                         name="adresse"
+                        placeholder="Adresse"
                         value={formValues.adresse}
-                        placeholder="Votre adresse"
                         onChange={changeHandler}
                       />
                     ) : (
-                      <p>{user.adresse}</p>
+                      <p>{formValues.adresse}</p>
                     )}
                   </div>
                 </div>
-                <div className="cell">
-                  <div className="input-box">
-                    <label>Age</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        name="age"
-                        value={formValues.age}
-                        placeholder="Votre age"
-                        onChange={changeHandler}
-                      />
-                    ) : (
-                      <p>{user.age}</p>
-                    )}
-                  </div>
-                  <div className="input-box"></div>
-                </div>
-                <hr />
 
-                {/* -------------------  Children Section -------------------------*/}
-                <h4>Enfants</h4>
-                {formValues.children.map((child, index) => (
-                  <div key={index} className="child-section">
-                    <h5 className="child-header">Enfant {index + 1}</h5>
-                    <div className="cell">
-                      <div className="input-box">
-                        <label>Nom</label>
-                        {isEditing ? (
-                          <input
-                            type="text"
-                            name={`child-${index}-nom`}
-                            value={child.nom}
-                            placeholder="Nom"
-                            onChange={changeHandler}
-                          />
-                        ) : (
-                          <p>{child.nom}</p>
-                        )}
-                      </div>
-                      <div className="input-box">
-                        <label>Prenom</label>
-                        {isEditing ? (
-                          <input
-                            type="text"
-                            name={`child-${index}-prenom`}
-                            value={child.prenom}
-                            placeholder="Prenom"
-                            onChange={changeHandler}
-                          />
-                        ) : (
-                          <p>{child.prenom}</p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="cell">
-                      <div className="input-box">
-                        <label>Age</label>
-                        {isEditing ? (
-                          <input
-                            type="text"
-                            name={`child-${index}-age`}
-                            value={child.age}
-                            placeholder="Age"
-                            onChange={changeHandler}
-                          />
-                        ) : (
-                          <p>{child.age}</p>
-                        )}
-                      </div>
-                      <div className="input-box">
-                        <label>Systéme educatif</label>
-                        {isEditing ? (
-                          <select
-                            name={`child-${index}-educationSystem`}
-                            value={child.educationSystem}
-                            onChange={changeHandler}
-                          >
-                            <option value="">Sélectionner</option>
-                            <option value="Tunisien">Tunisien</option>
-                            <option value="Canadien">Canadien</option>
-                            <option value="Francais">Francais</option>
-                          </select>
-                        ) : (
-                          <p>{child.educationSystem}</p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="input-box">
-                      <label>Email</label>
-                      {isEditing ? (
-                        <input
-                          type="email"
-                          name={`child-${index}-email`}
-                          value={child.email}
-                          placeholder="child email"
-                          onChange={changeHandler}
-                        />
-                      ) : (
-                        <p>{child.email}</p>
-                      )}
-                    </div>
-                    {isEditing && (
-                      <button
-                        className="submit-btn"
-                        type="button"
-                        onClick={() => removeChild(index)}
-                      >
-                        Remove Child
-                      </button>
-                    )}
-                    <hr />
-                  </div>
-                ))}
-                {isEditing && (
-                  <button
-                    type="button"
-                    className="submit-btn"
-                    onClick={addChild}
-                  >
-                    Add Child
-                  </button>
-                )}
-
+                {/* Edit/Save Controls */}
                 <button
+                  type="button"
                   className="submit-btn"
-                  onClick={() => setIsEditing(!isEditing)}
+                  onClick={() => setIsEditing((prev) => !prev)}
                 >
-                  {isEditing ? "Enregistrer" : "Modifier"}
+                  {isEditing ? "Cancel" : "Edit"}
                 </button>
+                {isEditing && <button type="submit" className="submit-btn">Save</button>}
               </form>
             </>
           ) : (
-            <div className="mot-de-passe-info">
-              <h3>Changer le mot de passe</h3>
-              <form>
+            <>
+            // Password Update form can go here
+              <h3>Change Password</h3>
+              <form onSubmit={passwordChangeHandler}>
                 <div className="input-box">
                   <label>Ancien mot de passe</label>
                   <input type="password" placeholder="Ancien mot de passe" />
@@ -338,14 +201,11 @@ export const ParentProfile = ({id}) => {
                 </div>
                 <div className="input-box">
                   <label>Confirmer le mot de passe</label>
-                  <input
-                    type="password"
-                    placeholder="Confirmer le mot de passe"
-                  />
+                  <input type="password" placeholder="Confirmer le mot de passe" />
                 </div>
-                <button className="submit-btn">Changer le mot de passe</button>
+                <button className="submit-btn" type="submit">Changer le mot de passe</button>
               </form>
-            </div>
+            </>
           )}
         </div>
       </div>

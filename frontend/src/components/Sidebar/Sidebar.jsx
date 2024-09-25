@@ -26,7 +26,7 @@ export const Sidebar = () => {
                     </div>
                     <label>Dashboard</label>
                 </NavLink>
-                <NavLink exact to="/home" activeClassName='active' className="sideBar-btn" onClick={()=>{Navigate("/home"), setIsOpen(false)}}>
+                <NavLink exact to="/welcome" activeClassName='active' className="sideBar-btn" onClick={()=>{Navigate("/home"), setIsOpen(false)}}>
                     <div className="sideBar-btn-icon">
                     <HomeIcon/>
                     </div>
