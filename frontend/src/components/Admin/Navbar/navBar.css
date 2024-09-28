@@ -65,10 +65,10 @@
     color: #ffffff;
 }
 
-.profile img {
+.profileA img {
     cursor: pointer;
-    width: 40px; /* Adjust the width as needed */
-    height: 40px; /* Adjust the height as needed */
+    width: 50px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
     border-radius: 50%; /* Optional: make it circular */
     object-fit: cover;
 }
@@ -88,10 +88,4 @@
     background-color: #0c0606;
   }
 
-  .profile-image {
-    width: 40px; /* Adjust the width as needed */
-    height: 40px; /* Adjust the height as needed */
-    border-radius: 50%; /* Optional: make it circular */
-    object-fit: cover; /* Ensures the image covers the area without distortion */
-  }
   

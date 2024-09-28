@@ -96,7 +96,7 @@ const Navbar = ({ setLogin }) => {
             <h4>{userName}</h4> {/* Display the user's name */}
             <p>Tunisia</p>
           </div>
-          <div className="cell profile">
+          <div className="cell profileA">
             <img
               src={profileImg}
               onClick={() => navigate("/profile")}

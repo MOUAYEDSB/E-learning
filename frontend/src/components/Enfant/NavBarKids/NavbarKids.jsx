@@ -52,7 +52,7 @@ const NavbarKids = ({ setLogin }) => {
             <h4>{userName}</h4>
             <p>Tunisia</p>
           </div>
-          <div className='cell profile'>
+          <div className='cell profileK'>
             <img src={profileImg} onClick={() => navigate("/profile")} alt="Profile" />
           </div>
           <button className="logout-button" onClick={logout}>
