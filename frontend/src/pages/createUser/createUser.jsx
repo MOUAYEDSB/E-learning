@@ -199,7 +199,7 @@ export const CreateUser = () => {
               />
             </div>
             <div className="input-box">
-              <label>Type D'utilisateur</label>
+              <label>Type D utilisateur</label>
               <select
                 name="role"
                 value={userType}

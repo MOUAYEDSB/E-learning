@@ -2,9 +2,9 @@ import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Login from "./pages/LoginForm/Login";
-import { Sidebar } from "./components/Sidebar/Sidebar";
-import Navbar from "./components/Navbar/Navbar";
-import { CreateUser } from "./pages/CreateUser/CreateUser";
+import { Sidebar } from "./components/Admin/Sidebar/Sidebar";
+import Navbar from "./components/Admin/Navbar/Navbar";
+import { CreateUser } from "./pages/CreateUser/createUser";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { UsersList } from "./pages/UsersList/UsersList";
 import { GroupList } from "./pages/GroupList/GroupList";
@@ -12,16 +12,17 @@ import { GroupInfo } from "./pages/GroupInfo/GroupInfo";
 import { UserProfile } from "./pages/UserProfile/UserProfile";
 import CreateGroup from "./pages/CreateGroup/CreateGroup";
 import { ContactList } from "./pages/ContactList/ContactList";
-import { SidebarKids } from "./components/SideBarKids/SidebarKids";
-import NavbarKids from "./components/NavBarKids/NavbarKids";
+import { SidebarKids } from "./components/Enfant/SideBarKids/SidebarKids";
+import NavbarKids from "./components/Enfant/NavBarKids/NavbarKids";
 import { DashboardKids } from "./pages/KidsDashboard/KidsDashboard";
 import { DashboardParents } from "./pages/ParentsDashboard/ParentsDashboard";
-import { SidebarParents } from "./components/SideBarParents/SideBarParents";
-import NavbarParents from "./components/NavBarParents/NavBarParents";
+import { SidebarParents } from "./components/Parent/SideBarParents/SideBarParents";
+import NavbarParents from "./components/Parent/NavBarParents/NavBarParents";
 import { DashboardFormateur } from "./pages/FormateurDashboard/FormateurDashboard";
-import { SideBarFormateur } from "./components/SideBarFormateur/SideBarFormateur";
-import NavbarFormateur from './components/NavBarFormateur/NavBarFormateur';
-
+import { SideBarFormateur } from "./components/Formateur/SideBarFormateur/SideBarFormateur";
+import NavbarFormateur from "./components/Formateur/NavBarFormateur/NavBarFormateur";
+import Messages from "./pages/Message/Message";
+import ParametresPage from "./pages/Parametres/Parametres";
 
 export default function App() {
   const token = localStorage.getItem("token");
@@ -186,7 +187,7 @@ export default function App() {
                 <div className="main-wrapper">
                   <Navbar role={role} setLogin={setLogin} />
                   <div className="content-wrapper">
-                    <>Messages Page</>
+                    <Messages />
                   </div>
                 </div>
               </>
@@ -200,7 +201,7 @@ export default function App() {
                 <div className="main-wrapper">
                   <Navbar role={role} setLogin={setLogin} />
                   <div className="content-wrapper">
-                    <>Settings Page</>
+                    <ParametresPage />
                   </div>
                 </div>
               </>

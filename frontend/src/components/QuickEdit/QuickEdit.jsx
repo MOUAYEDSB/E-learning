@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./quickEdit.css"
 import React, { useState } from 'react'
 import Select from "react-select";

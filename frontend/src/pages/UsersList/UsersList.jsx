@@ -1,8 +1,9 @@
 import "./usersList.css";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { DataGrid } from "../../components/DataGrid/DataGrid";
 import { UserContext } from "../../context/userContext";
 
+// eslint-disable-next-line react/prop-types
 export const UsersList = ({ role }) => {
   const { users, setUsers } = useContext(UserContext);
 
@@ -98,7 +99,7 @@ export const UsersList = ({ role }) => {
             field: "bio",
             headerName: "Bio",
             type: "text",
-            width: 400,
+            width: 450,
             headerClassName: "header-column",
           },
 

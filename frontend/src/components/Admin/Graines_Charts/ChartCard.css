@@ -1,0 +1,100 @@
+.chart-card {
+    width: 471px;
+    height: 214.51px;
+    background: url('./assets/background.svg') no-repeat center center / cover;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .chart-title {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 250;
+    font-size: 17px;
+    color: #464255;
+  }
+  
+  .chart-options {
+    display: flex;
+    align-items: center;
+  }
+  
+  .chart-option {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+  }
+  
+  .chart-option img {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+  }
+  
+  .chart-option span {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    color: #464255;
+  }
+  
+  .chart-menu {
+    width: 24.93px;
+    height: 24.93px;
+  }
+  
+  .chart-body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  .gauge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .circle {
+    width: 100.37px;
+    height: 100.37px;
+  }
+  
+  .circle-inner {
+    width: 85.12px;
+    height: 85.12px;
+    position: absolute;
+  }
+  
+  .gauge-text {
+    position: absolute;
+    text-align: center;
+  }
+  
+  .gauge-value {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: #000000;
+  }
+  
+  .gauge-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    color: #464255;
+    margin-top: 5px;
+  }
+  

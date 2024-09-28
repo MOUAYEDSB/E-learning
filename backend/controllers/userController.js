@@ -25,7 +25,7 @@ exports.createUser = async (req, res) => {
     let childDetails = []; // To store child emails and passwords
 
     // Handle password generation and hashing
-    if (["Formateur", "Parent", "Enfant"].includes(role)) {
+    if (["formateur", "parent", "enfant"].includes(role.toLowerCase())) {
       if (!req.body.motdepasse) {
         plainMotdepasse = generateRandomPassword();
         hashedMotdepasse = await bcrypt.hash(plainMotdepasse, 10);

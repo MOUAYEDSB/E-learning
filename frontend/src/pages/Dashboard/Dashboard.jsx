@@ -1,84 +1,153 @@
-import { useState } from "react";
-import "./Dashboard.css";
-import { DataGrid } from "../../components/DataGrid/DataGrid";
+import { useContext } from 'react';
+import './Dashboard.css';
+import { assets } from '../../assets/assets';
+
+import WidgetCard from '../../components/WidgetUser/widgetCard';
+import FilterPeriodeButton from '../../components/Admin/FilterPeriodeButton/FilterPeriodeButton';
+import GainesChart from '../../components/Admin/Graines_Charts/grainescharts3';
+import LineChartCard from '../../components/Admin/Graines_Charts/grainescharts';
+import Calendar from '../../components/Admin/Calendar/Calendar2';
+import UserCard from '../../components/UserCard/UserCard';
+import { UserContext } from '../../context/userContext';
+import UserListView from '../../components/UsersListView/UsersListView';
+
+import { Grid } from '@mui/material';
+
+// Sample data for the chart
+// eslint-disable-next-line no-unused-vars
+const chartData = [
+  { name: 'Sunday', value: 62 },
+  { name: 'Monday', value: 81 },
+  { name: 'Tuesday', value: 56 },
+  { name: 'Wednesday', value: 70 },
+  { name: 'Thursday', value: 88 },
+  { name: 'Friday', value: 94 },
+  { name: 'Saturday', value: 73 },
+];
+
 export const Dashboard = () => {
-  const columns = [
+  const { users } = useContext(UserContext); // Get users from context
+
+  // Common columns for all roles
+  const commonColumns = [
     {
-      field: "fullName",
+      field: "profileImgURL",
+      headerName: "Image",
+      type: "image",
+      width: 100,
+      headerClassName: "header-column",
+    },
+    {
+      field: "prenom",
+      headerName: "Prénom",
+      type: "text",
+      width: 200,
+      headerClassName: "header-column",
+    },
+    {
+      field: "nom",
       headerName: "Nom",
       type: "text",
-      img: "profilePicUrl",
-      width: "230px",
-      minWidth: "200px",
-      sort: true,
+      width: 200,
+      headerClassName: "header-column",
     },
     {
       field: "email",
       headerName: "Adresse E-mail",
       type: "text",
-      width: "320px",
-      minWidth: "250px",
+      width: 280,
+      headerClassName: "header-column",
     },
     {
-      field: "phone",
-      headerName: "Téléphone",
-      type: "text",
-      width: "180px",
-      minWidth: "120px",
+      field: "age",
+      headerName: "Age",
+      type: "number",
+      width: 130,
+      headerClassName: "header-column",
     },
     {
-      field: "status",
-      headerName: "Status",
-      type: "status",
-      options: {
-        online: ["#d3efdf", "#508d57"],
-        offline: ["#f7ddd8", "#b71d18"],
-      },
-      width: "110px",
-      minWidth: "76px",
-      sort: true,
+      field: "role",
+      headerName: "Role",
+      type: "string",
+      width: 150,
+      headerClassName: "header-column",
     },
   ];
 
-  const [items, setItems] = useState([
-    {
-      fullName: "Jane Smith",
-      email: "jane.smith@example.com",
-      phone: "987-654-3210",
-      status: "offline",
-      profilePicUrl: "https://randomuser.me/api/portraits/women/1.jpg",
-    },
-    {
-      fullName: "John Johnson",
-      email: "john.johnson@example.com",
-      phone: "555-123-4567",
-      status: "online",
-      profilePicUrl: "https://randomuser.me/api/portraits/men/1.jpg",
-    },
-    {
-      fullName: "Emily Williams",
-      email: "emily.williams@example.com",
-      phone: "555-987-6543",
-      status: "offline",
-      profilePicUrl: "https://randomuser.me/api/portraits/women/2.jpg",
-    },
-    {
-      fullName: "Michael Brown",
-      email: "michael.brown@example.com",
-      phone: "555-555-5555",
-      status: "online",
-      profilePicUrl: "https://randomuser.me/api/portraits/men/2.jpg",
-    },
-    {
-      fullName: "Laura Jones",
-      email: "laura.jones@example.com",
-      phone: "555-666-7777",
-      status: "offline",
-      profilePicUrl: "https://randomuser.me/api/portraits/women/3.jpg",
-    },
-  ]);
-
   return (
-    <DataGrid columns={columns} items={items} setItems={setItems}></DataGrid>
+    <>
+      <div className="dashboard">
+        <Grid container spacing={2}>
+
+          <Grid item xs={4}>
+            <div className="title-dashboard">Dashboard</div>
+            <div className="welcome-message">Hi, Welcome Back!</div>
+          </Grid>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={7}>
+            <div className='calendar-filter-button'>
+              <FilterPeriodeButton />
+            </div>
+          </Grid>
+
+          <Grid item xs={5}>
+            <div className="dashboard-content">
+              <WidgetCard count="200" title="Graines Accounts" icon={assets.iconOrder} />
+              <WidgetCard count="200" title="Graines Accounts" icon={assets.iconOrder2} />
+              <WidgetCard count="200" title="Graines Accounts" icon={assets.iconOrder3} />
+              <WidgetCard count="200" title="Graines Accounts" icon={assets.iconOrder4} />
+              {/* Add Chart Cards and other components */}
+            </div>
+          </Grid>
+          <Grid item sx={4}></Grid>
+          <Grid item sx={3}>
+            <Calendar />
+            <div className="add-widget-button">
+              <img className="background" src={assets.background2} alt="button background" />
+              <div className="content">
+                <img className="icon" src={assets.add1} alt="add icon" />
+                <span className="text">ADD WIDGET</span>
+              </div>
+            </div>
+          </Grid>
+
+          <div className='div_space'></div>
+
+          <Grid item sx={6}>
+            <GainesChart />
+          </Grid>
+
+          <Grid item sx={6}>
+            <LineChartCard />
+          </Grid>
+
+          <div className='div_space'></div>
+
+          <Grid item xs={12}>
+            <div className="title-dashboard">Parents Review</div>
+            <div className="welcome-message">Eum fuga consequuntur utadsjn et</div>
+          </Grid>
+
+          <Grid item sx={12}>
+            <div className='userCard'>
+              <UserCard />
+              <UserCard />
+              <UserCard />
+            </div>
+          </Grid>
+          <div className='div_space'></div>
+
+        </Grid>
+
+        <Grid item xs={12}>
+          <div className="title-dashboard">Gestion d utilisateurs</div>
+          <div className="welcome-message">Détails de chaque liste</div>
+        </Grid>
+
+        <Grid item xs={12}>
+          <UserListView title=" List D'utilisateurs" columns={commonColumns} users={users} />
+        </Grid>
+      </div>
+    </>
   );
 };

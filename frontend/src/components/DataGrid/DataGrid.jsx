@@ -6,18 +6,19 @@ import { EditIcon } from "../../assets/EditIcon";
 import { OptionsIcon } from "../../assets/OptionsIcon";
 import { DeleteIcon } from "../../assets/DeleteIcon";
 import { ViewIcon } from "../../assets/ViewIcon";
-import { QuickEdit } from "../QuickEdit/QuickEdit";
+// import { QuickEdit } from "../QuickEdit/QuickEdit";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import defaultImage from "../../assets/defaultprofileimage.jpg"; // Updated path to default image
 
 export const DataGrid = ({
-  role,
+  
   columns: initialColumns,
   items = [],
   setItems,
   maxHeight,
 }) => {
+  // eslint-disable-next-line no-unused-vars
   const { users, deleteUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -51,6 +52,7 @@ export const DataGrid = ({
     document.body.classList.remove("resizing-active");
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleMouseMove = (e) => {
     if (isResizing) {
       const mouseMoveX = e.clientX - initialMouseX;
@@ -74,7 +76,7 @@ export const DataGrid = ({
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [isResizing, targetIndex, initialWidth, initialMouseX]);
+  }, [isResizing, targetIndex, initialWidth, initialMouseX, handleMouseMove]);
 
   const renderCell = (column, item) => {
     const { type, field } = column;
@@ -118,7 +120,7 @@ export const DataGrid = ({
         onClick={disableOffClickCheck}
       ></div>
       <div className={`quick-edit ${toggleQuickEdit ? "show" : ""}`}>
-        <QuickEdit />
+        {/* <QuickEdit /> */}
       </div>
       <div className="data-grid-header">
         {initialColumns.map((column, index) => (
@@ -130,6 +132,7 @@ export const DataGrid = ({
             <span>{column.headerName}</span>
             {column.sort && (
               <div
+                // eslint-disable-next-line no-undef
                 onClick={() => sortRows(column)}
                 className="data-grid-sort-arrow"
               >

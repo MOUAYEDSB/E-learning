@@ -6,6 +6,7 @@ import "./createGroup.css";
 const  CreateGroup = () => {
   const [formateurOptions, setFormateurOptions] = useState([]);
   const [enfantOptions, setEnfantOptions] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [selectedEnfants, setSelectedEnfants] = useState([]);
   const [groupData, setGroupData] = useState({
     nom: "",
@@ -149,7 +150,7 @@ const  CreateGroup = () => {
           </div>
           <div className="group-info-input-group">
             <div className="group-info-wrapper">
-              <label className="group-info-label">Tranche d'âge</label>
+              <label className="group-info-label">Tranche d âge</label>
               <input
                 type="text"
                 className="group-info-input"

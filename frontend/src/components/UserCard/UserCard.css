@@ -1,0 +1,71 @@
+.UseCard {
+	width: 372px;
+	background-color: #fdfdfd;
+	border-radius: 15px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+	padding: 15px 0px 15px 0;
+	display: inline-block;
+	flex-direction: column;
+  }
+  
+  .profile {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 20px;
+  }
+  
+  .avatar {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 10px;
+	margin-left: 10px;
+  }
+  
+  .profile-text {
+	display: flex;
+	flex-direction: column; /* Keeps the name and time in a vertical column */
+  }
+  
+  .name {
+	font-size: 21px;
+	font-weight: 500;
+	color: #464255;
+	white-space: nowrap; /* Prevents wrapping */
+  }
+  
+  .time {
+	font-size: 15px;
+	font-weight: 500;
+	color: #a3a3a3;
+	margin-top: 5px;
+  }
+  
+  .content {
+	font-size: 14px;
+	font-weight: 500;
+	color: #464255;
+	line-height: 23px;
+	margin-bottom: 20px;
+	width: 80%;
+  }
+  
+  .rating {
+	display: flex;
+	align-items: center;
+  }
+  
+  .stars {
+	width: 107px;
+	height: 16px;
+	margin-left: 70px;
+  }
+  
+  .rating-value {
+	font-size: 18px;
+	font-weight: 500;
+	color: #464255;
+	margin-left: 10px;
+  }

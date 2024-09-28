@@ -3,8 +3,8 @@ import Switch from "../../components/Switch/Switch";
 import { assets } from "../../assets/assets";
 import "./login.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
 
+// eslint-disable-next-line react/prop-types
 function Login({ setLogin }) {
   const [toggled, setToggled] = useState(false);
   const [data, setData] = useState({ email: "", motdepasse: "" });

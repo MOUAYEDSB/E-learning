@@ -1,352 +1,226 @@
-import React, { useState,useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./userProfile.css";
-import { assets } from "../../assets/assets.js";
 import { UserContext } from "../../context/userContext.jsx";
+import { assets } from "../../assets/assets"; // Assuming assets like default image are stored here
 
-export const ParentProfile = ({id}) => {
+// eslint-disable-next-line react/prop-types
+export const ParentProfile = ({ id }) => {
   const [formValues, setFormValues] = useState({
     nom: "",
     prenom: "",
     email: "",
     tel: "",
     adresse: "",
-    age: "",
+    profileImgURL: "",
     children: [],
   });
+
+  const [selectedFile, setSelectedFile] = useState(null); // For image file
+  const [imagePreview, setImagePreview] = useState(null); // Image preview
   const [isEditing, setIsEditing] = useState(false);
-  const [view, setView] = useState(true);
-  const [user, setUser] = useState({});
-  const { getUser } = useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState("");
+  const { getUser, updateUser } = useContext(UserContext);
+
+  // Fetch the user data on component mount
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const userr = await getUser(id); // Await the getUser call
-
-        setUser(userr); // Set the fetched user data to state
+        const userData = await getUser(id);
+        setFormValues({
+          nom: userData.nom || "",
+          prenom: userData.prenom || "",
+          email: userData.email || "",
+          tel: userData.telephone || "",
+          adresse: userData.adresse || "",
+          profileImgURL: userData.profileImgURL || "",
+          children: userData.children || [],
+        });
+        setImagePreview(
+          userData.profileImgURL
+            ? `http://localhost:3000/${userData.profileImgURL}`
+            : assets.defaultProfileImage // Default image if no profile picture
+        );
       } catch (error) {
-        console.error("Error fetching user:", error); // Handle any errors
+        console.error("Error fetching user:", error);
       }
     };
+    fetchUser();
+  }, [id, getUser]);
 
-    fetchUser(); // Call the async function to fetch the user
-  }, []);
+  // Handle text input changes
   const changeHandler = (e) => {
     const { name, value } = e.target;
-    const nameParts = name.split("-");
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
 
-    if (nameParts.length === 1) {
-      // Simple property
-      setFormValues({
-        ...formValues,
-        [name]: value,
-      });
-    } else if (nameParts[0] === "child") {
-      // Children property
-      const index = parseInt(nameParts[1]);
-      const key = nameParts[2];
-      const updatedChildren = formValues.children.map((child, i) =>
-        i === index ? { ...child, [key]: value } : child
-      );
-      setFormValues({
-        ...formValues,
-        children: updatedChildren,
-      });
-    } else {
-      // Nested property
-      const [parent, key] = nameParts;
-      setFormValues({
-        ...formValues,
-        [parent]: {
-          ...formValues[parent],
-          [key]: value,
-        },
-      });
+  // Handle image file selection
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    if (file) {
+      setImagePreview(URL.createObjectURL(file)); // Update preview when new file is selected
+    }
+  };
+
+  // Handle form submission including image upload
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    // Append form values to FormData
+    Object.keys(formValues).forEach((key) => {
+      formData.append(key, formValues[key]);
+    });
+
+    // Append the image file if selected
+    if (selectedFile) {
+      formData.set("profileImgURL", selectedFile);
     }
 
-    console.log(formValues);
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    // Add form submission logic here
-  };
-
-  const addChild = () => {
-    setFormValues({
-      ...formValues,
-      children: [
-        ...formValues.children,
-        { nom: "", prenom: "", age: "", educationSystem: "" },
-      ],
-    });
-  };
-
-  const removeChild = (index) => {
-    const updatedChildren = formValues.children.filter((_, i) => i !== index);
-    setFormValues({
-      ...formValues,
-      children: updatedChildren,
-    });
+    try {
+      const updatedUser = await updateUser(id, formData);
+      if (updatedUser) {
+        setFormValues((prev) => ({
+          ...prev,
+          profileImgURL: updatedUser.profileImgURL || prev.profileImgURL,
+        }));
+        setImagePreview(
+          updatedUser.profileImgURL
+          ? `http://localhost:3000/${updatedUser.profileImgURL}?${new Date().getTime()}` // Add timestamp to force refresh
+          : assets.defaultProfileImage
+        );
+      }
+      setIsEditing(false); // Exit edit mode
+    } catch (error) {
+      const errorMessage = error.response ? error.response.data : error.message;
+      console.error("Error updating user:", errorMessage);
+      setErrorMessage(errorMessage); // Set error message
+    }
   };
 
   return (
     <div className="container">
-      <label className="nav-label">Pages &gt; Espace Admin </label>
-      <label className="nav-label2">Profiles &gt; {user.nom + " " + user.prenom}</label>
+      <label className="nav-label">Pages &gt; Espace Admin</label>
+      <label className="nav-label2">
+        Profiles &gt; {formValues.nom} {formValues.prenom}
+      </label>
       <div className="view-wrapper user-profile-wrapper">
         <div className="user-profile-image-container">
           <div className="user-image">
-            <img src={user.profileImgURL} alt="" />
-            <span>{user.nom+" "+user.prenom}</span>
+            <img
+              src={imagePreview || assets.defaultProfileImage}
+              alt="Profile"
+            />
+            <span>
+              {formValues.nom} {formValues.prenom}
+            </span>
           </div>
-          <div className="account-info">
-            <span className={view && "active"} onClick={() => setView(true)}>
-              Paramétres
-            </span>
-            <span
-              className={!view && "active"}
-              onClick={() => {
-                setView(false);
-                setIsEditing(false);
-              }}
-            >
-              Mot de passe
-            </span>
+          <div className="choose-image-section">
+            {isEditing && (
+              <input
+                type="file"
+                name="profileImgURL"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            )}
           </div>
         </div>
         <div className="userProfile-info">
-          {view ? (
-            <>
-              <h3>Paramètre du compte</h3>
-              <form onSubmit={submitHandler}>
-                <div className="cell">
-                  <div className="input-box">
-                    <label>Nom</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        name="nom"
-                        placeholder="Nom"
-                        value={formValues.nom}
-                        onChange={changeHandler}
-                      />
-                    ) : (
-                      <p>{user.nom}</p>
-                    )}
-                  </div>
-                  <div className="input-box">
-                    <label>Prenom</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        name="prenom"
-                        value={formValues.prenom}
-                        placeholder="Prenom"
-                        onChange={changeHandler}
-                      />
-                    ) : (
-                      <p>{user.prenom}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="input-box">
-                  <label>Email</label>
-                  {isEditing ? (
-                    <input
-                      type="email"
-                      name="email"
-                      value={formValues.email}
-                      placeholder="Email"
-                      onChange={changeHandler}
-                    />
-                  ) : (
-                    <p>{user.email}</p>
-                  )}
-                </div>
-                <div className="cell">
-                  <div className="input-box">
-                    <label>Telephone</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        name="tel"
-                        value={formValues.tel}
-                        placeholder="Telephone"
-                        onChange={changeHandler}
-                      />
-                    ) : (
-                      <p>{user.telephone}</p>
-                    )}
-                  </div>
-                  <div className="input-box">
-                    <label>Adresse</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        name="adresse"
-                        value={formValues.adresse}
-                        placeholder="Votre adresse"
-                        onChange={changeHandler}
-                      />
-                    ) : (
-                      <p>{user.adresse}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="cell">
-                  <div className="input-box">
-                    <label>Age</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        name="age"
-                        value={formValues.age}
-                        placeholder="Votre age"
-                        onChange={changeHandler}
-                      />
-                    ) : (
-                      <p>{user.age}</p>
-                    )}
-                  </div>
-                  <div className="input-box"></div>
-                </div>
-                <hr />
-
-                {/* -------------------  Children Section -------------------------*/}
-                <h4>Enfants</h4>
-                {formValues.children.map((child, index) => (
-                  <div key={index} className="child-section">
-                    <h5 className="child-header">Enfant {index + 1}</h5>
-                    <div className="cell">
-                      <div className="input-box">
-                        <label>Nom</label>
-                        {isEditing ? (
-                          <input
-                            type="text"
-                            name={`child-${index}-nom`}
-                            value={child.nom}
-                            placeholder="Nom"
-                            onChange={changeHandler}
-                          />
-                        ) : (
-                          <p>{child.nom}</p>
-                        )}
-                      </div>
-                      <div className="input-box">
-                        <label>Prenom</label>
-                        {isEditing ? (
-                          <input
-                            type="text"
-                            name={`child-${index}-prenom`}
-                            value={child.prenom}
-                            placeholder="Prenom"
-                            onChange={changeHandler}
-                          />
-                        ) : (
-                          <p>{child.prenom}</p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="cell">
-                      <div className="input-box">
-                        <label>Age</label>
-                        {isEditing ? (
-                          <input
-                            type="text"
-                            name={`child-${index}-age`}
-                            value={child.age}
-                            placeholder="Age"
-                            onChange={changeHandler}
-                          />
-                        ) : (
-                          <p>{child.age}</p>
-                        )}
-                      </div>
-                      <div className="input-box">
-                        <label>Systéme educatif</label>
-                        {isEditing ? (
-                          <select
-                            name={`child-${index}-educationSystem`}
-                            value={child.educationSystem}
-                            onChange={changeHandler}
-                          >
-                            <option value="">Sélectionner</option>
-                            <option value="Tunisien">Tunisien</option>
-                            <option value="Canadien">Canadien</option>
-                            <option value="Francais">Francais</option>
-                          </select>
-                        ) : (
-                          <p>{child.educationSystem}</p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="input-box">
-                      <label>Email</label>
-                      {isEditing ? (
-                        <input
-                          type="email"
-                          name={`child-${index}-email`}
-                          value={child.email}
-                          placeholder="child email"
-                          onChange={changeHandler}
-                        />
-                      ) : (
-                        <p>{child.email}</p>
-                      )}
-                    </div>
-                    {isEditing && (
-                      <button
-                        className="submit-btn"
-                        type="button"
-                        onClick={() => removeChild(index)}
-                      >
-                        Remove Child
-                      </button>
-                    )}
-                    <hr />
-                  </div>
-                ))}
-                {isEditing && (
-                  <button
-                    type="button"
-                    className="submit-btn"
-                    onClick={addChild}
-                  >
-                    Add Child
-                  </button>
-                )}
-
-                <button
-                  className="submit-btn"
-                  onClick={() => setIsEditing(!isEditing)}
-                >
-                  {isEditing ? "Enregistrer" : "Modifier"}
-                </button>
-              </form>
-            </>
-          ) : (
-            <div className="mot-de-passe-info">
-              <h3>Changer le mot de passe</h3>
-              <form>
-                <div className="input-box">
-                  <label>Ancien mot de passe</label>
-                  <input type="password" placeholder="Ancien mot de passe" />
-                </div>
-                <div className="input-box">
-                  <label>Nouveau mot de passe</label>
-                  <input type="password" placeholder="Nouveau mot de passe" />
-                </div>
-                <div className="input-box">
-                  <label>Confirmer le mot de passe</label>
+          <h3>Paramètres du compte</h3>
+          <form onSubmit={submitHandler}>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <div className="cell">
+              <div className="input-box">
+                <label>Nom</label>
+                {isEditing ? (
                   <input
-                    type="password"
-                    placeholder="Confirmer le mot de passe"
+                    type="text"
+                    name="nom"
+                    value={formValues.nom}
+                    onChange={changeHandler}
                   />
-                </div>
-                <button className="submit-btn">Changer le mot de passe</button>
-              </form>
+                ) : (
+                  <p>{formValues.nom}</p>
+                )}
+              </div>
+              <div className="input-box">
+                <label>Prénom</label>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    name="prenom"
+                    value={formValues.prenom}
+                    onChange={changeHandler}
+                  />
+                ) : (
+                  <p>{formValues.prenom}</p>
+                )}
+              </div>
             </div>
-          )}
+            <div className="input-box">
+              <label>Email</label>
+              {isEditing ? (
+                <input
+                  type="email"
+                  name="email"
+                  value={formValues.email}
+                  onChange={changeHandler}
+                />
+              ) : (
+                <p>{formValues.email}</p>
+              )}
+            </div>
+            <div className="input-box">
+              <label>Téléphone</label>
+              {isEditing ? (
+                <input
+                  type="tel"
+                  name="tel"
+                  value={formValues.tel}
+                  onChange={changeHandler}
+                />
+              ) : (
+                <p>{formValues.tel}</p>
+              )}
+            </div>
+            <div className="input-box">
+              <label>Adresse</label>
+              {isEditing ? (
+                <input
+                  type="text"
+                  name="adresse"
+                  value={formValues.adresse}
+                  onChange={changeHandler}
+                />
+              ) : (
+                <p>{formValues.adresse}</p>
+              )}
+            </div>
+            <div className="input-box">
+              <label>Children</label>
+              <ul>
+                {formValues.children.map((child, index) => (
+                  <li key={index}>{child}</li>
+                ))}
+              </ul>
+            </div>
+            <button
+              type="button"
+              className="submit-btn"
+              onClick={() => setIsEditing(!isEditing)}
+            >
+              {isEditing ? "Cancel" : "Edit"}
+            </button>
+            {isEditing && (
+              <button type="submit" className="submit-btn">
+                Save
+              </button>
+            )}
+          </form>
         </div>
       </div>
     </div>

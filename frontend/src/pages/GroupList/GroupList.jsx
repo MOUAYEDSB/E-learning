@@ -1,11 +1,12 @@
 import "./groupList.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../api/axiosConfig";
-import { GroupCard } from "../../components/GroupCard/GroupCard";
+import { GroupCard } from "../../components/Admin/GroupCard/GroupCard";
 import { assets } from "../../assets/assets";
 
 export const GroupList = () => {
+  // eslint-disable-next-line no-unused-vars
   const [selectedContent, setSelectedContent] = useState(0);
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(false);

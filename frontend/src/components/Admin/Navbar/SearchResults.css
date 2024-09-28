@@ -1,0 +1,21 @@
+/* src/components/Navbar/SearchResults.css */
+.search-results {
+	border: 1px solid #ccc;
+	max-height: 200px; /* Limit height for the dropdown effect */
+	overflow-y: auto; /* Add scroll if results exceed height */
+	position: absolute; /* Position results dropdown */
+	background: white;
+	z-index: 1000; /* Ensure it stays on top */
+	width: calc(100% - 20px); /* Adjust width to fit input */
+	margin-top: 5px; /* Space between input and results */
+  }
+  
+  .search-result-item {
+	padding: 10px;
+	cursor: pointer; /* Change cursor on hover */
+  }
+  
+  .search-result-item:hover {
+	background-color: #f0f0f0; /* Highlight on hover */
+  }
+  

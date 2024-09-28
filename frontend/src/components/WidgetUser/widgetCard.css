@@ -1,0 +1,81 @@
+/* src/components/GrainesAccounts.css */
+
+.graines-accounts-container {
+	display: flex;
+	align-items: center;
+	border-radius: 15px;
+	width: 221px;
+	height: 112.2px;
+	gap: 3px;
+	position: relative;
+	right: 15px;px;
+	padding: 10px;
+  }
+  
+  .background {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	z-index: 0;
+  }
+  
+  .icon-order {
+	margin-left: 20px;
+	z-index: 1;
+  }
+  
+  .contentContainer {
+	margin-left: 10px;
+	z-index: 1;
+  }
+  
+  .main-number {
+	font-family: 'Barlow', sans-serif;
+	font-weight: 600;
+	font-size: 46px;
+	line-height: 55.2px;
+	color: #464255ff;
+	padding-top: 4px;
+	margin-left: 20px;
+  }
+  
+  .description {
+	font-family: 'Barlow', sans-serif;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 15.6px;
+	color: #464255ff;
+   
+  }
+  
+  .sub-info {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	bottom: 20px;
+  }
+  
+  .sub-info-icon {
+	position: relative;
+	width: 18.81px;
+	height: 18.84px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 5px;
+  }
+  
+  .arrow-icon {
+	position: absolute;
+	width: 6.64px;
+	height: 6.65px;
+  }
+  
+  .sub-info-text {
+	font-family: 'Barlow', sans-serif;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 18px;
+	color: #a3a3a3ff;
+  }
