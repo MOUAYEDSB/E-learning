@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DataGrid } from "../../components/DataGrid/DataGrid";
 import Select from "react-select";
@@ -8,7 +8,6 @@ import './groupInfo.css';
 export const GroupInfo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [formateurs, setFormateurs] = useState([]);
   const [enfants, setEnfants] = useState([]);
   const [selectedFormateur, setSelectedFormateur] = useState(null);
@@ -208,7 +207,7 @@ export const GroupInfo = () => {
             </div>
           </div>
           <div className="group-info-wrapper">
-            <label className="group-info-label">Tranche d'âge</label>
+            <label className="group-info-label">Tranche d âge</label>
             <input
               type="text"
               className="group-info-input"

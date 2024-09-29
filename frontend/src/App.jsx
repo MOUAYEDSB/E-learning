@@ -23,6 +23,11 @@ import { SideBarFormateur } from "./components/Formateur/SideBarFormateur/SideBa
 import NavbarFormateur from "./components/Formateur/NavBarFormateur/NavBarFormateur";
 import Messages from "./pages/Message/Message";
 import ParametresPage from "./pages/Parametres/Parametres";
+import { Calendaruser } from "./pages/Calendaruser/Calendaruser";
+import { KidProfile } from './pages/UserProfile/KidProfile';
+import KidsProjects from './pages/Projects/KidsProjects';
+import { Listeamis } from "./pages/Calendaruser/Listeamis"
+
 
 export default function App() {
   const token = localStorage.getItem("token");
@@ -221,6 +226,20 @@ export default function App() {
               </>
             }
           />
+          <Route
+            path="/calendaruser"
+            element={
+              <>
+                <Sidebar />
+                <div className="main-wrapper">
+                  <Navbar role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <Calendaruser />
+                  </div>
+                </div>
+              </>
+            }
+          />
           <Route path="*" element={<Navigate to="/dashboard/admin" />} />
         </>
       ) : login && role === "enfant" ? (
@@ -241,7 +260,91 @@ export default function App() {
               </>
             }
           />
-          <Route path="*" element={<Navigate to="/dashboard/kids" />} />
+          <Route
+            path="/calendaruser"
+            element={
+              <>
+                <SidebarKids />
+                <div className="main-wrapper">
+                  <NavbarKids role={role} setLogin={setLogin} />
+                  <div className="content-wrapper centered-content">
+                    <Calendaruser />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/messages"
+            element={
+              <>
+                <SidebarKids />
+                <div className="main-wrapper">
+                  <NavbarKids role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <Messages />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <>
+                <SidebarKids />
+                <div className="main-wrapper">
+                  <NavbarKids role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <ParametresPage />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/project"
+            element={
+              <>
+                <SidebarKids />
+                <div className="main-wrapper">
+                  <NavbarKids role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <KidsProjects />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/amis"
+            element={
+              <>
+                <SidebarKids />
+                <div className="main-wrapper">
+                  <NavbarKids role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <Listeamis />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/enfant/:id"
+            element={
+              <>
+                <SidebarKids />
+                <div className="main-wrapper">
+                  <NavbarKids role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <KidProfile />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route path="*" element={<Navigate to="/calendaruser" />} />
         </>
       ) : login && role === "parent" ? (
         <>

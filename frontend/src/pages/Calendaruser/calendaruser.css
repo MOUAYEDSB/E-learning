@@ -1,0 +1,14 @@
+.calendar-wrapper {
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+  margin-top: 50px; /* Move the component down from the top */
+  height: 100vh; /* Ensure full height to maintain vertical centering */
+}
+
+.calendar-wrapper img {
+  max-width: 200%;
+  height: auto;
+  border-radius: 8px; /* Optional: Add rounded corners to the image */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for styling */
+}

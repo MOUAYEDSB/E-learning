@@ -12,9 +12,10 @@ import  sidebardown  from './sidebardown.png';
 import logograins from './logograines.svg'
 import FormateursImage from './FormateursImage.jpg';
 import ParentsImage from './ParentsImage.jpg';
-import KidsImage from './kidsImage.jpg';
+import KidsImage from './KidsImage.jpg';
 import Message from './messages.svg';
 import ParametresImage from "./Parametres.jpg";
+import Calendaruser from "./calendar.png"
 // import loginBackground from "./loginBackground.png";
 // import grainesLogo from "./grainesLogo.svg";
 // import calendarIcon from './calendar.svg'
@@ -93,6 +94,7 @@ import logoinstagram from './logo-instagram.svg';
 import linkedin from './linked-in.svg';
 import footer1 from './footer-1.png';
 import notregraine from './notregraines.png';
+import listeamis from './listeamis.png';
 
 
 
@@ -175,5 +177,7 @@ export const assets = {
     linkedin,
     footer1,
     notregraine,
+    Calendaruser,
+    listeamis
     
 }

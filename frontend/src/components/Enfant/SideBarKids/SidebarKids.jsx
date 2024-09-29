@@ -3,16 +3,15 @@ import "./sidebarkids.css";
 import Logo from "../../../assets/grainesLogo.svg";
 import { NavLink } from "react-router-dom";
 import { DashboardIcon } from "../../../assets/DashboardIcon";
-import { HomeIcon } from "../../../assets/HomeIcon";
 import { GroupIcon } from "../../../assets/GroupIcon";
 import { MessageIcon } from "../../../assets/MessageIcon";
 import { SettingsIcon } from "../../../assets/SettingsIcon";
 import { NavbarArrowIcon } from "../../../assets/NavbarArrowIcon";
 import sidebardown from "../../../assets/sidebardown.png";
-import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
-import FolderSpecialOutlinedIcon from '@mui/icons-material/FolderSpecialOutlined';
+import { Book } from "lucide-react";
 import { assets } from "../../../assets/assets";
-
+import { FolderDot } from "lucide-react";
+import { UserCog } from "lucide-react";
 
 export const SidebarKids = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,16 +35,16 @@ export const SidebarKids = () => {
             <label>Dashboard</label>
           </NavLink>
           <NavLink
-            to="/"
+            to="/enfant/:id"
             end
             className={({ isActive }) =>
               isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
           >
             <div className="sidebar-kids-btn-icon">
-              <HomeIcon />
+              <UserCog color="#ffffff" strokeWidth={1.5} />{" "}
             </div>
-            <label>Home</label>
+            <label>Profil</label>
           </NavLink>
           <div className={`sidebar-kids-btn-group ${isOpen ? "open" : ""}`}>
             <div
@@ -53,7 +52,7 @@ export const SidebarKids = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <div className="sidebar-kids-btn-icon">
-                <AutoStoriesOutlinedIcon sx={{color: "white"}}/>
+                <Book size={20} color="#ffffff" strokeWidth={1.5} />{" "}
               </div>
               <label>Courses</label>
               <div className="sidebar-kids-btn-arrow-icon">
@@ -64,17 +63,21 @@ export const SidebarKids = () => {
               <NavLink
                 to="/user/list/parents"
                 className={({ isActive }) =>
-                  isActive ? "sidebar-kids-subBtn active" : "sidebar-kids-subBtn"
+                  isActive
+                    ? "sidebar-kids-subBtn active"
+                    : "sidebar-kids-subBtn"
                 }
               >
                 <div>
-                  <label>Engalis</label>
+                  <label>Englais</label>
                 </div>
               </NavLink>
               <NavLink
                 to="/user/list/seeds"
                 className={({ isActive }) =>
-                  isActive ? "sidebar-kids-subBtn active" : "sidebar-kids-subBtn"
+                  isActive
+                    ? "sidebar-kids-subBtn active"
+                    : "sidebar-kids-subBtn"
                 }
               >
                 <div>
@@ -84,7 +87,9 @@ export const SidebarKids = () => {
               <NavLink
                 to="/user/list/mentors"
                 className={({ isActive }) =>
-                  isActive ? "sidebar-kids-subBtn active" : "sidebar-kids-subBtn"
+                  isActive
+                    ? "sidebar-kids-subBtn active"
+                    : "sidebar-kids-subBtn"
                 }
               >
                 <div>
@@ -94,18 +99,18 @@ export const SidebarKids = () => {
             </div>
           </div>
           <NavLink
-            to="/group-list"
+            to="/project"
             className={({ isActive }) =>
               isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
           >
             <div className="sidebar-kids-btn-icon">
-              <FolderSpecialOutlinedIcon sx={{color: "white"}}/>
+              <FolderDot size={20} color="#ffffff" strokeWidth={1.5} />{" "}
             </div>
             <label>Project</label>
           </NavLink>
           <NavLink
-            to="/messages"
+            to="/amis"
             className={({ isActive }) =>
               isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
@@ -127,13 +132,17 @@ export const SidebarKids = () => {
             <label>Messages</label>
           </NavLink>
           <NavLink
-            to="/contact"
+            to="/calendaruser"
             className={({ isActive }) =>
               isActive ? "sidebar-kids-btn active" : "sidebar-kids-btn"
             }
           >
             <div className="sidebar-kids-btn-icon">
-            <img src={assets.calendarIcon} alt="Calendar Icon"  style={{width: 23}}/>
+              <img
+                src={assets.calendarIcon}
+                alt="Calendar Icon"
+                style={{ width: 23 }}
+              />
             </div>
             <label>Calendreier</label>
           </NavLink>
@@ -151,7 +160,11 @@ export const SidebarKids = () => {
         </div>
 
         {/* Add the image at the bottom of the sidebar */}
-        <img className="sidebar-kids-bottom-image" src={sidebardown} alt="Bottom Image" />
+        <img
+          className="sidebar-kids-bottom-image"
+          src={sidebardown}
+          alt="Bottom Image"
+        />
       </div>
       <div className="overlay"></div>
     </>

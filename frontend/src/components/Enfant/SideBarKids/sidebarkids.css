@@ -63,7 +63,7 @@
     padding-left: 0.75rem;
 }
 .sidebar-kids-btn.active {
-    background-color: white;
+    background-color: #FFD237;
     transition: background-color 0.25s, padding-left 0.25s;
     padding-left: 0.75rem;
 }
@@ -81,15 +81,15 @@
     cursor: pointer;
 }
 .sidebar-kids-btn.active label {
-    color: #2E294E;
+    color: #02010a;
 }
 .sidebar-kids-btn div {
-    fill: white;
+    fill: #ffffff;
     stroke: white;
 }
 .sidebar-kids-btn.active div {
-    fill: #eceaea;
-    stroke: #121213;
+    fill: #ebecea;
+    stroke: #ffffff;
 }
 .sidebar-kids-btn-group {
     height: 40px;
@@ -135,12 +135,12 @@
     padding-left: 8px;
     font-size: 14px;
     font-family: "Poppins";
-    color: #CCCCCC;
+    color: #000000;
     cursor: pointer;
 }
 .sidebar-kids-bottom-image {
     width: 100%;  
-    margin-top: 30px; 
+    margin-top: 10px; 
     padding: 60px;  
   }
   

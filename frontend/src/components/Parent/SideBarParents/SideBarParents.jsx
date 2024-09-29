@@ -9,6 +9,8 @@ import { GroupIcon } from "../../../assets/GroupIcon";
 import { MessageIcon } from "../../../assets/MessageIcon";
 import { SettingsIcon } from "../../../assets/SettingsIcon";
 import { NavbarArrowIcon } from "../../../assets/NavbarArrowIcon";
+import { ChartNetwork } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 
 export const SidebarParents = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +53,7 @@ export const SidebarParents = () => {
               <div className="sidebar-parents-btn-icon">
                 <UserIcon />
               </div>
-              <label>Liste des utilisateurs</label>
+              <label>Ressources </label>
               <div className="sidebar-parents-btn-arrow-icon">
                 <NavbarArrowIcon />
               </div>
@@ -60,31 +62,40 @@ export const SidebarParents = () => {
               <NavLink
                 to="/user/list/parents"
                 className={({ isActive }) =>
-                  isActive ? "sidebar-parents-subBtn active" : "sidebar-parents-subBtn"
+                  isActive
+                    ? "sidebar-parents-subBtn active"
+                    : "sidebar-parents-subBtn"
                 }
               >
                 <div>
-                  <label>Parents</label>
+                  <label>Soutien Scolaire
+                  </label>
                 </div>
               </NavLink>
               <NavLink
                 to="/user/list/seeds"
                 className={({ isActive }) =>
-                  isActive ? "sidebar-parents-subBtn active" : "sidebar-parents-subBtn"
+                  isActive
+                    ? "sidebar-parents-subBtn active"
+                    : "sidebar-parents-subBtn"
                 }
               >
                 <div>
-                  <label>Graines</label>
+                  <label>Ateliers et Webinaires
+                  </label>
                 </div>
               </NavLink>
               <NavLink
                 to="/user/list/mentors"
                 className={({ isActive }) =>
-                  isActive ? "sidebar-parents-subBtn active" : "sidebar-parents-subBtn"
+                  isActive
+                    ? "sidebar-parents-subBtn active"
+                    : "sidebar-parents-subBtn"
                 }
               >
                 <div>
-                  <label>Formateurs</label>
+                  <label>Psychologiques
+                  </label>
                 </div>
               </NavLink>
             </div>
@@ -96,9 +107,9 @@ export const SidebarParents = () => {
             }
           >
             <div className="sidebar-parents-btn-icon">
-              <GroupIcon />
+              <ChartNetwork size={20} color="#ffffff" strokeWidth={1.5} />{" "}
             </div>
-            <label>Cree utilisateurs</label>
+            <label>Notes </label>
           </NavLink>
           <NavLink
             to="/group-list"
@@ -109,7 +120,7 @@ export const SidebarParents = () => {
             <div className="sidebar-parents-btn-icon">
               <GroupIcon />
             </div>
-            <label>Groupes</label>
+            <label>Enfant Groupe</label>
           </NavLink>
           <NavLink
             to="/messages"
@@ -129,9 +140,9 @@ export const SidebarParents = () => {
             }
           >
             <div className="sidebar-parents-btn-icon">
-              <MessageIcon />
+              <CalendarDays size={20} color="#ffffff" strokeWidth={1.5} />{" "}
             </div>
-            <label>Home contact</label>
+            <label>Calendrier Scolaire </label>
           </NavLink>
           <NavLink
             to="/settings"

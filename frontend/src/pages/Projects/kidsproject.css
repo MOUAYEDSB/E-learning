@@ -1,0 +1,56 @@
+/* src/styles/Projects.css */
+.kids-projects {
+	padding: 20px;
+	background-color: #f9f9f9; /* Light background for contrast */
+	border-radius: 8px;
+  }
+  
+  .project-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: center; /* Center align cards */
+  }
+  
+  .project-card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 15px;
+	width: 250px;
+	text-align: center;
+	transition: transform 0.2s; /* Add a little animation */
+  }
+  
+  .project-card:hover {
+	transform: scale(1.05); /* Scale effect on hover */
+  }
+  
+  .project-form {
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column; /* Stack inputs vertically */
+  }
+  
+  .project-form input,
+  .project-form textarea {
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 10px; /* Add some padding */
+	border: 1px solid #ccc;
+	border-radius: 4px; /* Slightly round corners */
+  }
+  
+  .project-form button {
+	background-color: #007bff; /* Bootstrap blue */
+	color: white;
+	border: none;
+	padding: 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+  }
+  
+  .project-form button:hover {
+	background-color: #0056b3; /* Darker blue on hover */
+  }
+  
