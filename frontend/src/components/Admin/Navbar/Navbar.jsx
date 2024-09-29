@@ -3,6 +3,8 @@ import { assets } from "../../../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios"; // Import axios for API requests
+import { Link } from 'react-router-dom';
+
 
 // eslint-disable-next-line react/prop-types
 const Navbar = ({ setLogin }) => {
@@ -88,7 +90,9 @@ const Navbar = ({ setLogin }) => {
       </div>
       <div className="navbar-right">
         <div className="navbar-right-icons">
-          <img src={assets.calendarIcon} alt="Calendar Icon" />
+          <Link to="/calendaruser">
+            <img src={assets.calendarIcon} alt="Calendar Icon" />
+          </Link>{" "}
           <img src={assets.notificationIcon} alt="Notification Icon" />
         </div>
         <div className="navbar-right-profile">

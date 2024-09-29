@@ -3,13 +3,14 @@ import "./sidebarformateur.css";
 import { assets } from "../../../assets/assets";
 import { NavLink } from "react-router-dom";
 import { DashboardIcon } from "../../../assets/DashboardIcon";
-import { HomeIcon } from "../../../assets/HomeIcon";
-import { UserIcon } from "../../../assets/UserIcon";
 import { GroupIcon } from "../../../assets/GroupIcon";
 import { MessageIcon } from "../../../assets/MessageIcon";
 import { SettingsIcon } from "../../../assets/SettingsIcon";
 import { NavbarArrowIcon } from "../../../assets/NavbarArrowIcon";
-
+import { UserCog } from "lucide-react";
+import { BookOpenCheck } from "lucide-react";
+import { Plus } from "lucide-react";
+import { ListTree } from "lucide-react";
 
 export const SideBarFormateur = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +18,12 @@ export const SideBarFormateur = () => {
   return (
     <>
       <div className="formateurSideBar">
-      <img className="formateurSideBar-logo" src={assets.logograins} alt="Logo" />
-      <hr />
+        <img
+          className="formateurSideBar-logo"
+          src={assets.logograins}
+          alt="Logo"
+        />
+        <hr />
         <div className="formateurSideBar-buttons">
           <NavLink
             to="/"
@@ -33,16 +38,16 @@ export const SideBarFormateur = () => {
             <label>Dashboard</label>
           </NavLink>
           <NavLink
-            to="/home"
+            to="/user/:id"
             end
             className={({ isActive }) =>
               isActive ? "formateurSideBar-btn active" : "formateurSideBar-btn"
             }
           >
             <div className="formateurSideBar-btn-icon">
-              <HomeIcon />
+              <UserCog color="#ffffff" strokeWidth={1.5} />{" "}
             </div>
-            <label>Home</label>
+            <label>profile</label>
           </NavLink>
           <div className={`formateurSideBar-btn-group ${isOpen ? "open" : ""}`}>
             <div
@@ -50,9 +55,9 @@ export const SideBarFormateur = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <div className="formateurSideBar-btn-icon">
-                <UserIcon />
+                <ListTree color="#ffffff" strokeWidth={1.5} />
               </div>
-              <label>Liste des formateurs</label>
+              <label>Liste des Étudiants</label>
               <div className="formateurSideBar-btn-arrow-icon">
                 <NavbarArrowIcon />
               </div>
@@ -61,7 +66,9 @@ export const SideBarFormateur = () => {
               <NavLink
                 to="/user/list/parents"
                 className={({ isActive }) =>
-                  isActive ? "formateurSideBar-subBtn active" : "formateurSideBar-subBtn"
+                  isActive
+                    ? "formateurSideBar-subBtn active"
+                    : "formateurSideBar-subBtn"
                 }
               >
                 <div>
@@ -71,7 +78,9 @@ export const SideBarFormateur = () => {
               <NavLink
                 to="/user/list/seeds"
                 className={({ isActive }) =>
-                  isActive ? "formateurSideBar-subBtn active" : "formateurSideBar-subBtn"
+                  isActive
+                    ? "formateurSideBar-subBtn active"
+                    : "formateurSideBar-subBtn"
                 }
               >
                 <div>
@@ -81,7 +90,9 @@ export const SideBarFormateur = () => {
               <NavLink
                 to="/user/list/mentors"
                 className={({ isActive }) =>
-                  isActive ? "formateurSideBar-subBtn active" : "formateurSideBar-subBtn"
+                  isActive
+                    ? "formateurSideBar-subBtn active"
+                    : "formateurSideBar-subBtn"
                 }
               >
                 <div>
@@ -91,15 +102,15 @@ export const SideBarFormateur = () => {
             </div>
           </div>
           <NavLink
-            to="/create-user"
+            to="/add-group"
             className={({ isActive }) =>
               isActive ? "formateurSideBar-btn active" : "formateurSideBar-btn"
             }
           >
             <div className="formateurSideBar-btn-icon">
-              <GroupIcon />
+              <Plus color="#ffffff" strokeWidth={1.5} />{" "}
             </div>
-            <label>Créer formateurs</label>
+            <label>Créer Group</label>
           </NavLink>
           <NavLink
             to="/group-list"
@@ -124,15 +135,15 @@ export const SideBarFormateur = () => {
             <label>Messages</label>
           </NavLink>
           <NavLink
-            to="/contact"
+            to="/project"
             className={({ isActive }) =>
               isActive ? "formateurSideBar-btn active" : "formateurSideBar-btn"
             }
           >
             <div className="formateurSideBar-btn-icon">
-              <MessageIcon />
+              <BookOpenCheck color="#ffffff" strokeWidth={1.5} />{" "}
             </div>
-            <label>Home contact</label>
+            <label>Projets et Devoirs</label>
           </NavLink>
           <NavLink
             to="/settings"

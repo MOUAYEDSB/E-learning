@@ -1,6 +1,6 @@
 import { assets } from "../../assets/assets";
 
-export const Listeamis = () => {
+export const ListeAmis = () => {
   return (
     <div className="calendar-wrapper">
       <img src={assets.listeamis}  />

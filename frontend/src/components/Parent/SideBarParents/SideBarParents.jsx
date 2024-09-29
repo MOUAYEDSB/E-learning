@@ -11,6 +11,9 @@ import { SettingsIcon } from "../../../assets/SettingsIcon";
 import { NavbarArrowIcon } from "../../../assets/NavbarArrowIcon";
 import { ChartNetwork } from "lucide-react";
 import { CalendarDays } from "lucide-react";
+import { SquareCode } from "lucide-react";
+import { UserCog } from "lucide-react";
+
 
 export const SidebarParents = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,9 +44,9 @@ export const SidebarParents = () => {
             }
           >
             <div className="sidebar-parents-btn-icon">
-              <HomeIcon />
+            <UserCog color="#ffffff" strokeWidth={1.5} />{" "}
             </div>
-            <label>Home</label>
+            <label>Profile</label>
           </NavLink>
           <div className={`sidebar-parents-btn-group ${isOpen ? "open" : ""}`}>
             <div
@@ -51,7 +54,7 @@ export const SidebarParents = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <div className="sidebar-parents-btn-icon">
-                <UserIcon />
+                <SquareCode color="#ffffff" strokeWidth={1.5} />{" "}
               </div>
               <label>Ressources </label>
               <div className="sidebar-parents-btn-arrow-icon">
@@ -68,8 +71,7 @@ export const SidebarParents = () => {
                 }
               >
                 <div>
-                  <label>Soutien Scolaire
-                  </label>
+                  <label>Soutien Scolaire</label>
                 </div>
               </NavLink>
               <NavLink
@@ -81,8 +83,7 @@ export const SidebarParents = () => {
                 }
               >
                 <div>
-                  <label>Ateliers et Webinaires
-                  </label>
+                  <label>Ateliers et Webinaires</label>
                 </div>
               </NavLink>
               <NavLink
@@ -94,8 +95,7 @@ export const SidebarParents = () => {
                 }
               >
                 <div>
-                  <label>Psychologiques
-                  </label>
+                  <label>Psychologiques</label>
                 </div>
               </NavLink>
             </div>

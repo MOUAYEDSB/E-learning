@@ -26,7 +26,7 @@ import ParametresPage from "./pages/Parametres/Parametres";
 import { Calendaruser } from "./pages/Calendaruser/Calendaruser";
 import { KidProfile } from './pages/UserProfile/KidProfile';
 import KidsProjects from './pages/Projects/KidsProjects';
-import { Listeamis } from "./pages/Calendaruser/Listeamis"
+import  {ListeAmis}  from "./pages/Calendaruser/Listeamis"
 
 
 export default function App() {
@@ -324,7 +324,7 @@ export default function App() {
                 <div className="main-wrapper">
                   <NavbarKids role={role} setLogin={setLogin} />
                   <div className="content-wrapper">
-                    <Listeamis />
+                    <ListeAmis />
                   </div>
                 </div>
               </>
@@ -395,6 +395,90 @@ export default function App() {
                   <NavbarFormateur role={role} setLogin={setLogin} />
                   <div className="content-wrapper">
                     <DashboardFormateur />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/group-list"
+            element={
+              <>
+                <SideBarFormateur />
+                <div className="main-wrapper">
+                  <NavbarFormateur role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <GroupList />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/messages"
+            element={
+              <>
+                <SideBarFormateur />
+                <div className="main-wrapper">
+                  <NavbarFormateur role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <Messages />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/user/:id"
+            element={
+              <>
+                <SideBarFormateur />
+                <div className="main-wrapper">
+                  <NavbarFormateur role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <KidProfile />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/add-group"
+            element={
+              <>
+                <SideBarFormateur />
+                <div className="main-wrapper">
+                  <NavbarFormateur role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <CreateGroup />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <>
+                <SideBarFormateur />
+                <div className="main-wrapper">
+                  <NavbarFormateur role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <ParametresPage />
+                  </div>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/project"
+            element={
+              <>
+                <SideBarFormateur />
+                <div className="main-wrapper">
+                  <NavbarFormateur role={role} setLogin={setLogin} />
+                  <div className="content-wrapper">
+                    <KidsProjects />
                   </div>
                 </div>
               </>

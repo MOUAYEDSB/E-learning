@@ -101,7 +101,7 @@
 
 .formateurSideBar-btn.active div {
     fill: #2E294E;
-    stroke: #2E294E;
+    stroke: #000000;
 }
 
 .formateurSideBar-btn-group {
