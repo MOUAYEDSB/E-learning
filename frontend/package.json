@@ -13,8 +13,9 @@
   "dependencies": {
     "@mui/x-data-grid": "^7.12.0",
     "@mui/x-data-grid-generator": "^7.12.0",
-    "axios": "^1.7.3",
+    "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.5",
     "lucide-react": "^0.446.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

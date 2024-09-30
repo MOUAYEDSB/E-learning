@@ -254,30 +254,36 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
+
+
 // User login
 exports.loginUser = async (req, res) => {
   const { email, motdepasse } = req.body;
 
   try {
+    // Check if the email exists in the database
     const user = await User.findOne({ email });
 
+    // If the user does not exist, return a 404 error
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User does not exist" });
+      return res.status(404).json({
+        success: false,
+        message: "User does not exist",
+      });
     }
 
+    // Check if the password matches using bcrypt
     const isMatch = await bcrypt.compare(motdepasse, user.motdepasse);
 
+    // If the password is incorrect, return a 401 error
     if (!isMatch) {
-      return res
-        .status(401)
-        .json({ success: false, message: "Invalid email or password" });
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
     }
 
-    console.log("Logged in successfully");
-
-    // Create a token including the user's role, profileImgURL, and nom
+    // Create a JWT token, including additional user information
     const token = createToken(user._id, user.role, user.profileImgURL, user.nom);
 
     // Respond with the token, role, profile image URL, and user's name
@@ -290,6 +296,7 @@ exports.loginUser = async (req, res) => {
     });
 
   } catch (error) {
+    // Log any server-side errors and respond with a 500 status code
     console.error("Error during login:", error);
     res.status(500).json({
       success: false,
@@ -303,7 +310,8 @@ exports.loginUser = async (req, res) => {
 const createToken = (id, role, profileImgURL, nom) => {
   return jwt.sign(
     { id, role, profileImgURL, nom },  // Include profileImgURL and nom in the token payload
-    process.env.JWT_SECRET, 
+    process.env.JWT_SECRET || "your_secret_key", // Use env variable or fallback to a hardcoded key
     { expiresIn: "1h" }
   );
 };
+

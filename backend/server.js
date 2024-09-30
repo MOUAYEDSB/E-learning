@@ -9,7 +9,12 @@ const port = process.env.PORT || 3000;
 // Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Replace with your frontend URL
+  credentials: true
+}));
+
 app.get("/",(request,response)=>{
     response.send("API working");
 })
@@ -19,7 +24,7 @@ app.get("/",(request,response)=>{
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect("mongodb://localhost:27017/My_Final-project")
 .then(() => console.log('Connected to MongoDB'))
 .catch((error) => console.error('Connection error:', error));
 

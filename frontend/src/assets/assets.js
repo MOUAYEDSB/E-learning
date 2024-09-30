@@ -12,7 +12,7 @@ import  sidebardown  from './sidebardown.png';
 import logograins from './logograines.svg'
 import FormateursImage from './FormateursImage.jpg';
 import ParentsImage from './ParentsImage.jpg';
-import KidsImage from './KidsImage.jpg';
+import KidsImage from './kidsImage.jpg';
 import Message from './messages.svg';
 import ParametresImage from "./Parametres.jpg";
 import Calendaruser from "./calendar.png"

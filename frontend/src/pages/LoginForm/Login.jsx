@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import Switch from "../../components/Switch/Switch";
 import { assets } from "../../assets/assets";
 import "./login.css";
@@ -25,13 +25,24 @@ function Login({ setLogin }) {
         localStorage.setItem("nom", response.data.nom); // Store the user's name
 
         setLogin(true);
-
       } else {
         alert(response.data.message);
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Login failed. Please try again.");
+
+      // Log additional error details for better debugging
+      if (error.response) {
+        console.log("Error response data:", error.response.data); // Server error response
+        console.log("Error response status:", error.response.status); // HTTP status code
+        console.log("Error response headers:", error.response.headers); // HTTP headers
+
+        // Show specific error message from the server
+        alert(error.response.data.message || "Login failed. Please try again.");
+      } else {
+        // Handle client-side or network errors
+        alert("Login failed. Please try again.");
+      }
     }
   };
 
