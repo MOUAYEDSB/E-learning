@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Login from "./pages/LoginForm/Login";
 import { Sidebar } from "./components/Admin/Sidebar/Sidebar";
 import Navbar from "./components/Admin/Navbar/Navbar";
-import { CreateUser } from "./pages/CreateUser/createUser";
+import { CreateUser } from "./pages/createUser/createUser";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { UsersList } from "./pages/UsersList/UsersList";
 import { GroupList } from "./pages/GroupList/GroupList";
 import { GroupInfo } from "./pages/GroupInfo/GroupInfo";
-import { UserProfile } from "./pages/UserProfile/UserProfile";
+import { UserProfile } from "./pages/userProfile/UserProfile";
 import CreateGroup from "./pages/CreateGroup/CreateGroup";
 import { ContactList } from "./pages/ContactList/ContactList";
 import { SidebarKids } from "./components/Enfant/SideBarKids/SidebarKids";
@@ -24,7 +24,7 @@ import NavbarFormateur from "./components/Formateur/NavBarFormateur/NavBarFormat
 import Messages from "./pages/Message/Message";
 import ParametresPage from "./pages/Parametres/Parametres";
 import { Calendaruser } from "./pages/Calendaruser/Calendaruser";
-import { KidProfile } from './pages/UserProfile/KidProfile';
+import { KidProfile } from './pages/userProfile/kidProfile';
 import KidsProjects from './pages/Projects/KidsProjects';
 import { Listeamis } from "./pages/Calendaruser/Listeamis"
 
