@@ -1,0 +1,16 @@
+.headerImage {
+    background: url('../../assets/Group-37356.png') no-repeat center center;
+    background-size: cover; /* Ensures the image covers the entire container */
+    width: 100%;
+    height: 950px;
+    display: flex; /* Flexbox can be used for centering content */
+    justify-content: center; /* Horizontally center content */
+    align-items: center; /* Vertically center content */
+}
+
+
+.ConnectButton {
+    position: absolute;
+    top: 45px;
+    left: 87%;
+}

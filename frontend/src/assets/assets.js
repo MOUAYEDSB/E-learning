@@ -95,12 +95,21 @@ import linkedin from './linked-in.svg';
 import footer1 from './footer-1.png';
 import notregraine from './notregraines.png';
 import listeamis from './listeamis.png';
+import pro2 from './pro_2.png';
+import pro3 from './pro_3.png';
+import pro4 from './pro_4.png';
+import groupe from './group.png'
+
 
 
 
 
 export const assets = {
     loginBackground,
+    pro2,
+    pro3,
+    pro4,
+    groupe,
     grainesLogo,
     calendarIcon,
     notificationIcon,

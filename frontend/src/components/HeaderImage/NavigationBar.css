@@ -1,0 +1,42 @@
+.NavigationBar {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    background-color: transparent; /* Optional: Add background to make it stand out */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+  }
+  
+  .NavigationBar a {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #1e1e1e;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .NavigationBar a:hover {
+    background-color: #fcf9f9; /* Change background color on hover */
+    color: #333; /* Change text color on hover */
+  }
+  
+  .NavigationBar a:active, .NavigationBar a.selected {
+    background-color: #f5eeee; /* Change background when active or selected */
+    color: #000; /* Change text color when active or selected */
+  }
+  
+  .NavigationBar a:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 4px #888888; /* Custom focus style */
+  }
+  

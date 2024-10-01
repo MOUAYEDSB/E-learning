@@ -37,7 +37,7 @@ export const SidebarParents = () => {
             <label>Dashboard</label>
           </NavLink>
           <NavLink
-            to="/home"
+            to="/user/:id"
             end
             className={({ isActive }) =>
               isActive ? "sidebar-parents-btn active" : "sidebar-parents-btn"
@@ -112,7 +112,7 @@ export const SidebarParents = () => {
             <label>Notes </label>
           </NavLink>
           <NavLink
-            to="/group-list"
+            to="/enfant/group"
             className={({ isActive }) =>
               isActive ? "sidebar-parents-btn active" : "sidebar-parents-btn"
             }
@@ -134,7 +134,7 @@ export const SidebarParents = () => {
             <label>Messages</label>
           </NavLink>
           <NavLink
-            to="/contact"
+            to="/calendaruser"
             className={({ isActive }) =>
               isActive ? "sidebar-parents-btn active" : "sidebar-parents-btn"
             }

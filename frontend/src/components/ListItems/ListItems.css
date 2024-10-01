@@ -1,0 +1,84 @@
+.List-item-container {
+    padding: 140px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background-image: url('../../assets/rectangle-4376.svg');
+}
+  
+  .list-item {
+    position: relative;
+    width: 606px;
+    height: 130px;
+    background-color: #30bced;  /* Background color from screenshot */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .overlay-image {
+    position: absolute;
+    float: right;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+  }
+  
+  .state-layer {
+    display: flex;
+    flex-direction: row;
+    padding: 8px 16px;
+    position: relative;
+    z-index: 1; /* Ensure content is above overlay image */
+  }
+  
+  .leading-element {
+    display: flex;
+    align-items: center;
+  }
+  
+  .person-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+  }
+  
+  .overline {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    line-height: 16px;
+    color: #49454f;
+  }
+  
+  .headline {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+    color: #1d1b20;
+  }
+  
+  .supporting-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.25px;
+    line-height: 20px;
+    color: #49454f;
+  }
+  
+  .roundLogo {
+    position: absolute;
+    float: right;
+    right: 70px;
+    margin-top: 50px;
+  }

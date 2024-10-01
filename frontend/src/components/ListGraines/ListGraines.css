@@ -1,0 +1,50 @@
+.carousel-container {
+	background-image: url('../../assets/Rectangle-4379.png');
+	width: 100%;
+	height: 500px;
+	display: flex; /* Allow child elements to be laid out in a row */
+	flex-direction: column; /* Stack items vertically */
+	align-items: center; /* Center items horizontally */
+  }
+  
+  .notregraine {
+	position: relative;
+	margin-left: 70px;
+	padding-top: 100px;
+  }
+  
+  .carousel {
+	margin: 75px;
+	display: flex; /* Layout carousel items in a row */
+	flex-wrap: nowrap; /* Prevent wrapping to the next line */
+	overflow-x: auto; /* Enable horizontal scrolling if needed */
+  }
+  
+  .carousel-item {
+	display: flex; /* Change to flex for proper alignment */
+	flex-direction: column; /* Stack image and description vertically */
+	align-items: center; /* Center items horizontally */
+	justify-content: flex-start;
+	padding-top: 40px; /* Adjust padding as needed */
+	margin-left: 100px; /* Adjust margin for spacing */
+	
+  }
+  
+  .image-container {
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
+	margin-bottom: 10px;
+  }
+  
+  .round-image {
+	width: 100%;
+	height: 100%;
+  }
+  
+  .description {
+	text-align: center;
+	font-size: 1em;
+	color: #fdfafa;
+	margin-top: 10px;
+  }
