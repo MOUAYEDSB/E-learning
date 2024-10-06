@@ -1,0 +1,38 @@
+.card {
+    display: flex;
+    align-items: center;
+    background-color: #30bced;
+    gap: 24px;
+    width: 301.33px;
+    z-index: 9;
+  }
+  
+  .card-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 130px;
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .card-title {
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.48px;
+    line-height: 120%;
+    color: #ffffff;
+  }
+  
+  .card-body {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: #ffffffb2;
+  }
+  

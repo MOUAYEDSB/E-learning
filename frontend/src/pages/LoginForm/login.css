@@ -23,18 +23,19 @@
 .background_image img{
     width:100%;
 }
-.footer{
-    position: absolute;
-    bottom: 1.5rem; 
+.footerLogin{
+    position: relative;
+    top: 20.5rem;
     align-self: center;
 }
-.footer text{
+.footerLogin text{
     font-size: 14px;
     font-family: "Inter";
 }
 .wrapper{
     position: absolute;
     top: 7rem;
+    bottom: 0.5rem;
     display:flex;
     flex-direction: column;
     justify-content: center;

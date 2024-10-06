@@ -15,7 +15,6 @@ import ParentsImage from './ParentsImage.jpg';
 import KidsImage from './kidsImage.jpg';
 import Message from './messages.svg';
 import ParametresImage from "./Parametres.jpg";
-import Calendaruser from "./calendar.png"
 // import loginBackground from "./loginBackground.png";
 // import grainesLogo from "./grainesLogo.svg";
 // import calendarIcon from './calendar.svg'
@@ -94,7 +93,14 @@ import logoinstagram from './logo-instagram.svg';
 import linkedin from './linked-in.svg';
 import footer1 from './footer-1.png';
 import notregraine from './notregraines.png';
-import listeamis from './listeamis.png';
+
+import pro1 from './pro_1.png';
+import pro2 from './pro_2.png';
+
+import pro3 from './pro_3.png';
+
+import pro4 from './pro_4.png';
+
 
 
 
@@ -117,7 +123,7 @@ export const assets = {
     KidsImage,
     Message,
     ParametresImage,
-    // loginBackground,
+    loginBackground,
     iconOrder,
     iconOrder2,
     iconOrder3,
@@ -177,7 +183,9 @@ export const assets = {
     linkedin,
     footer1,
     notregraine,
-    Calendaruser,
-    listeamis
+    pro1,
+    pro2,
+    pro3,
+    pro4
     
 }

@@ -1,6 +1,7 @@
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import HomePage from "./pages/Home/Home";
 import Login from "./pages/LoginForm/Login";
 import { Sidebar } from "./components/Admin/Sidebar/Sidebar";
 import Navbar from "./components/Admin/Navbar/Navbar";
@@ -38,8 +39,19 @@ export default function App() {
     setLogin(!!token);
   }, [token]);
 
+  // Get the current location path
+  const location = useLocation();
+
+  // If the current path is '/welcome' or '/login', we might want to show only specific components
+  const isWelcomePage = location.pathname === '/welcome';
+
   return (
-    <Routes>
+    <>
+    {isWelcomePage ? (
+      <HomePage />
+    ) : 
+    (
+      <Routes>
       {login && role === "admin" ? (
         <>
           {/* Separate Admin Dashboard Route */}
@@ -84,6 +96,15 @@ export default function App() {
                   </div>
                 </div>
               </>
+            }
+          />
+          <Route
+            path="/welcome"
+            element={
+
+
+              <HomePage />
+
             }
           />
           <Route
@@ -410,5 +431,10 @@ export default function App() {
         </>
       )}
     </Routes>
+    )
+  }
+  </>
+  
+  
   );
 }

@@ -97,7 +97,7 @@ function Login({ setLogin }) {
           </button>
         </form>
       </div>
-      <div className="footer">
+      <div className="footerLogin">
         <p>Copyrights © 2024 Graines d’Entrepreneurs®. All rights reserved.</p>
       </div>
     </div>

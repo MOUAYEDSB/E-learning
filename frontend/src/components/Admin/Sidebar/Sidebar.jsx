@@ -34,7 +34,7 @@ export const Sidebar = () => {
             <label>Dashboard</label>
           </NavLink>
           <NavLink
-            to="/home"
+            to="/welcome"
             end
             className={({ isActive }) =>
               isActive ? "sideBar-btn active" : "sideBar-btn"

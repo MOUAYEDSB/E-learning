@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  margin: 50px;
+  text-align: center;
+  background-color: transparent;
+}
+
+.title {
+  
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 37.5px;
+  color: #071629;
+  margin-bottom: 40px;
+}
+
+.form-and-image-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.form-container {
+  flex: 4;
+  margin: 40px 130px 0 50px;
+}
+
+.imagecontainer {
+  height: auto;
+  margin-top: 90px;
+  background-image: url('../../assets/image-06.png');
+
+  
+}
+
+.decorative-image {
+  overflow: visible;
+  object-fit: cover; 
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container {
+  margin-bottom: 20px;
+  position: relative;
+  width: 400px;
+}
+
+.cta-button {
+  width: 243.24px;
+  height: 56.27px;
+  margin: auto;
+  position: relative;
+  background-color: transparent;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.button-background {
+  width: 243.24px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.cta-text {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17.6px;
+  color: #fff;
+}
+
